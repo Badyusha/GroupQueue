@@ -1,0 +1,89 @@
+#===  GroupQueue is a web application needed to organize
+#===     student's queue so they can pass lab works
+
+#  !=== for short Q = queue
+
+Business funcs:
+
+   #=== For user
+
+   register
+   authorize
+   get current week lab works
+   sign up on lab work
+   sign out from lab work
+   get final queue on lab work
+   change Q priority(variant)
+   change group number, email address, password, username
+
+      # ?=== TODO
+      change avatar, app theme
+
+   #=== For admin (extends user)
+
+   choose queue ordering option
+
+
+
+   Main goal of this 'project' is to automatize process
+of registration to pass lab work. So
+
+   # ?=== The admin will choose option of each lab
+
+   Here will be few optins how to organize final Q:
+
+      1) create Q, where first student who
+   registered is the first student in the Q
+
+      2) create Q, where at the end of registration
+   date the order of students will be random shuffled
+
+      3) create priority Q, where the highest priority
+   is the HIGHEST NUMBER of lab work(not amount)
+   student wanna pass
+      
+      'Example: first student wanna pass 4-th lab, second'
+      'student wanna pass 2-nd and 3-d lab'
+      '4 > 3(the highest)'
+      '=> in the final Q first student will be higher than second'
+      
+      # !=== The issue is if first student wants to pass 5-th lab
+      #           and second wants 3-d and 4-th,
+      #     then the first student will be higher in the Q
+      #              maybe it's k(idk)
+      #
+      # !=== So the highest priority can be not THE NUMBER of lab work,
+      #     but THE HIGHEST SUM of lab work NUMBERS(not amounts)
+      #     student wanna pass
+      #
+      #
+      # #=== Soo here is the 4) option
+
+      4) create priority Q, where the highest priority
+   is the HIGHEST SUM of lab work NUMBERS(not amounts)
+   student wanna pass
+
+      'Example: same as in the 3) option'
+      '4 < 2 + 3'
+      '=> in the final Q second student will be higher than first'
+
+      5) In the begining create random queue and note students
+   who wanna pass lab(as we did in the 4-th semester in ggl docs)
+
+         # !=== The main cons is that we always need someone to control
+         # who was the last who passed lab and note that student
+         # in the system, and we should distinguish students from
+         # different subgroups in some way
+         #
+         # => Conclusion: i don't like it and i won't do it :(
+
+
+
+#=== Path to create idea
+
+1. determine app functionality # done
+2. create all possible pages(figma)
+3. create functioning database
+4. outline main app processes
+5. code ...
+

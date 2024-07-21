@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Group Queue</title>
+
+    <link rel="stylesheet" href="/styles/style.css">
+    <link rel="stylesheet" href="/styles/buttons.css">
+    <link rel="stylesheet" href="/styles/startDesktop.css">
+    <link rel="stylesheet" href="/styles/signInForm.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+</head>
+<body>
+<header>
+    <div id="logo">
+        <img src="/images/startPage/logo.png" alt="logo">
+        <span id="group-queue-logo-name">roupQ</span>
+    </div>
+
+    <div id="registration-buttons">
+        <button id="sign-in-button" class="button empty-button">Sign in</button>
+        <button id="sign-up-button" class="button dark-button">Sign up</button>
+    </div>
+</header>
+
+<!-- Overlay for dimming the background -->
+<div id="overlay" class="overlay"></div>
+
+<!-- Popup Form -->
+<div id="popup-form" class="popup-form">
+    <div class="auth-action">
+        <label>Sign In</label>
+    </div>
+
+    <div class="auth-variants">
+        <a href="#">
+            <div class="auth-variants-square">
+                <i class="fa-brands fa-github"></i>
+            </div>
+        </a>
+
+        <a href="#">
+            <div class="auth-variants-square">
+                <i class="fa-brands fa-google"></i>
+            </div>
+        </a>
+    </div>
+
+    <div class="or-separator">
+        <div class="form-horizontal-line"></div>
+        or
+        <div class="form-horizontal-line"></div>
+    </div>
+
+    <form class="sign-in-form">
+        <div class="data-input">
+            <div class="form-top-placeholder">
+                <label for="email-input">Email, username</label>
+            </div>
+            <input id="email-input" name="email" required>
+        </div>
+
+        <div class="data-input">
+            <div class="form-top-password-placeholder">
+                <label for="password-input">Password</label>
+                <a href="#" class="forgot-password">Forgot password?</a>
+            </div>
+            <input type="password" id="password-input" name="password" required>
+        </div>
+
+        <button type="submit" id="sign-in-form-button" class="button dark-button">Sign In</button>
+    </form>
+
+    <div class="new-to-groupqueue">
+        <label>New to GroupQueue?</label>
+        <a href="#">Sign Up</a>
+    </div>
+</div>
+
+<script src="/js/startPageEvents.js"></script>
+
+</body>
+</html>

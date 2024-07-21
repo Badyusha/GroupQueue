@@ -1,0 +1,120 @@
+/* Overlay style */
+.overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(15, 15, 15, 0.7);
+    transition: opacity 0.5s ease;
+    backdrop-filter: blur(0.5em);
+    z-index: 2;
+}
+
+/* Popup form style */
+.popup-form {
+    height: 27.2em;
+    width: 23em;
+    top: 45%;
+    left: 50%;
+    display: none;
+    position: fixed;
+    transform: translate(-50%, -50%);
+    background-color: var(--darkBlue);
+    box-shadow: 0 0 1em 1em rgba(0, 0, 0, 0.25);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+    border-radius: 2em;
+    z-index: 3;
+}
+
+.auth-action {
+    margin: 0.7em;
+    font-size: 2.5em;
+    font-weight: 600;
+}
+
+.auth-variants {
+    display: flex;
+    justify-content: center;
+    gap: 1em;
+    margin: 1.2em;
+}
+
+.auth-variants-square {
+    width: 1.2em;
+    height: 1.2em;
+    padding: 0.5em;
+    border: 0.1em solid var(--headerBorder);
+    border-radius: 0.4em;
+}
+
+.auth-variants-square i {
+    color: white;
+}
+
+.or-separator {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1em;
+    color: var(--headerBorder);
+    font-size: 1em;
+    font-weight: 600;
+    margin: 1em;
+}
+
+.form-horizontal-line {
+    width: 39%;
+    border: 0.01em solid var(--headerBorder);
+}
+
+.sign-in-form {
+    color: var(--gray);
+    font-weight: 600;
+}
+
+.data-input {
+    display: grid;
+    justify-content: center;
+    margin: 1em;
+}
+
+.form-top-password-placeholder a {
+    font-size: 0.8em;
+    color: var(--headerBorder);
+}
+
+.form-top-placeholder, .form-top-password-placeholder {
+    font-size: 0.9em;
+    text-align: left;
+    align-items: end;
+    display: flex;
+    justify-content: space-between;
+}
+
+#email-input, #password-input {
+    color: var(--inputText);
+    width: 23em;
+    height: 2em;
+    background-color: var(--blueGray);
+    border: 0.15em solid var(--headerBorder);
+    border-radius: 0.5em;
+    padding-left: 0.5em;
+    padding-top: 0.2em;
+}
+
+#sign-in-form-button {
+    width: 22em;
+    margin: 1em 0.5em 1em 0.5em;
+}
+
+.new-to-groupqueue {
+    color: var(--gray);
+    font-weight: 600;
+    font-size: 0.8em;
+}
+
+.new-to-groupqueue a {
+    color: var(--fadedBlue);
+}

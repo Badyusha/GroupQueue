@@ -1,0 +1,44 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+:root {
+    --fadedBlue: #5b6e90;
+    --fadedBlueHover: #4e607e;
+    --blue: #99BAED;
+    --blueHover: #84a1cc;
+}
+
+.empty-button {
+    border: 0;
+    background: 0;
+}
+
+.dark-button {
+    background: 0;
+    border: 0.13em solid var(--fadedBlue);
+    border-radius: 0.7em;
+}
+
+.light-button {
+    background-color: var(--blue);
+    border: 0.13em solid var(--fadedBlue);
+    border-radius: 0.7em;
+}
+
+.button {
+    cursor: pointer;
+    font-size: 0.9em;
+    color: var(--fadedBlue);
+    height: 2.7em;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: bold;
+    padding: 0.6em;
+}
+
+.button:hover {
+    border-color: var(--fadedBlueHover);
+    color: var(--fadedBlueHover);
+}
+
+.light-button:hover {
+    background-color: var(--blueHover);
+}

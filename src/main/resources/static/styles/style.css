@@ -1,0 +1,48 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+:root {
+    --blackBlue: #0D1016;
+    --darkBlue: #141922;
+    --headerBorder: #333A45;
+    --blue: #99BAED;
+    --inputText: #6d737e;
+    --gray: #474f5d;
+    --blueGray: #202630;
+}
+
+body {
+    text-align: center;
+    font-family: 'Montserrat', sans-serif;
+    margin: 0;
+    background-color: var(--blackBlue);
+    color: white;
+}
+
+/* Скрываем scrollbar для Chrome, Safari и Opera */
+body::-webkit-scrollbar {
+    display: none;
+}
+
+/* Скрываем scrollbar для IE, Edge и Firefox */
+.body {
+    -ms-overflow-style: none;  /* IE и Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+
+a, a:hover, a:focus {
+    text-decoration: none;
+}
+
+input:focus, textarea:focus, select:focus, button:focus {
+    outline: none;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.7em;
+    background-color: var(--darkBlue);
+    border-radius: 0 0 1em 1em;
+    border-bottom: 0.15em solid var(--headerBorder);
+    max-height: 3em;
+}
