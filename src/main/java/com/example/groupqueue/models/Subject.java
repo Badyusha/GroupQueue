@@ -26,10 +26,9 @@ public class Subject {
 	private LocalDateTime date;
 
 	public enum Subgroup {
+		all,
 		first,
-		second,
-		all
-
+		second
 	}
 
 	//	CONSTRUCTORS

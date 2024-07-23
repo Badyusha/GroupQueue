@@ -2,6 +2,7 @@ package com.example.groupqueue.controllers.start;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import com.example.groupqueue.services.GroupScheduleService;
 
 @Controller
 public class StartController {
@@ -15,6 +16,8 @@ public class StartController {
 //            System.out.println(user);
 //            System.out.println("================");
 //        }
+
+//        System.err.println(GroupScheduleService.getGroupSchedule(272303));
 
         return "/views/startPage/startPageDesktop";
     }
