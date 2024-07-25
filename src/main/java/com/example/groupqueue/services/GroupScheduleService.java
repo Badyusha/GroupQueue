@@ -1,5 +1,6 @@
 package com.example.groupqueue.services;
 
+import com.example.groupqueue.models.enums.DayOfWeek;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -11,7 +12,7 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 
 public class GroupScheduleService {
-	private static int mageGetCurrentWeekRequest() {
+	private static int makeGetCurrentWeekRequest() {
 		int currentWeek = 0;
 		String url = "https://iis.bsuir.by/api/v1/schedule/current-week";
 
@@ -83,10 +84,9 @@ public class GroupScheduleService {
 		JSONObject groupScheduleJsonObject = new JSONObject(groupScheduleJson);
 		JSONObject schedule = groupScheduleJsonObject.getJSONObject("schedules");
 		JSONArray groupSchedule = new JSONArray();
-		String[] daysOfWeek = {"Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота", "Воскресенье"};
 
-		for(String dayOfWeek : daysOfWeek) {
-			JSONObject dayOfWeekSchedule = getDayOfWeekScheduleInfo(schedule, dayOfWeek);
+		for(DayOfWeek dayOfWeek : DayOfWeek.values()) {
+			JSONObject dayOfWeekSchedule = getDayOfWeekScheduleInfo(schedule, dayOfWeek.day);
 
 			if(dayOfWeekSchedule != null) {
 				groupSchedule.put(dayOfWeekSchedule);

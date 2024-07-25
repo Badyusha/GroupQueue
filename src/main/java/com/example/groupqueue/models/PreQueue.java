@@ -1,6 +1,5 @@
 package com.example.groupqueue.models;
 
-import com.example.groupqueue.models.enums.SortType;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -10,8 +9,8 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString(includeFieldNames=true)
 @Entity
-@Table(name = "`queue`")
-public class Queue {
+@Table(name = "`group`")
+public class PreQueue {
 	//	FIELDS
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,9 +24,4 @@ public class Queue {
 	@ManyToOne
 	@JoinColumn(name = "user_id", nullable = false)
 	private User user;
-
-	@Column(name = "order", columnDefinition = "int")
-	private Integer order;
-
-	//	METHODS
 }

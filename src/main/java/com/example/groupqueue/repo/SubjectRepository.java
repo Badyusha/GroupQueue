@@ -1,8 +1,8 @@
 package com.example.groupqueue.repo;
 
-import com.example.groupqueue.models.Subject;
+import com.example.groupqueue.models.Schedule;
 import org.springframework.data.repository.CrudRepository;
 
-public interface SubjectRepository extends CrudRepository<Subject, Long> {
+public interface SubjectRepository extends CrudRepository<Schedule, Long> {
 
 }
