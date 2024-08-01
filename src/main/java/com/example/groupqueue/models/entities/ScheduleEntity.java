@@ -1,4 +1,4 @@
-package com.example.groupqueue.models;
+package com.example.groupqueue.models.entities;
 
 import com.example.groupqueue.models.enums.DayOfWeek;
 import com.example.groupqueue.models.enums.SubgroupType;
@@ -12,10 +12,10 @@ import java.time.LocalTime;
 
 @Data
 @NoArgsConstructor
-@ToString(includeFieldNames=true)
+@ToString
 @Entity
-@Table(name = "`subject`")
-public class Schedule {
+@Table(name = "`schedule`")
+public class ScheduleEntity {
 	//	FIELDS
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,9 +32,9 @@ public class Schedule {
 	@Column(name = "start_time", columnDefinition = "DATETIME")
 	private LocalTime startTime;
 
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name = "group_id", nullable = false)
-	private Group group;
+	private GroupEntity groupEntity;
 
 	@Enumerated(EnumType.STRING)
 	@Column(name = "week_type", columnDefinition = "ENUM('FIRST','SECOND','THIRD','FOURTH')")

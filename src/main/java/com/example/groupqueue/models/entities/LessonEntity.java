@@ -1,4 +1,4 @@
-package com.example.groupqueue.models;
+package com.example.groupqueue.models.entities;
 
 import com.example.groupqueue.models.enums.SortType;
 import jakarta.persistence.*;
@@ -10,19 +10,19 @@ import java.time.LocalDateTime;
 
 @Data
 @NoArgsConstructor
-@ToString(includeFieldNames=true)
+@ToString
 @Entity
 @Table(name = "`lesson`")
-public class Lesson {
+public class LessonEntity {
 	//	FIELDS
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
 	private Long id;
 
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name = "schedule_id", nullable = false)
-	private Schedule schedule;
+	private ScheduleEntity scheduleEntity;
 
 	@Enumerated(EnumType.STRING)
 	@Column(name = "sort_type", columnDefinition = "ENUM('SIMPLE','RANDOM','HIGHEST_LAB','HIGHEST_LAB_SUM')")

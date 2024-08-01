@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="/styles/buttons.css">
     <link rel="stylesheet" href="/styles/startDesktop.css">
     <link rel="stylesheet" href="/styles/signInForm.css">
+    <link rel="stylesheet" href="/styles/signUpForm.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
 </head>
@@ -27,46 +28,30 @@
 <!-- Overlay for dimming the background -->
 <div id="overlay" class="overlay"></div>
 
-<!-- Popup Form -->
-<div id="popup-form" class="popup-form">
+<!-- Sign In Popup Form -->
+<div id="sign-in-popup-form" class="sign-in-popup-form">
     <div class="auth-action">
         <label>Sign In</label>
     </div>
 
-    <div class="auth-variants">
-        <a href="#">
-            <div class="auth-variants-square">
-                <i class="fa-brands fa-github"></i>
-            </div>
-        </a>
-
-        <a href="#">
-            <div class="auth-variants-square">
-                <i class="fa-brands fa-google"></i>
-            </div>
-        </a>
-    </div>
-
-    <div class="or-separator">
-        <div class="form-horizontal-line"></div>
-        or
-        <div class="form-horizontal-line"></div>
+    <div class="square-separator">
+        <label id="invalid-sign-in-request" for="sign-in-form-button"></label>
     </div>
 
     <form class="sign-in-form">
-        <div class="data-input">
+        <div class="sign-in-data-input">
             <div class="form-top-placeholder">
-                <label for="email-input">Email, username</label>
+                <label for="sign-in-username-input">Username</label>
             </div>
-            <input id="email-input" name="email" required>
+            <input type="text" id="sign-in-username-input" name="username">
         </div>
 
-        <div class="data-input">
+        <div class="sign-in-data-input">
             <div class="form-top-password-placeholder">
-                <label for="password-input">Password</label>
+                <label for="sign-in-password-input">Password</label>
                 <a href="#" class="forgot-password">Forgot password?</a>
             </div>
-            <input type="password" id="password-input" name="password" required>
+            <input type="password" id="sign-in-password-input" name="password">
         </div>
 
         <button type="submit" id="sign-in-form-button" class="button dark-button">Sign In</button>
@@ -74,11 +59,94 @@
 
     <div class="new-to-groupqueue">
         <label>New to GroupQueue?</label>
-        <a href="#">Sign Up</a>
+        <button type="submit" id="sign-up-button-ref">Sign Up</button>
     </div>
 </div>
 
-<script src="/js/startPageEvents.js"></script>
+<!-- Sign Up Popup Form -->
+<div id="sign-up-popup-form" class="sign-up-popup-form">
+    <div class="auth-action">
+        <label>Sign Up</label>
+    </div>
+
+    <div class="square-separator">
+        <label id="invalid-sign-up-request" for="sign-in-form-button"></label>
+    </div>
+
+    <form class="sign-up-form">
+        <table>
+            <tr>
+                <th>
+                    <div class="sign-up-data-input">
+                        <div class="form-top-placeholder">
+                            <label for="first-name-input">First name</label>
+                        </div>
+                        <input type="text" id="first-name-input" name="first-name">
+                    </div>
+                </th>
+                <th>
+                    <div class="sign-up-data-input">
+                        <div class="form-top-placeholder">
+                            <label for="sign-up-username-input">Username</label>
+                        </div>
+                        <input type="text" id="sign-up-username-input" name="username">
+                    </div>
+                </th>
+            </tr>
+
+            <tr>
+                <th>
+                    <div class="sign-up-data-input">
+                        <div class="form-top-placeholder">
+                            <label for="last-name-input">Last name</label>
+                        </div>
+                        <input type="text" id="last-name-input" name="last-name">
+                    </div>
+                </th>
+                <th>
+                    <div class="sign-up-data-input">
+                        <div class="form-top-placeholder">
+                            <label for="sign-up-password-input">Password</label>
+                        </div>
+                        <input type="password" id="sign-up-password-input" name="sign-up-password-input">
+                    </div>
+                </th>
+            </tr>
+
+            <tr>
+                <th>
+                    <div class="sign-up-data-input">
+                        <div class="form-top-placeholder">
+                            <label for="group-number-input">Group number</label>
+                        </div>
+                        <input type="number" id="group-number-input" name="group-number-input">
+                    </div>
+                </th>
+                <th>
+                    <div class="sign-up-data-input">
+                        <div class="form-top-placeholder">
+                            <label for="repeated-password-input">Repeat password</label>
+                        </div>
+                        <input type="password" id="repeated-password-input" name="repeated-password-input">
+                    </div>
+                </th>
+            </tr>
+        </table>
+
+        <button type="submit" id="sign-up-form-button" class="button dark-button">Sign Up</button>
+    </form>
+
+    <div class="have-account">
+        <label>Already have an account?</label>
+        <button type="submit" id="sign-in-button-ref">Sign In</button>
+    </div>
+</div>
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+<script src="/js/start/startPageEvents.js"></script>
+<script src="/js/start/signUp.js"></script>
+<script src="/js/start/signIn.js"></script>
 
 </body>
 </html>

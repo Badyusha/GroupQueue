@@ -4,10 +4,22 @@
     --blackBlue: #0D1016;
     --darkBlue: #141922;
     --headerBorder: #333A45;
-    --blue: #99BAED;
     --inputText: #6d737e;
     --gray: #474f5d;
     --blueGray: #202630;
+
+    --fadedBlue: #5b6e90;
+    --fadedBlueHover: #4e607e;
+    --blue: #99BAED;
+    --blueHover: #84a1cc;
+
+    --red: #D94A4A;
+    --green: #7EAE6D;
+    --yellow: #E9C771;
+}
+
+*::selection {
+    background-color: var(--headerBorder);
 }
 
 body {
@@ -18,15 +30,27 @@ body {
     color: white;
 }
 
-/* Скрываем scrollbar для Chrome, Safari и Opera */
+/* hide scrollbar for Chrome, Safari and Opera */
 body::-webkit-scrollbar {
     display: none;
 }
 
-/* Скрываем scrollbar для IE, Edge и Firefox */
+/* hide scrollbar for IE, Edge and Firefox */
 .body {
-    -ms-overflow-style: none;  /* IE и Edge */
+    -ms-overflow-style: none;  /* IE and Edge */
     scrollbar-width: none;  /* Firefox */
+}
+
+/* Remove arrows from input["number"] on Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Remove arrows from input["number"] on Firefox */
+input[type=number] {
+    -moz-appearance: textfield;
 }
 
 a, a:hover, a:focus {
@@ -35,14 +59,4 @@ a, a:hover, a:focus {
 
 input:focus, textarea:focus, select:focus, button:focus {
     outline: none;
-}
-
-header {
-    display: flex;
-    justify-content: space-between;
-    padding: 0.7em;
-    background-color: var(--darkBlue);
-    border-radius: 0 0 1em 1em;
-    border-bottom: 0.15em solid var(--headerBorder);
-    max-height: 3em;
 }

@@ -1,24 +1,20 @@
 package com.example.groupqueue.controllers.start;
 
+import com.example.groupqueue.services.CookieService;
+import com.example.groupqueue.services.UserService;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import java.io.IOException;
+
 @Controller
 public class StartController {
-//    @Autowired
-//    ClientRepository clientRepository;
-
     //  METHODS
     @GetMapping("/")
-    public String start() {
-//        Iterable<Client> clients = clientRepository.findAll();
-//        for(Client client : clients) {
-//            System.out.println(client.getEmail());
-//            System.out.println("================");
-//        }
-
-//        System.err.println(GroupScheduleService.getGroupSchedule(272303));
-
+    public String start(HttpServletResponse response, HttpServletRequest request) {
+        CookieService.deleteAllCookies(response, request);
         return "/views/startPage/startPageDesktop";
     }
 }

@@ -1,6 +1,7 @@
 package com.example.groupqueue.models.enums;
 
 public enum RoleType {
-	CLIENT,
-	ADMIN
+	USER,
+	GROUP_ADMIN,
+	SUDO
 }

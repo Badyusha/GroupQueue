@@ -1,4 +1,4 @@
-package com.example.groupqueue.models;
+package com.example.groupqueue.models.entities;
 
 import jakarta.persistence.*;
 import lombok.Data;
@@ -7,21 +7,26 @@ import lombok.ToString;
 
 @Data
 @NoArgsConstructor
-@ToString(includeFieldNames=true)
+@ToString
 @Entity
-@Table(name = "`group`")
-public class PreQueue {
+@Table(name = "`queue`")
+public class QueueEntity {
 	//	FIELDS
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
 	private Long id;
 
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name = "lesson_id", nullable = false)
-	private Lesson lesson;
+	private LessonEntity lessonEntity;
 
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name = "user_id", nullable = false)
-	private User user;
+	private UserEntity userEntity;
+
+	@Column(name = "order", columnDefinition = "int")
+	private Integer order;
+
+	//	METHODS
 }

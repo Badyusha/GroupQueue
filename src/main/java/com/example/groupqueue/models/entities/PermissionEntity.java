@@ -1,4 +1,4 @@
-package com.example.groupqueue.models;
+package com.example.groupqueue.models.entities;
 
 import jakarta.persistence.*;
 import lombok.Data;
@@ -7,16 +7,16 @@ import lombok.ToString;
 
 @Data
 @NoArgsConstructor
-@ToString(includeFieldNames=true)
+@ToString
 @Entity
-@Table(name = "`group`")
-public class Group {
+@Table(name = "`permission`")
+public class PermissionEntity {
 	//	FIELDS
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
 	private Long id;
 
-	@Column(name = "number", columnDefinition = "int")
-	private Integer number;
+	@Column(name = "name", columnDefinition = "varchar(30)")
+	private String name;
 }

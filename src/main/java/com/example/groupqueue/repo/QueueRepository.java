@@ -1,8 +1,8 @@
 package com.example.groupqueue.repo;
 
-import com.example.groupqueue.models.Queue;
+import com.example.groupqueue.models.entities.QueueEntity;
 import org.springframework.data.repository.CrudRepository;
 
-public interface QueueRepository extends CrudRepository<Queue, Long> {
+public interface QueueRepository extends CrudRepository<QueueEntity, Long> {
 
 }
