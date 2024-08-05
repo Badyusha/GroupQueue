@@ -2,9 +2,12 @@ package com.example.groupqueue.services;
 
 import com.example.groupqueue.encryption.Encryption;
 import com.example.groupqueue.models.dto.Pair;
+import com.example.groupqueue.models.dto.User;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import javax.crypto.BadPaddingException;
 import javax.crypto.IllegalBlockSizeException;
@@ -20,8 +23,20 @@ import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.util.Base64;
 
+@Service
 public class CookieService {
 	private static final String ALGORITHM = "AES/CBC/PKCS5Padding";
+	private final UserService userService;
+	private final GroupService groupService;
+
+	@Autowired
+	public CookieService(UserService userService, GroupService groupService) {
+		this.userService = userService;
+		this.groupService = groupService;
+	}
+
+
+
 	public static Pair<String, String> getEncryptedValueIVPair(String value) {
 		try {
 			SecretKey encryptionKey = getSecretKey();
@@ -69,11 +84,17 @@ public class CookieService {
 		}
 
 		Cookie cookie = new Cookie(key, encryptedValue);
-		cookie.setMaxAge(1200);
+		cookie.setMaxAge(3600);
 		cookie.setSecure(true);
 		cookie.setHttpOnly(true);
 		response.addCookie(cookie);
-		response.addCookie(new Cookie(key + "IV", encryptedValueIVPair.getSecond()));
+
+		Cookie cookieIV = new Cookie(key + "IV", encryptedValueIVPair.getSecond());
+		cookieIV.setMaxAge(3600);
+		cookieIV.setSecure(true);
+		cookieIV.setHttpOnly(true);
+		response.addCookie(cookie);
+		response.addCookie(cookieIV);
 
 		return true;
 	}
@@ -123,5 +144,13 @@ public class CookieService {
 			e.printStackTrace();
 		}
 		return new SecretKeySpec(decodedKey, 0, decodedKey.length, "AES");
+	}
+
+	public boolean isAddRequiredCookiesSuccess(HttpServletResponse response, User user) {
+		Long userId = userService.getUserIdByUsername(user.getUsername());
+
+		return CookieService.createCookie(response, "userId", userId.toString()) &&
+				CookieService.createCookie(response, "groupId",
+						groupService.getGroupIdByUserId(userId).toString());
 	}
 }

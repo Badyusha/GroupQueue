@@ -3,7 +3,6 @@ package com.example.groupqueue.services;
 import com.example.groupqueue.encryption.Encryption;
 import com.example.groupqueue.models.dto.User;
 import com.example.groupqueue.models.enums.RoleType;
-import com.example.groupqueue.repo.GroupRepository;
 import com.example.groupqueue.repo.RoleRepository;
 import com.example.groupqueue.repo.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,16 +11,16 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserService {
 	private final UserRepository userRepository;
-	private final GroupRepository groupRepository;
 	private final RoleRepository roleRepository;
+	private final GroupService groupService;
 
 	@Autowired
-	public UserService(UserRepository userRepository, GroupRepository groupRepository,
-						RoleRepository roleRepository)
+	public UserService(UserRepository userRepository, RoleRepository roleRepository,
+					   GroupService groupService)
 	{
 		this.userRepository = userRepository;
-		this.groupRepository = groupRepository;
 		this.roleRepository = roleRepository;
+		this.groupService = groupService;
 	}
 
 	public boolean isUsernameExist(String username) {
@@ -32,12 +31,12 @@ public class UserService {
 		return userRepository.isUserExistByUsernamePassword(username, Encryption.hashData(password));
 	}
 
-	public Long getIdByUsername(String username) {
+	public Long getUserIdByUsername(String username) {
 		return userRepository.getIdByUsername(username);
 	}
 
-	public boolean isRegistrationUser(User user) {
-		Long groupId = groupRepository.getGroupIdByNumber(user.getGroupNumber());
+	public boolean isRegistrationSuccess(User user) {
+		Long groupId = groupService.getGroupIdByNumber(user.getGroupNumber());
 		Long roleId = roleRepository.getRoleIdByName(RoleType.USER);
 		try {
 			userRepository.save(user.makeUserEntity(user, groupId, roleId));

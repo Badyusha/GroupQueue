@@ -14,4 +14,17 @@ public enum DayOfWeek {
 	DayOfWeek(String day) {
 		this.day = day;
 	}
+
+	public static DayOfWeek getDayOfWeekByName(String name) {
+		return switch (name) {
+			case "Понедельник" -> MONDAY;
+			case "Вторник" -> TUESDAY;
+			case "Среда" -> WEDNESDAY;
+			case "Четверг" -> THURSDAY;
+			case "Пятница" -> FRIDAY;
+			case "Суббота" -> SATURDAY;
+			case "Воскресенье" -> SUNDAY;
+			default -> null;
+		};
+	}
 }

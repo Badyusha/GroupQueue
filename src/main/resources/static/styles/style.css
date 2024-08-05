@@ -41,6 +41,16 @@ body::-webkit-scrollbar {
     scrollbar-width: none;  /* Firefox */
 }
 
+header {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.7em;
+    background-color: var(--darkBlue);
+    border-radius: 0 0 1em 1em;
+    border-bottom: 0.15em solid var(--headerBorder);
+    max-height: 3em;
+}
+
 /* Remove arrows from input["number"] on Chrome, Safari, Edge, Opera */
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
@@ -59,4 +69,33 @@ a, a:hover, a:focus {
 
 input:focus, textarea:focus, select:focus, button:focus {
     outline: none;
+}
+
+
+#logo {
+    display: flex;
+    align-items: center;
+}
+
+/*logo image*/
+#logo img {
+    height: 2.5em;
+    margin-left: 1em;
+    margin-right: 1em;
+}
+
+/*logo name*/
+#logo span {
+    color: var(--fadedBlue);
+    font-size: 2em;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 900;
+    margin-left: -0.5em;
+}
+
+#top-right-div {
+    margin-right: 1em;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }

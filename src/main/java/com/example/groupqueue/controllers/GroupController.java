@@ -1,4 +1,4 @@
-package com.example.groupqueue.controllers.start;
+package com.example.groupqueue.controllers;
 
 import com.example.groupqueue.services.GroupService;
 import org.springframework.beans.factory.annotation.Autowired;

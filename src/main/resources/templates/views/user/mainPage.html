@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <link rel="stylesheet" href="/styles/style.css">
+    <link rel="stylesheet" href="/styles/mainPage/mainPage.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+</head>
+<body>
+    <header>
+        <div id="logo">
+            <img src="/images/startPage/logo.png" alt="logo">
+            <span id="group-queue-logo-name">roupQ</span>
+        </div>
+
+        <div id="top-right-div">
+            <i class="fa-solid fa-bars"></i>
+        </div>
+    </header>
+
+
+    <div class="week-schedule-container">
+        <div class="current-week-container">
+            <label id="current-week">Current week: 3</label>
+        </div>
+        <div class="week-schedule">
+            <table class="week-schedule-table">
+                <tr>
+                    <th id="Monday" class="week">Monday (2.09)</th>
+                    <th id="Tuesday" class="week">Tuesday (3.09)</th>
+                    <th id="Wednesday" class="week">Wednesday (4.09)</th>
+                    <th id="Thursday" class="week">Thursday (5.09)</th>
+                    <th id="Friday" class="week">Friday (6.09)</th>
+                    <th id="Saturday" class="week">Saturday (7.09)</th>
+                    <th id="Sunday" class="week">Sunday (8.09)</th>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="lesson">
+                            <div id="generateIdHere" class="lesson-container">
+                                <div class="subject-date-cabinet-subgroup">
+                                    <div class="subject-date">
+                                        <label id="subject">ОАиП</label>
+                                        <label id="date">9:00</label>
+                                    </div>
+                                    <div class="subgroup">
+                                        <label id="subgroup">1 под.</label>
+                                    </div>
+                                    <div class="href">
+                                        <a href="/" class="sign-up-to-queue">Записаться</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+
+            </table>
+        </div>
+    </div>
+
+    <div id="side-menu">
+        <div class="username-close-btn">
+            <div class="username-full-name">
+                <label id="full-name">Badzei Pablo</label>
+                <label id="username">el_Pablo</label>
+                <label id="group-number">Group: 272303</label>
+            </div>
+
+            <div class="close-btn" id="close-menu">&times;</div>
+        </div>
+
+        <div class="horizontal-line"></div>
+
+        <div class="menu-variant">
+            <i class="fa-solid fa-user"></i>
+            <label id="edit-profile" class="menu-label">Edit profile</label>
+        </div>
+
+        <div class="menu-variant">
+            <i class="fa-solid fa-people-group"></i>
+            <label id="current-queues" class="menu-label">Your current Qs</label>
+        </div>
+
+        <div class="horizontal-line"></div>
+
+        <div class="menu-variant">
+            <i class="fa-solid fa-hand"></i>
+            <label id="become-group-admin" class="menu-label">Become group admin</label>
+        </div>
+
+        <div class="horizontal-line"></div>
+
+        <div class="menu-variant">
+            <i class="fa-solid fa-right-from-bracket"></i>
+            <label id="sign-out" class="menu-label">Sign out</label>
+        </div>
+    </div>
+
+    <div id="menu-overlay"></div>
+
+    <script src="/js/mainPage/sideMenu.js"></script>
+    <script src="/js/mainPage/schedule.js"></script>
+
+
+</body>
+</html>

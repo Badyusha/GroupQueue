@@ -1,4 +1,4 @@
-package com.example.groupqueue.controllers.start;
+package com.example.groupqueue.controllers;
 
 import com.example.groupqueue.services.CookieService;
 import com.example.groupqueue.services.UserService;

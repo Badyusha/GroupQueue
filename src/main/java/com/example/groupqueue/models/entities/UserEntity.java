@@ -22,7 +22,7 @@ public class UserEntity {
 	@JoinColumn(name = "group_id", insertable = false, updatable = false, nullable = false)
 	private GroupEntity groupEntity;
 
-	@ManyToOne(fetch=FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "role_id", insertable = false, updatable = false, nullable = false)
 	private RoleEntity roleEntity;
 

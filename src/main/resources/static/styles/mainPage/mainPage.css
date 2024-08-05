@@ -1,0 +1,228 @@
+#top-right-div {
+    margin-right: 0;
+    color: var(--gray);
+}
+
+#side-menu {
+    border-left: 0.15em solid var(--headerBorder);
+    border-radius: 1em 0 0 1em;
+    cursor: default;
+    position: fixed;
+    top: 0;
+    right: -19em;
+    width: 18em;
+    height: 100%;
+    background-color: var(--darkBlue);
+    color: white;
+    transition: right 0.3s ease;
+    overflow: hidden;
+    z-index: 1;
+}
+#side-menu.active {
+    right: 0;
+}
+
+.username-close-btn {
+    margin-top: 0.7em;
+    margin-bottom: 0.5em;
+    padding: 0.7em;
+    display: flex;
+    justify-content: space-between;
+    max-height: 4em;
+}
+
+.username-full-name {
+    margin-left: 1em;
+    display: grid;
+    text-align: left;
+}
+
+#full-name {
+    color: white;
+    font-size: 1em;
+    font-weight: 600;
+}
+
+#username {
+    color: var(--inputText);
+    font-size: 0.9em;
+    font-weight: 500;
+}
+
+#group-number {
+    margin-top: 1em;
+    color: var(--inputText);
+    font-size: 0.8em;
+    font-weight: 500;
+}
+
+.close-btn {
+    color: var(--headerBorder);
+    font-size: 2.3em;
+    margin-right: 0.2em;
+    margin-top: -0.3em;
+}
+
+.horizontal-line {
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+    margin-left: 0.9em;
+    width: 90%;
+    height: 0.1em;
+    background-color: var(--headerBorder);
+}
+
+.menu-variant {
+    min-height: 1.5em;
+    display: flex;
+    align-items: center;
+    margin-left: 1em;
+    margin-right: 1em;
+    margin-top: 0.5em;
+    padding: 0.2em;
+    gap: 0.5em;
+}
+
+.menu-variant:hover {
+    background-color: var(--blueGray);
+    border-radius: 0.5em;
+}
+
+.fa-solid {
+    color: var(--gray);
+    min-width: 2em;
+}
+
+.menu-label {
+    color: var(--inputText);
+    font-size: 0.9em;
+    font-weight: 500;
+}
+
+#menu-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.3);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 0;
+    visibility: hidden;
+}
+#menu-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+
+
+.week-schedule-container {
+    width: 100%;
+    display: ruby-text;
+    justify-content: center;
+}
+
+.current-week-container {
+    width: 94%;
+    margin-top: 2em;
+    display: flex;
+    justify-content: left;
+}
+
+#current-week {
+    font-weight: 500;
+    color: white;
+}
+
+.week-schedule {
+    display: flex;
+    margin-top: 0.5em;
+    text-align: center;
+    align-items: center;
+    width: 95%;
+    background-color: var(--darkBlue);
+    border: 0.15em solid var(--headerBorder);
+    border-radius: 1em;
+}
+
+
+
+.week-schedule-table {
+    /*table-layout: fixed;*/
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.week-schedule-table td, .week-schedule-table th {
+    border-right: 0.1em solid var(--headerBorder);
+    padding-top: 1em;
+}
+
+.week-schedule-table th {
+    color: var(--inputText);
+}
+
+.week-schedule-table th:last-child, .week-schedule-table td:last-child {
+    border-right: none;
+}
+
+.lesson {
+    padding-top: 1em;
+    display: flex;
+    justify-content: center;
+    padding-bottom: 1em;
+}
+
+.lesson-container {
+    display: flex;
+    justify-content: left;
+    height: 5.7em;
+    border: 0.1em solid var(--headerBorder);
+    border-radius: 0.8em;
+    width: 80%;
+    background: linear-gradient(to right, var(--red) 7%, var(--blueGray) 0%);
+}
+
+.subject-date-cabinet-subgroup {
+    width: 100%;
+    margin-left: 1.2em;
+    display: block;
+    justify-content: center;
+}
+
+.subject-date, .subgroup{
+    margin-top: 0.2em;
+    display: flex;
+    justify-content: space-between;
+}
+
+#subject {
+    font-size: 1.5em;
+    font-weight: 600;
+    color: white;
+}
+
+#date {
+    font-size: 0.8em;
+    font-weight: 500;
+    color: var(--inputText);
+    padding-right: 0.5em;
+}
+
+#subgroup {
+    font-size: 0.9em;
+    font-weight: 500;
+    color: white;
+}
+
+.href {
+    margin-top: 0.7em;
+}
+
+.sign-up-to-queue, .sign-up-to-queue:visited {
+    font-size: 0.8em;
+    font-weight: 600;
+    color: var(--inputText);
+}

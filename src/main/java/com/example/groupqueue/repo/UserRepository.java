@@ -1,5 +1,6 @@
 package com.example.groupqueue.repo;
 
+import com.example.groupqueue.models.entities.GroupEntity;
 import com.example.groupqueue.models.entities.UserEntity;
 import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.Modifying;

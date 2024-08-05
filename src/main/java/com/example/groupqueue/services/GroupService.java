@@ -26,13 +26,13 @@ import java.net.URISyntaxException;
 @Service
 public class GroupService {
 	private final GroupRepository groupRepository;
+	private static final String groupScheduleUrl = "https://iis.bsuir.by/api/v1/schedule?studentGroup=";
 
 	@Autowired
 	public GroupService(GroupRepository groupRepository) {
 		this.groupRepository = groupRepository;
 	}
 
-	private static final String groupScheduleUrl = "https://iis.bsuir.by/api/v1/schedule?studentGroup=";
 
 	public HttpStatusCode makeGroupExistsRequest(Integer groupNumber) {
 		RestTemplate restTemplate = new RestTemplate();
@@ -47,94 +47,24 @@ public class GroupService {
 		return HttpStatus.OK;
 	}
 
-	public static int makeGetCurrentWeekRequest() {
-		int currentWeek = 0;
-		String url = "https://iis.bsuir.by/api/v1/schedule/current-week";
-
-		try {
-			URL currentWeekUrl = new URI(url).toURL();
-			currentWeek = Integer.parseInt(IOUtils.toString(currentWeekUrl, StandardCharsets.UTF_8));
-		} catch(URISyntaxException | IOException e) {
-			System.err.println("Error in GroupScheduleService.makeGetGroupScheduleRequest");
-			e.printStackTrace();
-		}
-
-		return currentWeek;
-	}
-
 	public boolean isGroupInDb(Integer groupNumber) {
 		return groupRepository.isGroupInDb(groupNumber);
 	}
 
-	public static JSONArray getGroupSchedule(int groupNumber) {
-		String groupScheduleJson = makeGetGroupScheduleRequest(groupScheduleUrl, groupNumber);
 
-		if(groupScheduleJson == null) {
-			return null;
-		}
-
-		JSONObject groupScheduleJsonObject = new JSONObject(groupScheduleJson);
-		JSONObject schedule = groupScheduleJsonObject.getJSONObject("schedules");
-		JSONArray groupSchedule = new JSONArray();
-
-		for(DayOfWeek dayOfWeek : DayOfWeek.values()) {
-			JSONObject dayOfWeekSchedule = getDayOfWeekScheduleInfo(schedule, dayOfWeek.day);
-
-			if(dayOfWeekSchedule != null) {
-				groupSchedule.put(dayOfWeekSchedule);
-			}
-		}
-
-		return groupSchedule;
+	public Long getGroupIdByUserId(Long userId) {
+		return groupRepository.getGroupIdByUserId(userId);
 	}
 
-	private static String makeGetGroupScheduleRequest(String str, Integer groupNumber) {
-		String response = null;
-
-		try {
-			URL url = new URI(str + groupNumber.toString()).toURL();
-			response = IOUtils.toString(url, StandardCharsets.UTF_8);
-		} catch(URISyntaxException | IOException e) {
-			System.err.println("Error in GroupScheduleService.makeGetGroupScheduleRequest");
-			e.printStackTrace();
-		}
-
-		return response;
+	public Integer getGroupNumberByUserId(Long userId) {
+		return groupRepository.getGroupNumberByUserId(userId);
 	}
 
-	private static JSONObject getDayOfWeekScheduleInfo(JSONObject scheduleJsonObject, String dayOfWeek) {
-		JSONArray dayOfWeekSchedule;
-
-		try {
-			dayOfWeekSchedule = scheduleJsonObject.getJSONArray(dayOfWeek);
-		} catch(JSONException e) {
-			System.err.println("There is no `" + dayOfWeek + "` in the schedule list");
-			return null;
-		}
-
-		JSONArray schedule = new JSONArray();
-
-		for(int i = 0; i < dayOfWeekSchedule.length(); ++i) {
-			JSONObject subjectInfo = dayOfWeekSchedule.getJSONObject(i);
-			schedule.put(fillScheduleObject(subjectInfo));
-		}
-
-		JSONObject dayOfWeekScheduleInfo = new JSONObject();
-		dayOfWeekScheduleInfo.put(dayOfWeek, schedule);
-
-		return dayOfWeekScheduleInfo;
+	public Integer getGroupNumberById(Long groupId) {
+		return groupRepository.getGroupNumberById(groupId);
 	}
 
-	private static JSONObject fillScheduleObject(JSONObject subjectInfo) {
-		JSONObject schedule = new JSONObject();
-
-		schedule.put("subject", subjectInfo.getString("subject"));
-		schedule.put("subjectFullName", subjectInfo.getString("subjectFullName"));
-		schedule.put("subgroup", subjectInfo.getInt("numSubgroup"));
-		schedule.put("startLessonTime", subjectInfo.getString("startLessonTime"));
-		schedule.put("lessonType", subjectInfo.getString("lessonTypeAbbrev"));
-		schedule.put("weekNumber", subjectInfo.getJSONArray("weekNumber"));
-
-		return schedule;
+	public Long getGroupIdByNumber(Integer groupNumber) {
+		return groupRepository.getGroupIdByNumber(groupNumber);
 	}
 }
