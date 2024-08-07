@@ -153,4 +153,19 @@ public class CookieService {
 				CookieService.createCookie(response, "groupId",
 						groupService.getGroupIdByUserId(userId).toString());
 	}
+
+	/**
+	 * method returns groupId from cookie if it exists, if does not -> null
+	 */
+	public static Long getGroupIdFromCookie(HttpServletRequest request) {
+		Long groupId = null;
+		try {
+			groupId = Long.parseLong(getCookie(request, "groupId"));
+		} catch(NullPointerException | NumberFormatException e) {
+			System.err.println("groupId is probably NULL!");
+			e.printStackTrace();
+			return null;
+		}
+		return groupId;
+	}
 }

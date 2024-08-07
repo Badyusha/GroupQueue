@@ -26,10 +26,6 @@ public class Schedule {
 	private WeekType weekType;
 	private DayOfWeek dayOfWeek;
 
-	public ScheduleEntity makeScheduleEntity(Schedule schedule) {
-		return new ScheduleEntity();
-	}
-
 	public static List<Schedule> convertScheduleEntityListToScheduleList(List<ScheduleEntity> scheduleEntityList) {
 		List<Schedule> scheduleList = new ArrayList<>();
 		for(ScheduleEntity scheduleEntity : scheduleEntityList) {

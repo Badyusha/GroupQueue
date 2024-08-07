@@ -25,7 +25,6 @@ public class UserController {
 
 	@GetMapping("/main_page")
 	public String mainPage() {
-		System.err.println(scheduleService.getGroupScheduleList(272303));
 		return "views/user/mainPage";
 	}
 
