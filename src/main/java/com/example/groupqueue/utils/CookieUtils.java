@@ -1,14 +1,13 @@
-package com.example.groupqueue.services;
+package com.example.groupqueue.utils;
 
-import com.example.groupqueue.encryption.Encryption;
+import com.example.groupqueue.exceptions.CookieException;
 import com.example.groupqueue.models.dto.Pair;
 import com.example.groupqueue.models.dto.User;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
 import javax.crypto.BadPaddingException;
 import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
@@ -24,25 +23,16 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Base64;
 
 @Service
-public class CookieService {
+@RequiredArgsConstructor
+public class CookieUtils {
 	private static final String ALGORITHM = "AES/CBC/PKCS5Padding";
-	private final UserService userService;
-	private final GroupService groupService;
-
-	@Autowired
-	public CookieService(UserService userService, GroupService groupService) {
-		this.userService = userService;
-		this.groupService = groupService;
-	}
-
-
 
 	public static Pair<String, String> getEncryptedValueIVPair(String value) {
 		try {
 			SecretKey encryptionKey = getSecretKey();
-			IvParameterSpec ivParameterSpec = Encryption.generateIv();
+			IvParameterSpec ivParameterSpec = EncryptionUtils.generateIv();
 
-			return new Pair<>(Encryption.encrypt(ALGORITHM, value, encryptionKey, ivParameterSpec),
+			return new Pair<>(EncryptionUtils.encrypt(ALGORITHM, value, encryptionKey, ivParameterSpec),
 							Base64.getEncoder().encodeToString(ivParameterSpec.getIV()));
 		} catch(InvalidAlgorithmParameterException | NoSuchPaddingException |
 				IllegalBlockSizeException | NoSuchAlgorithmException | BadPaddingException | InvalidKeyException e)
@@ -75,43 +65,43 @@ public class CookieService {
 		response.addCookie(cookie);
 	}
 
-	public static boolean createCookie(HttpServletResponse response, String key, String value)	{
+	public static void create(HttpServletResponse response, String key, String value) {
 		Pair<String, String> encryptedValueIVPair = getEncryptedValueIVPair(value);
 
 		String encryptedValue = encryptedValueIVPair.getFirst();
 		if(encryptedValue == null) {
-			return false;
+			throw new CookieException("cannot create cookie");
 		}
 
 		Cookie cookie = new Cookie(key, encryptedValue);
 		cookie.setMaxAge(3600);
 		cookie.setSecure(true);
 		cookie.setHttpOnly(true);
+		cookie.setPath("/");
 		response.addCookie(cookie);
 
 		Cookie cookieIV = new Cookie(key + "IV", encryptedValueIVPair.getSecond());
 		cookieIV.setMaxAge(3600);
 		cookieIV.setSecure(true);
 		cookieIV.setHttpOnly(true);
-		response.addCookie(cookie);
-		response.addCookie(cookieIV);
+		cookieIV.setPath("/");
 
-		return true;
+		response.addCookie(cookieIV);
 	}
 
 	public static String getCookie(HttpServletRequest request, String key) {
 		Cookie[] cookies = request.getCookies();
 		if(cookies == null) {
-			return null;
+			throw new CookieException("cookie is null");
 		}
 
 		for(Cookie cookie : cookies) {
 			String cookieName = cookie.getName();
 			if(cookieName.equals(key)) {
-				return Encryption.decrypt(ALGORITHM, cookie.getValue(), getSecretKey(), getIv(request, key));
+				return EncryptionUtils.decrypt(ALGORITHM, cookie.getValue(), getSecretKey(), getIv(request, key));
 			}
 		}
-		return null;
+		throw new CookieException("there is no " + key + " cookie");
 	}
 
 	public static IvParameterSpec getIv(HttpServletRequest request, String key) {
@@ -146,26 +136,39 @@ public class CookieService {
 		return new SecretKeySpec(decodedKey, 0, decodedKey.length, "AES");
 	}
 
-	public boolean isAddRequiredCookiesSuccess(HttpServletResponse response, User user) {
-		Long userId = userService.getUserIdByUsername(user.getUsername());
-
-		return CookieService.createCookie(response, "userId", userId.toString()) &&
-				CookieService.createCookie(response, "groupId",
-						groupService.getGroupIdByUserId(userId).toString());
+	public static void addRequired(HttpServletResponse response, User user) {
+		create(response, "userId", user.getUserId().toString());
+		create(response, "groupId", user.getGroupId().toString());
+		create(response, "groupNumber", user.getGroupNumber().toString());
+		create(response, "username", user.getUsername());
+		create(response, "firstName", user.getFirstName());
+		create(response, "lastName", user.getLastName());
 	}
 
 	/**
-	 * method returns groupId from cookie if it exists, if does not -> null
+	 * method returns groupId from cookie if it exists, if it does not -> exception
 	 */
-	public static Long getGroupIdFromCookie(HttpServletRequest request) {
-		Long groupId = null;
-		try {
-			groupId = Long.parseLong(getCookie(request, "groupId"));
-		} catch(NullPointerException | NumberFormatException e) {
-			System.err.println("groupId is probably NULL!");
-			e.printStackTrace();
-			return null;
-		}
-		return groupId;
+	public static Long getGroupId(HttpServletRequest request) {
+		return Long.parseLong(getCookie(request, "groupId"));
+	}
+
+	public static Integer getGroupNumber(HttpServletRequest request) {
+		return Integer.parseInt(getCookie(request, "groupNumber"));
+	}
+
+	public static Long getUserId(HttpServletRequest request) {
+		return Long.parseLong(getCookie(request, "userId"));
+	}
+
+	public static String getUsername(HttpServletRequest request) {
+		return getCookie(request, "username");
+	}
+
+	public static String getFirstName(HttpServletRequest request) {
+		return getCookie(request, "firstName");
+	}
+
+	public static String getLastName(HttpServletRequest request) {
+		return getCookie(request, "lastName");
 	}
 }

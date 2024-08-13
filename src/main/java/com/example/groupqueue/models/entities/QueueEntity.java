@@ -17,13 +17,19 @@ public class QueueEntity {
 	@Column(name = "id")
 	private Long id;
 
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name = "lesson_id", nullable = false)
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "lesson_id", insertable = false, updatable = false, nullable = false)
 	private LessonEntity lessonEntity;
 
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name = "user_id", nullable = false)
+	@Column(name = "lesson_id")
+	private Long lessonId;
+
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "user_id", insertable = false, updatable = false, nullable = false)
 	private UserEntity userEntity;
+
+	@Column(name = "user_id")
+	private Long userId;
 
 	@Column(name = "order", columnDefinition = "int")
 	private Integer order;

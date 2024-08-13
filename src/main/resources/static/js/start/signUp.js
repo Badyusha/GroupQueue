@@ -56,22 +56,17 @@ groupNumberInput.addEventListener('blur', async function () {
         return;
     }
 
-    let groupExistsStatusCode = await fetchData('/group_exists/'+groupNumberInput.value);
-
-    switch(groupExistsStatusCode) {
-        case '404': {
-            groupNumberIsOk = false;
-            groupNumberInput.style.borderBottom = invalidBorder;
-            await sendMessageWithDelay(invalidMessage, 'Invalid group number', '', 4000);
-            break;
-        }
-        case '200': {
-            groupNumberIsOk = true;
-            groupNumberInput.style.borderBottom = '';
-            await sendMessageWithDelay(invalidMessage, '', '', 4000);
-            break;
-        }
+    let groupExists = (await fetchData('/group/number/'+groupNumberInput.value+'/exists') === 'true');
+    if(groupExists) {
+        groupNumberIsOk = true;
+        groupNumberInput.style.borderBottom = '';
+        await sendMessageWithDelay(invalidMessage, '', '', 4000);
+        return;
     }
+
+    groupNumberIsOk = false;
+    await sendMessageWithDelay(invalidMessage, 'Invalid group number', '', 4000);
+    groupNumberInput.style.borderBottom = invalidBorder;
 });
 
 usernameInput.addEventListener('blur', async function() {
@@ -80,7 +75,7 @@ usernameInput.addEventListener('blur', async function() {
         return;
     }
 
-    let usernameExists = (await fetchData('/username_exists/'+usernameInput.value) === 'true');
+    let usernameExists = (await fetchData('/user/username/'+usernameInput.value+'/exists') === 'true');
 
     if(!numberIsInRange(usernameInput.value.length, USERNAME_MIN_LEN, USERNAME_MAX_LEN)) {
         usernameIsOk = false;
@@ -199,7 +194,7 @@ signUpButton.addEventListener('click', function() {
 
     $.ajax({
         type: 'POST',
-        url: '/registration',
+        url: '/user/registration',
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
@@ -211,12 +206,8 @@ signUpButton.addEventListener('click', function() {
             username: usernameInput.value,
             password: passwordInput.value
         }),
-        success: function(isResponseSuccessful) {
-            if(!isResponseSuccessful) {
-                sendMessageWithDelay(invalidMessage, 'Failed to register => reload page', '', 4000);
-                return;
-            }
-            window.location.replace('/main_page');
+        success: function(response) {
+            window.location.replace('/user/main_page');
         },
         error: function(response) {
             sendMessageWithDelay(invalidMessage, 'System error', '', 4000);

@@ -53,16 +53,6 @@ public class ScheduleEntity {
 	private DayOfWeek dayOfWeek;
 
 	//	METHODS
-	public ScheduleEntity(Schedule schedule) {
-		this.subjectName = schedule.getSubject();
-		this.subjectFullName = schedule.getSubjectFullName();
-		this.subgroupType = schedule.getSubgroupType();
-		this.startTime = schedule.getStartTime();
-		this.groupId = schedule.getGroupId();
-		this.weekType = schedule.getWeekType();
-		this.dayOfWeek = schedule.getDayOfWeek();
-	}
-
 	public ScheduleEntity(String subjectName, String subjectFullName,
 						  SubgroupType subgroupType, LocalTime startTime,
 						  Long groupId, WeekType weekType, DayOfWeek dayOfWeek)

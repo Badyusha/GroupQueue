@@ -1,19 +1,16 @@
-package com.example.groupqueue.encryption;
-
-import com.example.groupqueue.services.CookieService;
+package com.example.groupqueue.utils;
 
 import javax.crypto.*;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.PBEKeySpec;
 import javax.crypto.spec.SecretKeySpec;
-import java.io.IOException;
 import java.math.BigInteger;
 import java.security.*;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.KeySpec;
 import java.util.Base64;
 
-public class Encryption {
+public class EncryptionUtils {
 	// cipher method
 	public static String hashData(String message) {
 		MessageDigest messageDigest = null;

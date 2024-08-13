@@ -1,9 +1,5 @@
 package com.example.groupqueue;
 
-import com.example.groupqueue.models.enums.DayOfWeek;
-import com.example.groupqueue.services.GroupService;
-import com.example.groupqueue.services.ScheduleService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 

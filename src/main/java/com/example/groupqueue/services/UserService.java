@@ -1,50 +1,39 @@
 package com.example.groupqueue.services;
 
-import com.example.groupqueue.encryption.Encryption;
 import com.example.groupqueue.models.dto.User;
+import com.example.groupqueue.models.entities.UserEntity;
 import com.example.groupqueue.models.enums.RoleType;
-import com.example.groupqueue.repo.RoleRepository;
 import com.example.groupqueue.repo.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.example.groupqueue.utils.EncryptionUtils;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
+@RequiredArgsConstructor
 public class UserService {
 	private final UserRepository userRepository;
-	private final RoleRepository roleRepository;
-	private final GroupService groupService;
+	private final RoleService roleService;
 
-	@Autowired
-	public UserService(UserRepository userRepository, RoleRepository roleRepository,
-					   GroupService groupService)
-	{
-		this.userRepository = userRepository;
-		this.roleRepository = roleRepository;
-		this.groupService = groupService;
+	public void saveUser(User user) {
+		long roleId = roleService.getRoleIdByType(RoleType.USER);
+		userRepository.save(user.toUserEntity(roleId));
 	}
 
 	public boolean isUsernameExist(String username) {
 		return userRepository.isUsernameExist(username);
 	}
 
-	public boolean isAuthorizeSuccess(String username, String password) {
-		return userRepository.isUserExistByUsernamePassword(username, Encryption.hashData(password));
+	public Long getUserIdByUsername(User user) {
+		return userRepository.getIdByUsername(user.getUsername());
 	}
 
-	public Long getUserIdByUsername(String username) {
-		return userRepository.getIdByUsername(username);
+	public boolean isUserExistByUsernamePassword(User user) {
+		return userRepository.isUserExistByUsernamePassword(user.getUsername(),
+															EncryptionUtils.hashData(user.getPassword()));
 	}
 
-	public boolean isRegistrationSuccess(User user) {
-		Long groupId = groupService.getGroupIdByNumber(user.getGroupNumber());
-		Long roleId = roleRepository.getRoleIdByName(RoleType.USER);
-		try {
-			userRepository.save(user.makeUserEntity(user, groupId, roleId));
-		} catch(Exception e) {
-			System.err.println("Exception while saving user: " + user);
-			e.printStackTrace();
-			return false;
-		}
-		return true;
+	public void fillInUser(User user) {
+		UserEntity userEntity = userRepository.getUserByUsername(user.getUsername());
+		user.copyFromUserEntity(userEntity);
 	}
 }

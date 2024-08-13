@@ -17,11 +17,17 @@ public class PermissionRoleEntity {
 	@Column(name = "id")
 	private Long id;
 
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name = "permission_id", nullable = false)
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "permission_id", insertable = false, updatable = false, nullable = false)
 	private PermissionEntity permissionEntity;
 
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name = "role_id", nullable = false)
+	@Column(name = "permission_id", updatable = false)
+	private Long permissionId;
+
+	@ManyToOne(fetch=FetchType.EAGER)
+	@JoinColumn(name = "role_id", insertable = false, updatable = false, nullable = false)
 	private RoleEntity roleEntity;
+
+	@Column(name = "role_id", updatable = false)
+	private Long roleId;
 }

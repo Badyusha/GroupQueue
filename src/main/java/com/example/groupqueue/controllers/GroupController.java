@@ -1,7 +1,7 @@
 package com.example.groupqueue.controllers;
 
 import com.example.groupqueue.services.GroupService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,18 +10,15 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 @ResponseBody
+@RequiredArgsConstructor
 public class GroupController {
 	private final GroupService groupService;
 
-	@Autowired
-	public GroupController(GroupService groupService) {
-		this.groupService = groupService;
-	}
-
-	@GetMapping("/group_exists/{groupNumber}")
-	public Integer groupExists(@PathVariable Integer groupNumber) {
-		boolean isGroupInDb = groupService.isGroupInDb(groupNumber);
-
-		return (isGroupInDb) ? HttpStatus.OK.value() : groupService.makeGroupExistsRequest(groupNumber).value();
+	@GetMapping("/group/number/{groupNumber}/exists")
+	public boolean groupExists(@PathVariable Integer groupNumber) {
+		if(groupService.isGroupExist(groupNumber)) {
+			return true;
+		}
+		return groupService.checkGroupExistenceViaApi(groupNumber);
 	}
 }

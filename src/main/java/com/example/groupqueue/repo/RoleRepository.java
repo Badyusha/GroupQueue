@@ -9,5 +9,5 @@ public interface RoleRepository extends CrudRepository<RoleEntity, Long> {
 	@Query(value = "SELECT role.id as role_id " +
 			"FROM RoleEntity role " +
 			"WHERE role.name = ?1")
-	Long getRoleIdByName(RoleType roleType);
+	Long getRoleIdByType(RoleType roleType);
 }

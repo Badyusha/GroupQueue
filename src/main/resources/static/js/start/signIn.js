@@ -15,7 +15,7 @@ signInButton.addEventListener('click', function() {
 
     $.ajax({
         type: 'POST',
-        url: '/authorize',
+        url: '/user/authorization',
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
@@ -24,15 +24,11 @@ signInButton.addEventListener('click', function() {
             username: username.value,
             password: password.value
         }),
-        success: function(isResponseSuccessful) {
-            if(!isResponseSuccessful) {
-                sendMessageWithDelay(errorMessage, 'Incorrect username or password', '', 4000);
-                return;
-            }
-            window.location.replace('/main_page');
+        success: function(response) {
+            window.location.replace('/user/main_page');
         },
         error: function(response) {
-            sendMessageWithDelay(invalidMessage, 'System error', '', 4000);
+            sendMessageWithDelay(errorMessage, 'Incorrect username or password', '', 4000);
             console.error("Error while registration: " + response.data)
         }
     });

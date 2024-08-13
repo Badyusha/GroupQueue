@@ -1,6 +1,6 @@
 package com.example.groupqueue.models.entities;
 
-import com.example.groupqueue.encryption.Encryption;
+import com.example.groupqueue.utils.EncryptionUtils;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -52,7 +52,7 @@ public class UserEntity {
 		this.username = username;
 		this.firstName = firstName;
 		this.lastName = lastName;
-		this.password = Encryption.hashData(password);
+		this.password = EncryptionUtils.hashData(password);
 	}
 
 //	METHODS

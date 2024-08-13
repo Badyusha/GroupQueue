@@ -68,7 +68,7 @@
     margin-bottom: 0.5em;
     margin-left: 0.9em;
     width: 90%;
-    height: 0.1em;
+    height: 0.05em;
     background-color: var(--headerBorder);
 }
 
@@ -218,7 +218,7 @@
     color: var(--inputText);
 }
 
-.href {
+.status {
     margin-top: 0.7em;
 }
 

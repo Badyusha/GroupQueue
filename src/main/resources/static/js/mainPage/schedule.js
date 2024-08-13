@@ -66,11 +66,10 @@ function addLessonIntoRow(oneTableRowLessons, table) {
             cell.innerHTML = '';
             continue;
         }
-
-        console.log(oneTableRowLessons.at(i));
-
+        
         let scheduleId = oneTableRowLessons.at(i).id;
         let subject = removeTextAfterParenthesis(oneTableRowLessons.at(i).subjectName);
+        let subjectFullName = oneTableRowLessons.at(i).subjectFullName
         let startTime = removeSecondsFromTime(oneTableRowLessons.at(i).startTime);
         let subgroup = (oneTableRowLessons.at(i).subgroupType === 'ALL') ? 'общ.' :
                                 ((oneTableRowLessons.at(i).subgroupType === 'FIRST') ? '1 под.' : '2 под.');
@@ -80,13 +79,13 @@ function addLessonIntoRow(oneTableRowLessons, table) {
                          <div id="${scheduleId}" class="lesson-container">
                              <div class="subject-date-cabinet-subgroup">
                                  <div class="subject-date">
-                                     <label class="subject">${subject}</label>
+                                     <label class="subject" title="${subjectFullName}">${subject}</label>
                                      <label class="date">${startTime}</label>
                                  </div>
                                  <div class="subgroup">
                                      <label class="subgroup">${subgroup}</label>
                                  </div>
-                                 <div class="href">
+                                 <div class="status">
                                      <a onclick="signToQueue(${scheduleId})" class="sign-up-to-queue">Записаться</a>
                                  </div>
                              </div>
@@ -98,7 +97,7 @@ function addLessonIntoRow(oneTableRowLessons, table) {
 }
 
 function signToQueue(scheduleId) {
-    console.log(scheduleId);
+
 }
 
 function insertRowForFewLabs(schedule, table) {
@@ -127,14 +126,18 @@ function populateSchedule(schedule) {
         oneTableRowLessons.push(lessonOfDay);
     }
 
+    if(oneTableRowLessons.length != 0) {
+        insertRowForFewLabs(schedule, table);
+        return;
+    }
+
     if(!isRowAdded) {
         insertRowForFewLabs(scheduleCopy, table);
     }
 }
 
 document.addEventListener('DOMContentLoaded', async function() {
-    let schedule = await fetchData('/get_schedule');
-    console.log(schedule);
+    let schedule = await fetchData('/schedule/get');
     updateTableHeaders();
     populateSchedule(schedule);
 });

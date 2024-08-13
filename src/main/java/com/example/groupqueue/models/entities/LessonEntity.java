@@ -5,8 +5,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
-
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @Data
 @NoArgsConstructor
@@ -20,14 +19,23 @@ public class LessonEntity {
 	@Column(name = "id")
 	private Long id;
 
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name = "schedule_id", nullable = false)
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "schedule_id", insertable = false, updatable = false, nullable = false)
 	private ScheduleEntity scheduleEntity;
+
+	@Column(name = "schedule_id")
+	private Long scheduleId;
 
 	@Enumerated(EnumType.STRING)
 	@Column(name = "sort_type", columnDefinition = "ENUM('SIMPLE','RANDOM','HIGHEST_LAB','HIGHEST_LAB_SUM')")
 	private SortType sortType;
 
 	@Column(name = "date", columnDefinition = "DATETIME")
-	private LocalDateTime date;
+	private LocalDate date;
+
+	public LessonEntity(Long scheduleId, SortType sortType, LocalDate date) {
+		this.scheduleId = scheduleId;
+		this.sortType = sortType;
+		this.date = date;
+	}
 }
