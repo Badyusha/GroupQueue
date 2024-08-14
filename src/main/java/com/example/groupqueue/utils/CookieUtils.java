@@ -27,6 +27,10 @@ import java.util.Base64;
 public class CookieUtils {
 	private static final String ALGORITHM = "AES/CBC/PKCS5Padding";
 
+	public static boolean isCookiesExists(HttpServletRequest request) {
+		return request.getCookies() != null;
+	}
+
 	public static void deleteAllCookies(HttpServletResponse response, HttpServletRequest request) {
 		Cookie[] cookies = request.getCookies();
 

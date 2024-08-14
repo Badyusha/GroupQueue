@@ -5,10 +5,10 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class MainController {
-    //  METHODS
     @GetMapping("/")
     public String start(HttpServletResponse response, HttpServletRequest request) {
         CookieUtils.deleteAllCookies(response, request);

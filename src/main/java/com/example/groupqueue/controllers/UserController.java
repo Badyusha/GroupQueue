@@ -16,7 +16,10 @@ public class UserController {
 	private final UserService userService;
 
 	@GetMapping("/user/main_page")
-	public String mainPage() {
+	public String mainPage(HttpServletRequest request) {
+		if(!CookieUtils.isCookiesExists(request)) {
+			return "redirect:/";
+		}
 		return "views/user/mainPage";
 	}
 

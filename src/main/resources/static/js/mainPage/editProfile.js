@@ -1,5 +1,6 @@
 const darkOverlay = document.getElementById('dark-overlay');
 const editProfileForm = document.getElementById('edit-profile-form');
+const editProfile = document.getElementById('edit-profile');
 
 const firstNameInput = document.getElementById('first-name-input');
 const lastNameInput = document.getElementById('last-name-input');
@@ -28,7 +29,7 @@ let usernameIsOk = true;
 let passwordIsOk = true;
 let repeatedPasswordIsOk = true;
 
-document.getElementById('edit-profile').addEventListener('click',
+editProfile.addEventListener('click',
                                                             async function() {
 
     fillProfileInputs();
