@@ -15,8 +15,8 @@ public interface LessonRepository extends CrudRepository<LessonEntity, Long> {
 
 	@Query(value = 	"SELECT lesson.id AS lessonId, schedule.subjectName, " +
 			"schedule.subjectFullName, schedule.dayOfWeek, " +
-			"schedule.subgroupType, lesson.date, " +
-			"schedule.startTime, queue.order AS numberInQueue, " +
+			"schedule.subgroupType, lesson.date, schedule.weekType, " +
+			"schedule.startTime, queue.order AS numberInQueue, queue.id AS queueId, " +
 			"CASE " +
 				"WHEN preQueue.id IS NOT NULL THEN TRUE " +
 				"ELSE FALSE " +

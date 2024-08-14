@@ -1,13 +1,11 @@
 package com.example.groupqueue.models.dto;
 
 import com.example.groupqueue.models.entities.UserEntity;
-import com.example.groupqueue.services.GroupService;
-import com.example.groupqueue.services.UserService;
+import com.example.groupqueue.models.enums.RoleType;
+import com.example.groupqueue.utils.EncryptionUtils;
 import lombok.Data;
-import lombok.RequiredArgsConstructor;
 
 @Data
-@RequiredArgsConstructor
 public class User {
 	private Long userId;
 	private String firstName;
@@ -16,9 +14,37 @@ public class User {
 	private String password;
 	private Long groupId;
 	private Integer groupNumber;
+	private RoleType roleType;
+	private Long roleId;
 
-	public UserEntity toUserEntity(Long roleId) {
+	public User(Long userId,
+				String firstName,
+				String lastName,
+				String username,
+				String password,
+				Long groupId,
+				Integer groupNumber,
+				RoleType roleType) {
+		this.userId = userId;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.username = username;
+		this.password = password;
+		this.groupId = groupId;
+		this.groupNumber = groupNumber;
+		this.roleType = roleType;
+	}
+
+	public UserEntity toUserEntity() {
 		return new UserEntity(groupId, roleId, username, firstName, lastName, password);
+	}
+
+	public UserEntity toUserEntityWithPasswordEncryption() {
+		return new UserEntity(userId, groupId, roleId, username, firstName, lastName, EncryptionUtils.hashData(password));
+	}
+
+	public UserEntity toUserEntityWithoutPasswordEncryption() {
+		return new UserEntity(userId, groupId, roleId, username, firstName, lastName, password);
 	}
 
 	public void copyFromUserEntity(UserEntity userEntity) {

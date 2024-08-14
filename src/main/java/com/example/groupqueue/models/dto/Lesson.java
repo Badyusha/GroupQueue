@@ -2,6 +2,7 @@ package com.example.groupqueue.models.dto;
 
 import com.example.groupqueue.models.enums.DayOfWeek;
 import com.example.groupqueue.models.enums.SubgroupType;
+import com.example.groupqueue.models.enums.WeekType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -18,7 +19,9 @@ public class Lesson {
 	private LocalTime startTime;
 	private boolean isRegisteredInQueue;
 	private Integer numberInQueue;
+	private Long queueId;
 
 	private DayOfWeek dayOfWeek;
 	private LocalDate date;
+	private WeekType weekType;
 }

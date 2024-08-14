@@ -1,5 +1,7 @@
 package com.example.groupqueue.models.entities;
 
+import com.example.groupqueue.models.dto.User;
+import com.example.groupqueue.models.enums.RoleType;
 import com.example.groupqueue.utils.EncryptionUtils;
 import jakarta.persistence.*;
 import lombok.Data;
@@ -44,16 +46,36 @@ public class UserEntity {
 	@Column(name = "password", columnDefinition = "varchar(65)")
 	private String password;
 
-	public UserEntity(Long groupId, Long roleId, String username,
-					  String firstName, String lastName, String password)
+	//	METHODS
+	public UserEntity(Long groupId,
+					  Long roleId,
+					  String username,
+					  String firstName,
+					  String lastName,
+					  String notEncryptedPassword)
 	{
 		this.groupId = groupId;
 		this.roleId = roleId;
 		this.username = username;
 		this.firstName = firstName;
 		this.lastName = lastName;
-		this.password = EncryptionUtils.hashData(password);
+		this.password = EncryptionUtils.hashData(notEncryptedPassword);
 	}
 
-//	METHODS
+	public UserEntity(long id,
+					  long groupId,
+					  long roleId,
+					  String username,
+					  String firstName,
+					  String lastName,
+					  String encryptedPassword) {
+		this.id = id;
+		this.roleId = roleId;
+		this.groupId = groupId;
+		this.username = username;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.password = encryptedPassword;
+	}
+
 }

@@ -28,7 +28,7 @@
     padding: 0.7em;
     display: flex;
     justify-content: space-between;
-    max-height: 4em;
+    height: 5em;
 }
 
 .username-full-name {
@@ -51,6 +51,13 @@
 
 #group-number {
     margin-top: 1em;
+}
+
+#role-type {
+    margin-top: 0.5em;
+}
+
+#group-number, #role-type {
     color: var(--inputText);
     font-size: 0.8em;
     font-weight: 500;
@@ -99,21 +106,31 @@
     font-weight: 500;
 }
 
-#menu-overlay {
+#menu-overlay, #dark-overlay {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.3);
     opacity: 0;
     transition: opacity 0.3s ease;
     z-index: 0;
     visibility: hidden;
+    display: none;
 }
-#menu-overlay.active {
+
+#menu-overlay.active, #dark-overlay.active {
     opacity: 1;
     visibility: visible;
+    display: block;
+}
+
+#menu-overlay {
+    background-color: rgba(0, 0, 0, 0.3);
+}
+
+#dark-overlay {
+    background-color: rgba(0, 0, 0, 0.7);
 }
 
 
@@ -133,8 +150,8 @@
 }
 
 #current-week {
-    font-weight: 500;
-    color: white;
+    color: var(--inputText);
+    font-weight: 600;
 }
 
 .week-schedule {
@@ -151,7 +168,7 @@
 
 
 .week-schedule-table {
-    /*table-layout: fixed;*/
+    table-layout: fixed;
     border-collapse: collapse;
     width: 100%;
 }
@@ -183,7 +200,7 @@
     border: 0.1em solid var(--headerBorder);
     border-radius: 0.8em;
     width: 80%;
-    background: linear-gradient(to right, var(--red) 7%, var(--blueGray) 0%);
+    background: linear-gradient(to right, var(--red) 5%, var(--blueGray) 0%);
 }
 
 .subject-date-cabinet-subgroup {
@@ -200,7 +217,7 @@
 }
 
 .subject {
-    font-size: 1.5em;
+    font-size: 1.2em;
     font-weight: 600;
     color: white;
 }
@@ -219,15 +236,68 @@
 }
 
 .status {
-    margin-top: 0.7em;
+    margin-top: 0.9em;
 }
 
 .sign-up-to-queue, .sign-up-to-queue:visited {
+    margin-right: 1em;
     font-size: 0.8em;
     font-weight: 600;
     color: var(--inputText);
 }
 
 a {
-    cursor: default;
+    cursor: pointer;
+}
+
+.number-in-queue-text-status {
+    margin-right: 1em;
+    color: var(--inputText);
+    font-size: 0.8em;
+    font-weight: 600;
+}
+
+.signed-up-status, .cancel-register-status {
+    font-weight: 600;
+}
+
+.signed-up-status {
+    font-size: 0.8em;
+    color: var(--inputText);
+}
+
+.cancel-register-status {
+    font-size: 0.68em;
+    color: var(--red);
+}
+
+.edit-profile-label {
+    color: white;
+    margin-top: 1em;
+    font-weight: 600;
+    font-size: 2em;
+}
+
+.edit-profile {
+    color: var(--gray);
+    display: grid;
+}
+
+.edit-profile table {
+    border-collapse: separate;
+    border-spacing: 1em;
+}
+
+.placeholder {
+    font-size: 0.85em;
+    text-align: left;
+    align-items: end;
+    display: flex;
+    justify-content: space-between;
+}
+
+#error-label {
+    color: var(--red);
+    font-size: 0.8em;
+    font-weight: 600;
 }

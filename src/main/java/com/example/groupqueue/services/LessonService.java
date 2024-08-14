@@ -30,22 +30,23 @@ public class LessonService {
 		}
 
 		for(ScheduleEntity scheduleEntity : scheduleEntityList) {
+			DayOfWeek dayOfWeek = scheduleEntity.getDayOfWeek();
 			lessonRepository.save(new LessonEntity(
 					scheduleEntity.getId(),
 					SortType.HIGHEST_LAB_SUM,
-					getLessonDate(scheduleEntity, weekType)
+					getLessonDate(dayOfWeek, weekType)
 			));
 		}
 	}
 
-	private LocalDate getLessonDate(ScheduleEntity scheduleEntity, WeekType week) {
+	public LocalDate getLessonDate(DayOfWeek dayOfWeek, WeekType week) {
 		int weeksToAdd = 0;
 		if(week.equals(WeekType.getNextWeekType())) {
 			++weeksToAdd;
 		}
 
 		LocalDate today = LocalDate.now();
-		java.time.DayOfWeek targetDay = DayOfWeek.getJavaTimeDayOfWeek(scheduleEntity.getDayOfWeek());
+		java.time.DayOfWeek targetDay = DayOfWeek.getJavaTimeDayOfWeek(dayOfWeek);
 
 		return today.with(targetDay).plusWeeks(weeksToAdd);
 	}

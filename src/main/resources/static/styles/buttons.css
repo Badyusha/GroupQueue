@@ -25,6 +25,8 @@
     font-family: 'Montserrat', sans-serif;
     font-weight: bold;
     padding: 0.6em;
+    width: 100%;
+    white-space: nowrap;
 }
 
 .button:hover {

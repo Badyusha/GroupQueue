@@ -6,6 +6,8 @@
 
     <link rel="stylesheet" href="/styles/style.css">
     <link rel="stylesheet" href="/styles/mainPage/mainPage.css">
+    <link rel="stylesheet" href="/styles/startPage/signUpForm.css">
+    <link rel="stylesheet" href="/styles/buttons.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
 </head>
@@ -29,13 +31,13 @@
         <div class="week-schedule">
             <table id="week-schedule-table" class="week-schedule-table">
                 <tr>
-                    <th id="Monday" class="week"></th>
-                    <th id="Tuesday" class="week"></th>
-                    <th id="Wednesday" class="week"></th>
-                    <th id="Thursday" class="week"></th>
-                    <th id="Friday" class="week"></th>
-                    <th id="Saturday" class="week"></th>
-                    <th id="Sunday" class="week"></th>
+                    <th id="monday" class="week"></th>
+                    <th id="tuesday" class="week"></th>
+                    <th id="wednesday" class="week"></th>
+                    <th id="thursday" class="week"></th>
+                    <th id="friday" class="week"></th>
+                    <th id="saturday" class="week"></th>
+                    <th id="sunday" class="week"></th>
                 </tr>
                 <tr>
                     <td id="monday-schedule"></td>
@@ -55,9 +57,10 @@
     <div id="side-menu">
         <div class="username-close-btn">
             <div class="username-full-name">
-                <label id="full-name">Badzei Pablo</label>
-                <label id="username">el_Pablo</label>
-                <label id="group-number">Group: 272303</label>
+                <label id="full-name"></label>
+                <label id="username"></label>
+                <label id="group-number"></label>
+                <label id="role-type"></label>
             </div>
 
             <div class="close-btn" id="close-menu">&times;</div>
@@ -65,35 +68,115 @@
 
         <div class="horizontal-line"></div>
 
-        <div class="menu-variant">
+        <div id="edit-profile" class="menu-variant">
             <i class="fa-solid fa-user"></i>
-            <label id="edit-profile" class="menu-label">Edit profile</label>
+            <label class="menu-label">Edit profile</label>
         </div>
 
-        <div class="menu-variant">
+        <div id="user-queues" class="menu-variant">
             <i class="fa-solid fa-people-group"></i>
-            <label id="user-queues" class="menu-label">Your queues</label>
+            <label class="menu-label">Your queues</label>
         </div>
 
         <div class="horizontal-line"></div>
 
-        <div class="menu-variant">
+        <div id="become-group-admin-variant" class="menu-variant">
             <i class="fa-solid fa-hand"></i>
             <label id="become-group-admin" class="menu-label">Become group admin</label>
         </div>
 
-        <div class="horizontal-line"></div>
+        <div id="become-group-admin-horizontal-line" class="horizontal-line"></div>
 
-        <div class="menu-variant">
+        <div id="sign-out" class="menu-variant">
             <i class="fa-solid fa-right-from-bracket"></i>
-            <label id="sign-out" class="menu-label">Sign out</label>
+            <label class="menu-label">Sign out</label>
+        </div>
+    </div>
+
+    <div id="edit-profile-form" class="popup-form">
+        <div class="edit-profile">
+            <label class="edit-profile-label">Edit profile</label>
+            <div style="min-height: 1.2em; margin-top: 0.5em">
+                <label id="error-label"></label>
+            </div>
+            <table>
+                <tr>
+                    <th>
+                        <div class="sign-up-data-input">
+                            <div class="placeholder">
+                                <label for="first-name-input">First name</label>
+                            </div>
+                            <input type="text" id="first-name-input" name="first-name">
+                        </div>
+                    </th>
+                    <th>
+                        <div class="sign-up-data-input">
+                            <div class="placeholder">
+                                <label for="sign-up-username-input">Username</label>
+                            </div>
+                            <input type="text" id="sign-up-username-input" name="username">
+                        </div>
+                    </th>
+                </tr>
+
+                <tr>
+                    <th>
+                        <div class="sign-up-data-input">
+                            <div class="placeholder">
+                                <label for="last-name-input">Last name</label>
+                            </div>
+                            <input type="text" id="last-name-input" name="last-name">
+                        </div>
+                    </th>
+                    <th>
+                        <div class="sign-up-data-input">
+                            <div class="placeholder">
+                                <label for="sign-up-password-input">Password</label>
+                            </div>
+                            <input type="password" id="sign-up-password-input" name="sign-up-password-input">
+                        </div>
+                    </th>
+                </tr>
+
+                <tr>
+                    <th>
+                        <div class="sign-up-data-input">
+                            <div class="placeholder">
+                                <label for="group-number-input">Group number</label>
+                            </div>
+                            <input type="number" id="group-number-input" name="group-number-input">
+                        </div>
+                    </th>
+                    <th>
+                        <div class="sign-up-data-input">
+                            <div class="placeholder">
+                                <label for="repeated-password-input">Repeat password</label>
+                            </div>
+                            <input type="password" id="repeated-password-input" name="repeated-password-input">
+                        </div>
+                    </th>
+                </tr>
+            </table>
+
+            <div style="margin-top: 0.5em">
+                <button type="submit" id="cancel-change-profile-button" class="button dark-button"
+                        style="width:85%; margin-bottom: 1em">Cancel
+                </button>
+                <button type="submit" id="save-profile-button" class="button light-button"
+                        style="width:85%">Save
+                </button>
+            </div>
         </div>
     </div>
 
     <div id="menu-overlay"></div>
+    <div id="dark-overlay"></div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <script src="/js/mainPage/sideMenu.js"></script>
     <script src="/js/mainPage/schedule.js"></script>
+    <script src="/js/mainPage/editProfile.js"></script>
 
 
 </body>

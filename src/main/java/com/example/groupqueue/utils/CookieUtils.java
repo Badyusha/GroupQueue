@@ -27,22 +27,6 @@ import java.util.Base64;
 public class CookieUtils {
 	private static final String ALGORITHM = "AES/CBC/PKCS5Padding";
 
-	public static Pair<String, String> getEncryptedValueIVPair(String value) {
-		try {
-			SecretKey encryptionKey = getSecretKey();
-			IvParameterSpec ivParameterSpec = EncryptionUtils.generateIv();
-
-			return new Pair<>(EncryptionUtils.encrypt(ALGORITHM, value, encryptionKey, ivParameterSpec),
-							Base64.getEncoder().encodeToString(ivParameterSpec.getIV()));
-		} catch(InvalidAlgorithmParameterException | NoSuchPaddingException |
-				IllegalBlockSizeException | NoSuchAlgorithmException | BadPaddingException | InvalidKeyException e)
-		{
-			System.err.println("Exception in CookieService.getEncryptedValue");
-			e.printStackTrace();
-		}
-		return null;
-	}
-
 	public static void deleteAllCookies(HttpServletResponse response, HttpServletRequest request) {
 		Cookie[] cookies = request.getCookies();
 
@@ -104,38 +88,6 @@ public class CookieUtils {
 		throw new CookieException("there is no " + key + " cookie");
 	}
 
-	public static IvParameterSpec getIv(HttpServletRequest request, String key) {
-		for(Cookie cookie : request.getCookies()) {
-			if(cookie.getName().equals(key + "IV")) {
-				return new IvParameterSpec(Base64.getDecoder().decode(cookie.getValue().getBytes()));
-			}
-		}
-		return null;
-	}
-
-	public static SecretKey getSecretKey() {
-		byte[] decodedKey = new byte[0];
-		try {
-			File file = new File("file.txt");
-			FileInputStream inputStream = new FileInputStream(file);
-
-			byte[] buffer = new byte[1024];
-			int bytesRead;
-			StringBuilder key = new StringBuilder();
-
-			while ((bytesRead = inputStream.read(buffer)) != -1) {
-				key.append(new String(buffer, 0, bytesRead));
-			}
-			inputStream.close();
-
-			decodedKey = Base64.getDecoder().decode(key.toString());
-		} catch(IOException e) {
-			System.err.println("Exception in getFileKey");
-			e.printStackTrace();
-		}
-		return new SecretKeySpec(decodedKey, 0, decodedKey.length, "AES");
-	}
-
 	public static void addRequired(HttpServletResponse response, User user) {
 		create(response, "userId", user.getUserId().toString());
 		create(response, "groupId", user.getGroupId().toString());
@@ -170,5 +122,53 @@ public class CookieUtils {
 
 	public static String getLastName(HttpServletRequest request) {
 		return getCookie(request, "lastName");
+	}
+
+	private static Pair<String, String> getEncryptedValueIVPair(String value) {
+		try {
+			SecretKey encryptionKey = getSecretKey();
+			IvParameterSpec ivParameterSpec = EncryptionUtils.generateIv();
+
+			return new Pair<>(EncryptionUtils.encrypt(ALGORITHM, value, encryptionKey, ivParameterSpec),
+					Base64.getEncoder().encodeToString(ivParameterSpec.getIV()));
+		} catch(InvalidAlgorithmParameterException | NoSuchPaddingException |
+				IllegalBlockSizeException | NoSuchAlgorithmException | BadPaddingException | InvalidKeyException e)
+		{
+			System.err.println("Exception in CookieService.getEncryptedValue");
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	private static IvParameterSpec getIv(HttpServletRequest request, String key) {
+		for(Cookie cookie : request.getCookies()) {
+			if(cookie.getName().equals(key + "IV")) {
+				return new IvParameterSpec(Base64.getDecoder().decode(cookie.getValue().getBytes()));
+			}
+		}
+		return null;
+	}
+
+	private static SecretKey getSecretKey() {
+		byte[] decodedKey = new byte[0];
+		try {
+			File file = new File("file.txt");
+			FileInputStream inputStream = new FileInputStream(file);
+
+			byte[] buffer = new byte[1024];
+			int bytesRead;
+			StringBuilder key = new StringBuilder();
+
+			while ((bytesRead = inputStream.read(buffer)) != -1) {
+				key.append(new String(buffer, 0, bytesRead));
+			}
+			inputStream.close();
+
+			decodedKey = Base64.getDecoder().decode(key.toString());
+		} catch(IOException e) {
+			System.err.println("Exception in getFileKey");
+			e.printStackTrace();
+		}
+		return new SecretKeySpec(decodedKey, 0, decodedKey.length, "AES");
 	}
 }

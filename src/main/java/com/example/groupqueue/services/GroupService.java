@@ -23,7 +23,6 @@ public class GroupService {
 		}
 		groupRepository.saveGroup(groupNumber);
 		scheduleService.addRecordsForNewGroupByGroupNumber(groupNumber);
-
 		return true;
 	}
 

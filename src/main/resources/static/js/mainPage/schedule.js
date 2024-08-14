@@ -1,40 +1,17 @@
 async function fetchData(requestText) {
     let response = await fetch(requestText);
-    let lessonsSchedule = await response.text();
-    return JSON.parse(lessonsSchedule);
+    let schedule = await response.json();
+    return schedule;
 }
 
-function getWeekStartDate() {
-    let today = new Date();
-    return new Date(today.setDate(today.getDate() - today.getDay() + 1)); // Monday
+function formatDate(dateString) {
+    const [year, month, day] = dateString.split('-');
+
+    return `${day}.${month}`;
 }
 
-function formatDate(date) {
-    return date.toLocaleDateString('en-GB', { day: '2-digit', month: '2-digit' }).replace(/\//g, '.');
-}
-
-let daysOfWeek = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
-
-function updateTableHeaders() {
-    let startDate = getWeekStartDate();
-
-    daysOfWeek.forEach((day, index) => {
-        let currentDay = new Date(startDate);
-        currentDay.setDate(startDate.getDate() + index);
-        let formattedDate = formatDate(currentDay);
-        document.getElementById(day).innerText = `${day} (${formattedDate})`;
-    });
-}
-
-function findFirstLessonForDayOfWeek(data, dayOfWeek) {
-    for(let i = 0; i < data.length; ++i) {
-        if(data.at(i).dayOfWeek.toUpperCase() === dayOfWeek.toUpperCase()) {
-            let lessonCopy = data.at(i);
-            data.splice(i, 1);
-            return lessonCopy;
-        }
-    }
-    return null;
+function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
 function removeTextAfterParenthesis(input) {
@@ -46,6 +23,7 @@ function removeTextAfterParenthesis(input) {
     return index !== -1 ? input.slice(0, index) : input;
 }
 
+
 function removeSecondsFromTime(timeString) {
     // Check if the timeString is in the format "HH:MM:SS"
     if (timeString.length === 8 && timeString[2] === ':' && timeString[5] === ':') {
@@ -56,88 +34,95 @@ function removeSecondsFromTime(timeString) {
     return timeString;
 }
 
-function addLessonIntoRow(oneTableRowLessons, table) {
-    let row = table.insertRow();
-
-    for(let i = 0; i < oneTableRowLessons.length; ++i) {
-        let cell = row.insertCell(i);
-
-        if(oneTableRowLessons.at(i) == null) {
-            cell.innerHTML = '';
-            continue;
-        }
-        
-        let scheduleId = oneTableRowLessons.at(i).id;
-        let subject = removeTextAfterParenthesis(oneTableRowLessons.at(i).subjectName);
-        let subjectFullName = oneTableRowLessons.at(i).subjectFullName
-        let startTime = removeSecondsFromTime(oneTableRowLessons.at(i).startTime);
-        let subgroup = (oneTableRowLessons.at(i).subgroupType === 'ALL') ? 'общ.' :
-                                ((oneTableRowLessons.at(i).subgroupType === 'FIRST') ? '1 под.' : '2 под.');
-
-        cell.innerHTML = `
-                     <div class="lesson">
-                         <div id="${scheduleId}" class="lesson-container">
-                             <div class="subject-date-cabinet-subgroup">
-                                 <div class="subject-date">
-                                     <label class="subject" title="${subjectFullName}">${subject}</label>
-                                     <label class="date">${startTime}</label>
-                                 </div>
-                                 <div class="subgroup">
-                                     <label class="subgroup">${subgroup}</label>
-                                 </div>
-                                 <div class="status">
-                                     <a onclick="signToQueue(${scheduleId})" class="sign-up-to-queue">Записаться</a>
-                                 </div>
-                             </div>
-                         </div>
-                     </div>
-        `;
-    }
-
+function signToQueue(lessonId) {
+    console.log(lessonId);
 }
 
-function signToQueue(scheduleId) {
-
+function cancelRegister(lessonId) {
+    console.log(lessonId);
 }
 
-function insertRowForFewLabs(schedule, table) {
-    let tableRowLessons = [];
-    for(let i = 0; i < daysOfWeek.length; ++i) {
-        let lessonOfDay = findFirstLessonForDayOfWeek(schedule, daysOfWeek.at(i));
-        tableRowLessons.push(lessonOfDay);
-    }
-    addLessonIntoRow(tableRowLessons, table);
+function showQueue(queueId) {
+    console.log(queueId);
 }
 
-function populateSchedule(schedule) {
-    let scheduleCopy = schedule.map((x) => x);
-    let table = document.getElementById('week-schedule-table');
-    let oneTableRowLessons = [];
-    let isRowAdded = false;
+function drawSchedule(schedule) {
+    for (const dayOfWeek in schedule) {
+        let dayCell = document.getElementById(`${dayOfWeek}-schedule`);
+        if (!dayCell) continue;
 
-    for(let daysOfWeekIndex = 0; schedule.length !== 0; ++daysOfWeekIndex) {
-        if(daysOfWeekIndex > daysOfWeek.length - 1) {
-            addLessonIntoRow(oneTableRowLessons, table);
-            oneTableRowLessons = [];
-            daysOfWeekIndex = 0;
-            isRowAdded = true;
-        }
-        let lessonOfDay = findFirstLessonForDayOfWeek(schedule, daysOfWeek.at(daysOfWeekIndex));
-        oneTableRowLessons.push(lessonOfDay);
-    }
+        let dayOfWeekDate = document.getElementById(`${dayOfWeek}`);
+        dayOfWeekDate.innerHTML = `${capitalizeFirstLetter(dayOfWeek)} (${formatDate(schedule[dayOfWeek].date)})`;
 
-    if(oneTableRowLessons.length != 0) {
-        insertRowForFewLabs(schedule, table);
-        return;
-    }
+        dayCell.innerHTML = '';
+        let dayContent = '';
 
-    if(!isRowAdded) {
-        insertRowForFewLabs(scheduleCopy, table);
+        schedule[dayOfWeek].lessons.forEach(lesson => {
+            let lessonId = lesson.lessonId;
+            let subjectName = removeTextAfterParenthesis(lesson.subjectName);
+            let subjectFullName = lesson.subjectFullName;
+            let startTime = removeSecondsFromTime(lesson.startTime);
+            let subgroupType = (lesson.subgroupType == 'ALL') ? 'общ.' :
+                                                (lesson.subgroupType == 'FIRST') ? '1 под.' : '2 под.';
+            let isRegisteredInQueue = lesson.registeredInQueue;
+            let numberInQueue = lesson.numberInQueue;
+            let queueId = lesson.queueId;
+            let status = `
+                            <div class="status">
+                                <a onclick="signToQueue(${lessonId})" class="sign-up-to-queue">
+                                    Записаться
+                                </a>
+                            </div>
+            `;
+
+            if(isRegisteredInQueue) {
+                status = `
+                    <div style="display: grid; margin-top: 0.4em; margin-right: 1em">
+                        <label class="signed-up-status">
+                            Записан
+                        </label>
+                        <a onclick="cancelRegister(${lessonId})" class="cancel-register-status">
+                            Отменить запись?
+                        </a>
+                    </div>
+                `;
+            }
+
+            if(numberInQueue !== null) {
+                status = `
+                    <div class="status">
+                        <a onclick="showQueue(${queueId})" class="number-in-queue-text-status">
+                            Ты <label style="color: white">${numberInQueue}</label> в очереди
+                        </a>
+                    </div>
+                `;
+            }
+
+            dayContent += `
+                <div class="lesson">
+                    <div class="lesson-container">
+                        <div class="subject-date-cabinet-subgroup">
+                            <div class="subject-date">
+                                <label class="subject" title="${subjectFullName}">${subjectName}</label>
+                                <label class="date">${startTime}</label>
+                            </div>
+                            <div class="subgroup">
+                                <label class="subgroup">${subgroupType}</label>
+                            </div>
+                            ${status}
+                        </div>
+                    </div>
+                </div>
+            `;
+        });
+
+        dayCell.innerHTML = dayContent;
     }
 }
 
 document.addEventListener('DOMContentLoaded', async function() {
     let schedule = await fetchData('/schedule/get');
-    updateTableHeaders();
-    populateSchedule(schedule);
+    await fillSideMenu();
+    drawSchedule(schedule);
 });
+

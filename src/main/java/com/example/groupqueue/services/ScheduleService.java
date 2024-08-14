@@ -43,10 +43,6 @@ public class ScheduleService {
 
 		List<Lesson> lessonList = createLessonList(userId, groupId);
 
-		if(lessonList.isEmpty()) {
-			return null;
-		}
-
 		Schedule schedule = new Schedule();
 		for(DayOfWeek dayOfWeek : DayOfWeek.values()) {
 			DayOfWeekScheduled dayOfWeekScheduled = fillDayOfWeekSchedule(lessonList, dayOfWeek);
@@ -59,32 +55,32 @@ public class ScheduleService {
 	private void addDayOfWeekScheduledIntoSchedule(Schedule schedule,
 												   DayOfWeekScheduled dayOfWeekScheduled,
 												   DayOfWeek dayOfWeek) {
-		switch(dayOfWeek.day) {
-			case "MONDAY" : {
+		switch(dayOfWeek) {
+			case DayOfWeek.MONDAY : {
 				schedule.setMonday(dayOfWeekScheduled);
 				break;
 			}
-			case "TUESDAY" : {
+			case DayOfWeek.TUESDAY : {
 				schedule.setTuesday(dayOfWeekScheduled);
 				break;
 			}
-			case "WEDNESDAY" : {
+			case DayOfWeek.WEDNESDAY : {
 				schedule.setWednesday(dayOfWeekScheduled);
 				break;
 			}
-			case "THURSDAY" : {
+			case DayOfWeek.THURSDAY : {
 				schedule.setThursday(dayOfWeekScheduled);
 				break;
 			}
-			case "FRIDAY" : {
+			case DayOfWeek.FRIDAY : {
 				schedule.setFriday(dayOfWeekScheduled);
 				break;
 			}
-			case "SATURDAY" : {
+			case DayOfWeek.SATURDAY : {
 				schedule.setSaturday(dayOfWeekScheduled);
 				break;
 			}
-			case "SUNDAY" : {
+			case DayOfWeek.SUNDAY : {
 				schedule.setSunday(dayOfWeekScheduled);
 				break;
 			}
@@ -97,6 +93,8 @@ public class ScheduleService {
 		}
 
 		DayOfWeekScheduled dayOfWeekScheduled = new DayOfWeekScheduled();
+		dayOfWeekScheduled.setDate(lessonService.getLessonDate(dayOfWeek, lessonList.getFirst().getWeekType()));
+
 		List<Lesson> dayOfWeekLessonList = new ArrayList<>();
 		for(Lesson lesson : lessonList) {
 			if(lesson.getDayOfWeek() == dayOfWeek) {
@@ -104,38 +102,36 @@ public class ScheduleService {
 			}
 		}
 
-		if(dayOfWeekLessonList.isEmpty()) {
-			return null;
-		}
-
-		dayOfWeekScheduled.setDate(lessonList.getFirst().getDate());
 		dayOfWeekScheduled.setLessons(dayOfWeekLessonList);
 		return dayOfWeekScheduled;
 	}
 
 	private List<Lesson> createLessonList(long userId, long groupId) {
 		List<Lesson> lessonList = new ArrayList<>();
-		for(Object[] row : lessonService.getScheduleInfoByUserIdGroupId(userId, groupId)) {
-			Long lessonId = (Long) row[0];
-			String subjectName = (String) row[1];
-			String subjectFullName = (String) row[2];
-			DayOfWeek dayOfWeek = (DayOfWeek) row[3];
-			SubgroupType subgroupType = (SubgroupType) row[4];
-			LocalDate date = (LocalDate) row[5];
-			LocalTime startTime = (LocalTime) row[6];
-			Integer numberInQueue = (Integer) row[7];
-			Boolean isRegisteredInQueue = (Boolean) row[8];
+		for(Object[] lesson : lessonService.getScheduleInfoByUserIdGroupId(userId, groupId)) {
+			Long lessonId = (Long) lesson[0];
+			String subjectName = (String) lesson[1];
+			String subjectFullName = (String) lesson[2];
+			DayOfWeek dayOfWeek = (DayOfWeek) lesson[3];
+			SubgroupType subgroupType = (SubgroupType) lesson[4];
+			LocalDate date = (LocalDate) lesson[5];
+			WeekType weekType = (WeekType) lesson[6];
+			LocalTime startTime = (LocalTime) lesson[7];
+			Integer numberInQueue = (Integer) lesson[8];
+			Long queueId = (Long) lesson[9];
+			Boolean isRegisteredInQueue = (Boolean) lesson[10];
 
-			Lesson lesson = new Lesson(lessonId,
-					subjectName,
-					subjectFullName,
-					subgroupType,
-					startTime,
-					isRegisteredInQueue,
-					numberInQueue,
-					dayOfWeek,
-					date);
-			lessonList.add(lesson);
+			lessonList.add(new Lesson(lessonId,
+										subjectName,
+										subjectFullName,
+										subgroupType,
+										startTime,
+										isRegisteredInQueue,
+										numberInQueue,
+										queueId,
+										dayOfWeek,
+										date,
+										weekType));
 		}
 		return lessonList;
 	}
