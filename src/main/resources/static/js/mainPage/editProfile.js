@@ -4,9 +4,9 @@ const editProfile = document.getElementById('edit-profile');
 
 const firstNameInput = document.getElementById('first-name-input');
 const lastNameInput = document.getElementById('last-name-input');
+const groupNumberInput = document.getElementById('group-number-input');
 const usernameInput = document.getElementById('sign-up-username-input');
 const passwordInput = document.getElementById('sign-up-password-input');
-const groupNumberInput = document.getElementById('group-number-input');
 const repeatedPasswordInput = document.getElementById('repeated-password-input');
 
 const cancelButton = document.getElementById('cancel-change-profile-button');
@@ -48,34 +48,6 @@ darkOverlay.addEventListener('click', function() {
 cancelButton.addEventListener('click', function() {
     darkOverlay.classList.remove('active');
     editProfileForm.style.display = 'none';
-});
-
-
-
-groupNumberInput.addEventListener('blur', async function () {
-    if(groupNumberInput.value.length === 0) {
-        groupNumberInput.style.borderBottom = '';
-        return;
-    }
-
-    if(groupNumberInput.value == groupNumber) {
-        groupNumberIsOk = true;
-        groupNumberInput.style.borderBottom = '';
-        await sendMessageWithDelay(invalidMessage, '', '', 4000);
-        return;
-    }
-
-    let groupExists = (await fetchData('/group/number/'+groupNumberInput.value+'/exists'));
-    if(groupExists) {
-        groupNumberIsOk = true;
-        groupNumberInput.style.borderBottom = '';
-        await sendMessageWithDelay(invalidMessage, '', '', 4000);
-        return;
-    }
-
-    groupNumberIsOk = false;
-    groupNumberInput.style.borderBottom = invalidBorder;
-    await sendMessageWithDelay(invalidMessage, 'Invalid group number', '', 4000);
 });
 
 usernameInput.addEventListener('blur', async function() {
@@ -198,7 +170,7 @@ passwordInput.addEventListener('blur', async function() {
 saveButton.addEventListener('click', async function () {
     event.preventDefault();
 
-    if (firstNameInput.value.length === 0 || lastNameInput.value.length === 0 || groupNumberInput.value.length === 0 ||
+    if (firstNameInput.value.length === 0 || lastNameInput.value.length === 0 ||
         usernameInput.value.length === 0 || (passwordInput.value.length !== 0 && repeatedPasswordInput.value.length === 0)) {
         await sendMessageWithDelay(invalidMessage, 'NOT all fields are filled', '', 4000);
         return;
@@ -250,7 +222,7 @@ saveButton.addEventListener('click', async function () {
 
 function isAllFieldsNotChanged() {
     return passwordInput.value.length === 0 && firstNameInput.value === firstName &&
-        lastNameInput.value === lastName && Number.parseInt(groupNumberInput.value) === groupNumber &&
+        lastNameInput.value === lastName &&
         usernameInput.value === username;
 }
 

@@ -20,7 +20,7 @@
 .button {
     cursor: pointer;
     font-size: 0.9em;
-    color: var(--fadedBlue);
+    color: var(--fadedBlueHover);
     height: 2.7em;
     font-family: 'Montserrat', sans-serif;
     font-weight: bold;

@@ -79,7 +79,7 @@ public class UserService {
 		long userId = CookieUtils.getUserId(request);
 		UserEntity userEntity = userRepository.getUserEntityByUserId(userId);
 		long roleId = userEntity.getRoleId();
-		long groupId = groupService.getGroupIdByNumber(user.getGroupNumber());
+		long groupId = userEntity.getGroupId();
 
 		fillUser(user, userId, roleId, groupId);
 		if(!user.getPassword().isEmpty()) {
@@ -90,9 +90,9 @@ public class UserService {
 		userRepository.save(user.toUserEntityWithOutPasswordEncryption());
 	}
 
-	private void fillUser(User user, long userId, long roleId, long grouId) {
+	private void fillUser(User user, long userId, long roleId, long groupId) {
 		user.setUserId(userId);
 		user.setRoleId(roleId);
-		user.setGroupId(grouId);
+		user.setGroupId(groupId);
 	}
 }

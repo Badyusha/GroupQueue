@@ -78,6 +78,10 @@
     padding-top: 0.2em;
 }
 
+#group-number-input:disabled {
+    background-color: var(--blueGray);
+}
+
 #sign-up-form-button {
     width: 27em;
     margin: 1em 0.5em 1em 0.5em;
