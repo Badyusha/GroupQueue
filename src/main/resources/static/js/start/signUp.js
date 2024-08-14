@@ -80,7 +80,7 @@ usernameInput.addEventListener('blur', async function() {
     if(!numberIsInRange(usernameInput.value.length, USERNAME_MIN_LEN, USERNAME_MAX_LEN)) {
         usernameIsOk = false;
         usernameInput.style.borderBottom = invalidBorder;
-        sendMessageWithDelay(invalidMessage, 'username.length is NOT in range['+USERNAME_MIN_LEN+
+        await sendMessageWithDelay(invalidMessage, 'username.length is NOT in range['+USERNAME_MIN_LEN+
             ','+USERNAME_MAX_LEN+']', '', 4000);
         return;
     }
@@ -106,7 +106,7 @@ firstNameInput.addEventListener('blur', async function() {
     if(!numberIsInRange(firstNameInput.value.length, NAME_MIN_LEN, NAME_MAX_LEN)) {
         firstNameIsOk = false;
         firstNameInput.style.borderBottom = invalidBorder;
-        sendMessageWithDelay(invalidMessage, 'firstName.length is NOT in range['+NAME_MIN_LEN+
+        await sendMessageWithDelay(invalidMessage, 'firstName.length is NOT in range['+NAME_MIN_LEN+
             ','+NAME_MAX_LEN+']', '', 4000);
         return;
     }
@@ -125,7 +125,7 @@ lastNameInput.addEventListener('blur', async function() {
     if(!numberIsInRange(lastNameInput.value.length, NAME_MIN_LEN, NAME_MAX_LEN)) {
         lastNameIsOk = false;
         lastNameInput.style.borderBottom = invalidBorder;
-        sendMessageWithDelay(invalidMessage, 'firstName.length is NOT in range['+NAME_MIN_LEN+
+        await sendMessageWithDelay(invalidMessage, 'firstName.length is NOT in range['+NAME_MIN_LEN+
             ','+NAME_MAX_LEN+']', '', 4000);
         return;
     }
@@ -145,7 +145,7 @@ repeatedPasswordInput.addEventListener('blur', async function() {
         repeatedPasswordIsOk = false;
         passwordInput.style.borderBottom = invalidBorder;
         repeatedPasswordInput.style.borderBottom = invalidBorder;
-        sendMessageWithDelay(invalidMessage, 'Passwords does NOT match', '', 4000);
+        await sendMessageWithDelay(invalidMessage, 'Passwords does NOT match', '', 4000);
         return;
     }
 
@@ -164,7 +164,7 @@ passwordInput.addEventListener('blur', async function() {
     if(passwordInput.value.length < PSSWD_MIN_LEN) {
         passwordIsOk = false;
         passwordInput.style.borderBottom = invalidBorder;
-        sendMessageWithDelay(invalidMessage, 'password.length is NOT in range[4,...)', '', 4000);
+        await sendMessageWithDelay(invalidMessage, 'password.length is NOT in range[4,...)', '', 4000);
         return;
     }
 
@@ -172,7 +172,7 @@ passwordInput.addEventListener('blur', async function() {
         repeatedPasswordIsOk = true;
         passwordInput.style.borderBottom = '';
         repeatedPasswordInput.style.borderBottom = '';
-        sendMessageWithDelay(invalidMessage, '', '', 4000);
+        await sendMessageWithDelay(invalidMessage, '', '', 4000);
     }
 
     passwordIsOk = true;
@@ -182,20 +182,18 @@ passwordInput.addEventListener('blur', async function() {
 
 
 
-signUpButton.addEventListener('click', function() {
+signUpButton.addEventListener('click', async function () {
     event.preventDefault();
 
-    if(firstNameInput.value.length === 0 || lastNameInput.value.length === 0 || groupNumberInput.value.length === 0 ||
-        usernameInput.value.length === 0 || passwordInput.value.length === 0 || repeatedPasswordInput.value.length === 0)
-    {
-        sendMessageWithDelay(invalidMessage, 'NOT all fields are filled', '', 4000);
+    if (firstNameInput.value.length === 0 || lastNameInput.value.length === 0 || groupNumberInput.value.length === 0 ||
+        usernameInput.value.length === 0 || passwordInput.value.length === 0 || repeatedPasswordInput.value.length === 0) {
+        await sendMessageWithDelay(invalidMessage, 'NOT all fields are filled', '', 4000);
         return;
     }
 
-    if(!firstNameIsOk || !lastNameIsOk || !usernameIsOk
-        || !groupNumberIsOk || !passwordIsOk || !repeatedPasswordIsOk)
-    {
-        sendMessageWithDelay(invalidMessage, 'Some fields are invalid', '', 4000);
+    if (!firstNameIsOk || !lastNameIsOk || !usernameIsOk
+        || !groupNumberIsOk || !passwordIsOk || !repeatedPasswordIsOk) {
+        await sendMessageWithDelay(invalidMessage, 'Some fields are invalid', '', 4000);
         return;
     }
 
@@ -213,11 +211,11 @@ signUpButton.addEventListener('click', function() {
             username: usernameInput.value,
             password: passwordInput.value
         }),
-        success: function(response) {
+        success: function (response) {
             window.location.replace('/user/main_page');
         },
-        error: function(response) {
-            sendMessageWithDelay(invalidMessage, 'System error', '', 4000);
+        error: async function (response) {
+            await sendMessageWithDelay(invalidMessage, 'System error', '', 4000);
             console.error("Error while registration: " + response.data)
         }
     });

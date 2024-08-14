@@ -27,6 +27,12 @@ public class UserController {
 	}
 
 	@ResponseBody
+	@GetMapping("/user/password/{password}/matches")
+	public boolean isPasswordMatches(HttpServletRequest request, @PathVariable String password) {
+		return userService.isPasswordMatches(request, password);
+	}
+
+	@ResponseBody
 	@GetMapping("/user/get_info")
 	public User getUserInfo(HttpServletRequest request) {
 		return userService.getUserInfo(request);

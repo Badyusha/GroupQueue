@@ -43,7 +43,7 @@ public class User {
 		return new UserEntity(userId, groupId, roleId, username, firstName, lastName, EncryptionUtils.hashData(password));
 	}
 
-	public UserEntity toUserEntityWithoutPasswordEncryption() {
+	public UserEntity toUserEntityWithOutPasswordEncryption() {
 		return new UserEntity(userId, groupId, roleId, username, firstName, lastName, password);
 	}
 

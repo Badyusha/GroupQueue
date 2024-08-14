@@ -7,6 +7,7 @@ import com.example.groupqueue.repo.UserRepository;
 import com.example.groupqueue.utils.CookieUtils;
 import com.example.groupqueue.utils.EncryptionUtils;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -27,6 +28,12 @@ public class UserService {
 
 	public boolean isUsernameExist(String username) {
 		return userRepository.isUsernameExist(username);
+	}
+
+	public boolean isPasswordMatches(HttpServletRequest request, String password) {
+		String hashedPassword = EncryptionUtils.hashData(password);
+		String userPassword = userRepository.getPasswordByUserId(CookieUtils.getUserId(request));
+		return hashedPassword.equals(userPassword);
 	}
 
 	public Long getUserIdByUsername(User user) {
@@ -72,16 +79,20 @@ public class UserService {
 		long userId = CookieUtils.getUserId(request);
 		UserEntity userEntity = userRepository.getUserEntityByUserId(userId);
 		long roleId = userEntity.getRoleId();
+		long groupId = groupService.getGroupIdByNumber(user.getGroupNumber());
 
-		user.setUserId(userId);
-		user.setRoleId(roleId);
-		user.setGroupId(groupService.getGroupIdByNumber(user.getGroupNumber()));
+		fillUser(user, userId, roleId, groupId);
 		if(!user.getPassword().isEmpty()) {
 			userRepository.save(user.toUserEntityWithPasswordEncryption());
 			return;
 		}
-
 		user.setPassword(userEntity.getPassword());
-		userRepository.save(user.toUserEntityWithoutPasswordEncryption());
+		userRepository.save(user.toUserEntityWithOutPasswordEncryption());
+	}
+
+	private void fillUser(User user, long userId, long roleId, long grouId) {
+		user.setUserId(userId);
+		user.setRoleId(roleId);
+		user.setGroupId(grouId);
 	}
 }
