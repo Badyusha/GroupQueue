@@ -24,4 +24,5 @@ public class Lesson {
 	private DayOfWeek dayOfWeek;
 	private LocalDate date;
 	private WeekType weekType;
+	private boolean isRegistrationOpen;
 }

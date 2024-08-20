@@ -23,6 +23,15 @@ public class UserController {
 		return "views/user/mainPage";
 	}
 
+
+	@GetMapping("/user/queues")
+	public String getQueues(HttpServletRequest request) {
+		if(!CookieUtils.isCookiesExists(request)) {
+			return "redirect:/";
+		}
+		return "views/user/userQueues";
+	}
+
 	@ResponseBody
 	@GetMapping("/user/username/{username}/exists")
 	public boolean isUsernameExist(@PathVariable String username) {
@@ -35,8 +44,8 @@ public class UserController {
 		return userService.isPasswordMatches(request, password);
 	}
 
-	@ResponseBody
 	@GetMapping("/user/get_info")
+	@ResponseBody
 	public User getUserInfo(HttpServletRequest request) {
 		return userService.getUserInfo(request);
 	}
@@ -45,5 +54,11 @@ public class UserController {
 	public void editProfile(HttpServletResponse response, HttpServletRequest request, @RequestBody User user) {
 		userService.editProfile(request, user);
 		CookieUtils.addRequired(response, user);
+	}
+
+	@DeleteMapping("/user/delete")
+	public void deleteUser(HttpServletRequest request, HttpServletResponse response) {
+		userService.deleteUserByUserId(request);
+		CookieUtils.deleteAllCookies(response, request);
 	}
 }

@@ -14,9 +14,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class ScheduleController {
 	private final ScheduleService scheduleService;
 
-	// TODO
 	@GetMapping("/schedule/get")
 	public Schedule getSchedule(HttpServletRequest request) {
 		return scheduleService.getDayOfWeekScheduleList(request);
+	}
+
+	@GetMapping("/week/current")
+	public int getCurrentWeek() {
+		return scheduleService.getCurrentWeek();
 	}
 }

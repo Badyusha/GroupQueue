@@ -14,7 +14,7 @@ public class RegistrationService {
 		long groupId = groupService.getGroupIdByNumber(user.getGroupNumber());
 		user.setGroupId(groupId);
 		userService.saveUser(user);
-		long userId = userService.getUserIdByUsername(user);
+		long userId = userService.getUserIdByUser(user);
 		user.setUserId(userId);
 	}
 }

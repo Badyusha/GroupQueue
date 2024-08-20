@@ -1,7 +1,21 @@
+const overlay = document.getElementById('dark-overlay');
+const showUserQueuesButton = document.getElementById('user-queues');
+
+showUserQueuesButton.addEventListener('click', function () {
+    window.location.href = '/user/queues';
+});
+
+document.addEventListener('DOMContentLoaded', async function() {
+    await drawSchedule();
+    await fillSideMenu();
+    await fillCurrentWeek();
+});
+
+
+
 async function fetchData(requestText) {
     let response = await fetch(requestText);
-    let schedule = await response.json();
-    return schedule;
+    return await response.json();
 }
 
 function formatDate(dateString) {
@@ -34,19 +48,17 @@ function removeSecondsFromTime(timeString) {
     return timeString;
 }
 
-function signToQueue(lessonId) {
-    console.log(lessonId);
-}
-
-function cancelRegister(lessonId) {
-    console.log(lessonId);
-}
-
 function showQueue(queueId) {
     console.log(queueId);
 }
 
-function drawSchedule(schedule) {
+async function fillCurrentWeek() {
+    let currentWeek = await fetchData('/week/current');
+    document.getElementById('current-week').innerHTML = `Current week: ${currentWeek}`;
+}
+
+async function drawSchedule() {
+    let schedule = await fetchData('/schedule/get');
     for (const dayOfWeek in schedule) {
         let dayCell = document.getElementById(`${dayOfWeek}-schedule`);
         if (!dayCell) continue;
@@ -62,27 +74,37 @@ function drawSchedule(schedule) {
             let subjectName = removeTextAfterParenthesis(lesson.subjectName);
             let subjectFullName = lesson.subjectFullName;
             let startTime = removeSecondsFromTime(lesson.startTime);
-            let subgroupType = (lesson.subgroupType == 'ALL') ? 'общ.' :
-                                                (lesson.subgroupType == 'FIRST') ? '1 под.' : '2 под.';
+            let subgroupType = (lesson.subgroupType === 'ALL') ? 'all' :
+                                                (lesson.subgroupType === 'FIRST') ? '1 sub.' : '2 sub.';
             let isRegisteredInQueue = lesson.registeredInQueue;
             let numberInQueue = lesson.numberInQueue;
             let queueId = lesson.queueId;
+            let isRegistrationOpen = lesson.registrationOpen;
             let status = `
                             <div class="status">
-                                <a onclick="signToQueue(${lessonId})" class="sign-up-to-queue">
-                                    Записаться
+                                <a onclick="showLabRegistrationForm(${lessonId}, '${startTime}',
+                                                            '${subjectName}', '${subgroupType}', '${dayOfWeek}')" 
+                                                            class="register-to-queue">
+                                    Register
                                 </a>
                             </div>
             `;
-
-            if(isRegisteredInQueue) {
+            if(!isRegistrationOpen) {
                 status = `
-                    <div style="display: grid; margin-top: 0.4em; margin-right: 1em">
-                        <label class="signed-up-status">
-                            Записан
+                    <div class="status">
+
+                    </div>
+                `
+            }
+
+            if (isRegisteredInQueue) {
+                status = `
+                    <div class="leave-status">
+                        <label class="registered-up-status">
+                            Registered
                         </label>
-                        <a onclick="cancelRegister(${lessonId})" class="cancel-register-status">
-                            Отменить запись?
+                        <a onclick="showLeaveLabRegistrationForm(${lessonId})" class="leave-register-status">
+                            Leave?
                         </a>
                     </div>
                 `;
@@ -90,9 +112,9 @@ function drawSchedule(schedule) {
 
             if(numberInQueue !== null) {
                 status = `
-                    <div class="status">
+                    <div class="queue-position-status">
                         <a onclick="showQueue(${queueId})" class="number-in-queue-text-status">
-                            Ты <label style="color: white">${numberInQueue}</label> в очереди
+                            You are #<label style="color: white">${numberInQueue}</label> in Q
                         </a>
                     </div>
                 `;
@@ -120,9 +142,11 @@ function drawSchedule(schedule) {
     }
 }
 
-document.addEventListener('DOMContentLoaded', async function() {
-    let schedule = await fetchData('/schedule/get');
-    await fillSideMenu();
-    drawSchedule(schedule);
-});
 
+overlay.addEventListener('click', function() {
+    overlay.classList.remove('active');
+    registerToQueueContainer.style.display = 'none';
+    leaveLabRegistrationContainer.style.display = 'none';
+    deleteAccountForm.style.display = 'none';
+    passingLabsList.value = '';
+});

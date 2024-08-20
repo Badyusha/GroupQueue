@@ -9,6 +9,6 @@ import java.util.List;
 public interface PreQueueRepository extends CrudRepository<PreQueueEntity, Long> {
 	@Query(value = "select preQueue " +
 			"from PreQueueEntity preQueue " +
-			"where preQueue.userEntity.id = ?1")
-	List<PreQueueEntity> getPreQueueEntityListByUserId(long userId);
+			"where preQueue.lessonId = ?1")
+	PreQueueEntity getPreQueueEntityListByLessonId(long lessonId);
 }

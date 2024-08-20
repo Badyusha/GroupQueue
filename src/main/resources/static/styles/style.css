@@ -14,6 +14,10 @@
     --blueHover: #84a1cc;
     --whiteBlue: #d5e9fc;
 
+    --black20perc: rgba(0, 0, 0, 0.2);
+    --red10perc: rgba(217, 74, 74, 0.1);
+    --red80perc: rgba(217, 74, 74, 0.8);
+
     --red: #D94A4A;
     --green: #7EAE6D;
     --yellow: #E9C771;

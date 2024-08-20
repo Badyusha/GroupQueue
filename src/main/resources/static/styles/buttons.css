@@ -17,13 +17,28 @@
     border-radius: 0.7em;
 }
 
+.red-button {
+    cursor: pointer;
+    font-size: 0.9em;
+    color: var(--red);
+    height: 2.7em;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    padding: 0.6em;
+    width: 100%;
+    white-space: nowrap;
+    background-color: var(--red10perc);
+    border: 0.13em solid var(--red);
+    border-radius: 0.7em;
+}
+
 .button {
     cursor: pointer;
     font-size: 0.9em;
-    color: var(--fadedBlueHover);
+    color: var(--fadedBlue);
     height: 2.7em;
     font-family: 'Montserrat', sans-serif;
-    font-weight: bold;
+    font-weight: 600;
     padding: 0.6em;
     width: 100%;
     white-space: nowrap;
@@ -36,4 +51,9 @@
 
 .light-button:hover {
     background-color: var(--blueHover);
+}
+
+.red-button:hover {
+    color: var(--red80perc);
+    border-color: var(--red80perc);
 }

@@ -7,7 +7,6 @@ import com.example.groupqueue.repo.UserRepository;
 import com.example.groupqueue.utils.CookieUtils;
 import com.example.groupqueue.utils.EncryptionUtils;
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -18,7 +17,6 @@ import java.util.List;
 public class UserService {
 	private final UserRepository userRepository;
 	private final RoleService roleService;
-	private final GroupService groupService;
 
 	public void saveUser(User user) {
 		long roleId = roleService.getRoleIdByType(RoleType.USER);
@@ -36,7 +34,7 @@ public class UserService {
 		return hashedPassword.equals(userPassword);
 	}
 
-	public Long getUserIdByUsername(User user) {
+	public Long getUserIdByUser(User user) {
 		return userRepository.getIdByUsername(user.getUsername());
 	}
 
@@ -88,6 +86,11 @@ public class UserService {
 		}
 		user.setPassword(userEntity.getPassword());
 		userRepository.save(user.toUserEntityWithOutPasswordEncryption());
+	}
+
+	public void deleteUserByUserId(HttpServletRequest request) {
+		long userId = CookieUtils.getUserId(request);
+		userRepository.deleteById(userId);
 	}
 
 	private void fillUser(User user, long userId, long roleId, long groupId) {

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Main page</title>
 
     <link rel="stylesheet" href="/styles/style.css">
     <link rel="stylesheet" href="/styles/mainPage/mainPage.css">
@@ -25,7 +25,8 @@
 
     <div class="week-schedule-container">
         <div class="current-week-container">
-            <label id="current-week">Current week: 3</label>
+            <label id="current-week"></label>
+            <label class="registration-info">Registration is available from 18:00 the day before lab until hour before lab starts</label>
         </div>
         <div class="week-schedule">
             <table id="week-schedule-table" class="week-schedule-table">
@@ -39,13 +40,13 @@
                     <th id="sunday" class="week"></th>
                 </tr>
                 <tr>
-                    <td id="monday-schedule"></td>
-                    <td id="tuesday-schedule"></td>
-                    <td id="wednesday-schedule"></td>
-                    <td id="thursday-schedule"></td>
-                    <td id="friday-schedule"></td>
-                    <td id="saturday-schedule"></td>
-                    <td id="sunday-schedule"></td>
+                    <td class="schedule" id="monday-schedule"></td>
+                    <td class="schedule" id="tuesday-schedule"></td>
+                    <td class="schedule" id="wednesday-schedule"></td>
+                    <td class="schedule" id="thursday-schedule"></td>
+                    <td class="schedule" id="friday-schedule"></td>
+                    <td class="schedule" id="saturday-schedule"></td>
+                    <td class="schedule" id="sunday-schedule"></td>
                 </tr>
 
             </table>
@@ -53,41 +54,49 @@
     </div>
 
     <div id="side-menu">
-        <div class="username-close-btn">
-            <div class="username-full-name">
-                <label id="full-name"></label>
-                <label id="username"></label>
-                <label id="group-number"></label>
-                <label id="role-type"></label>
+        <div>
+            <div class="username-close-btn">
+                <div class="username-full-name">
+                    <label id="full-name"></label>
+                    <label id="username"></label>
+                    <label id="group-number"></label>
+                    <label id="role-type"></label>
+                </div>
+
+                <div class="close-btn" id="close-menu">&times;</div>
             </div>
 
-            <div class="close-btn" id="close-menu">&times;</div>
+            <div class="horizontal-line"></div>
+
+            <div id="edit-profile" class="menu-variant">
+                <i class="fa-solid fa-user"></i>
+                <label class="menu-label">Edit profile</label>
+            </div>
+
+            <div id="user-queues" class="menu-variant">
+                <i class="fa-solid fa-people-group"></i>
+                <label class="menu-label">Your queues</label>
+            </div>
+
+            <div class="horizontal-line"></div>
+
+            <div id="become-group-admin-variant" class="menu-variant">
+                <i class="fa-solid fa-hand"></i>
+                <label id="become-group-admin" class="menu-label">Become group admin</label>
+            </div>
+
+            <div id="become-group-admin-horizontal-line" class="horizontal-line"></div>
+
+            <div id="sign-out" class="menu-variant">
+                <i class="fa-solid fa-right-from-bracket"></i>
+                <label class="menu-label">Sign out</label>
+            </div>
         </div>
-
-        <div class="horizontal-line"></div>
-
-        <div id="edit-profile" class="menu-variant">
-            <i class="fa-solid fa-user"></i>
-            <label class="menu-label">Edit profile</label>
-        </div>
-
-        <div id="user-queues" class="menu-variant">
-            <i class="fa-solid fa-people-group"></i>
-            <label class="menu-label">Your queues</label>
-        </div>
-
-        <div class="horizontal-line"></div>
-
-        <div id="become-group-admin-variant" class="menu-variant">
-            <i class="fa-solid fa-hand"></i>
-            <label id="become-group-admin" class="menu-label">Become group admin</label>
-        </div>
-
-        <div id="become-group-admin-horizontal-line" class="horizontal-line"></div>
-
-        <div id="sign-out" class="menu-variant">
-            <i class="fa-solid fa-right-from-bracket"></i>
-            <label class="menu-label">Sign out</label>
+        <div>
+            <div id="delete-account" class="menu-variant" onclick="showDeleteAccountForm()">
+                <i class="fa-solid fa-trash" style="color: var(--red)"></i>
+                <label class="delete-account-label">Delete account</label>
+            </div>
         </div>
     </div>
 
@@ -167,6 +176,73 @@
         </div>
     </div>
 
+    <div id="register-to-queue-container" class="register-to-queue-container">
+        <div class="subject-info">
+            <label class="register-to-queue-label">Register to Q</label>
+            <div class="invalid-labs-list">
+                <label id="invalid-labs-list-label"></label>
+            </div>
+            <div class="subject-data">
+                <label for="subject-name">Subject name</label>
+                <input type="text" id="subject-name" class="empty-input" disabled>
+            </div>
+            <div class="subject-data">
+                <label for="subgroup">Subgroup</label>
+                <input type="text" id="subgroup" class="empty-input" disabled>
+            </div>
+            <div class="subject-data">
+                <label for="start-time">Start time</label>
+                <input type="text" id="start-time" class="empty-input" disabled>
+            </div>
+            <div class="subject-data">
+                <label for="passing-labs" title="list of passing labs numbers, divided by ','(comma) or ' '(space)">Passing labs</label>
+                <input type="text" id="passing-labs" class="empty-input" placeholder="1, 2, 3 or 1,2,3 or 1 2 3">
+            </div>
+            <div style="margin-top: 2em;">
+                <button type="submit" id="cancel-register-to-queue-button" class="button dark-button"
+                        style="margin-bottom: 1em">Cancel
+                </button>
+                <button type="submit" id="register-to-queue-button" class="button light-button"
+                        >Register
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div id="leave-lab-registration" class="leave-lab-registration">
+        <div class="leave-lab-registration-container">
+            <div class="leave-lab-registration-text">
+                Are you sure you want to <u>leave</u> the Q?
+            </div>
+            <div id="leave-queue-error"></div>
+            <div>
+                <button type="submit" id="cancel-lab-registration-button" class="button dark-button"
+                        style="margin-bottom: 1em">Cancel
+                </button>
+                <button type="submit" id="leave-lab-registration-button" class="button light-button">
+                    Leave
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div id="delete-account-container" class="leave-lab-registration">
+        <div class="leave-lab-registration-container">
+            <div class="leave-lab-registration-text">
+                Are you sure you want to <u>delete</u> your account?
+            </div>
+            <div id="delete-account-error"></div>
+            <div>
+                <button type="submit" id="cancel-delete-account-button" class="button dark-button"
+                        style="margin-bottom: 1em">Cancel
+                </button>
+                <button type="submit" id="delete-account-button" class="red-button">
+                    Delete
+                </button>
+            </div>
+        </div>
+    </div>
+
     <div id="menu-overlay"></div>
     <div id="dark-overlay"></div>
 
@@ -176,6 +252,10 @@
     <script src="/js/mainPage/schedule.js"></script>
     <script src="/js/mainPage/editProfile.js"></script>
     <script src="/js/mainPage/signOut.js"></script>
+    <script src="/js/mainPage/registerToQueue.js"></script>
+    <script src="/js/mainPage/cancelRegistrationToQueue.js"></script>
+    <script src="/js/mainPage/showUserQueues.js"></script>
+    <script src="/js/mainPage/deleteAccount.js"></script>
 
 
 </body>

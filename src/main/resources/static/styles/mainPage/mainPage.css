@@ -1,9 +1,20 @@
+::placeholder {
+    color: var(--gray);
+    opacity: 1; /* Firefox */
+}
+
+::-ms-input-placeholder { /* Edge 12 -18 */
+    color: var(--gray);
+}
+
 #top-right-div {
     margin-right: 0;
     color: var(--gray);
 }
 
 #side-menu {
+    display: grid;
+    align-content: space-between;
     border-left: 0.15em solid var(--headerBorder);
     border-radius: 1em 0 0 1em;
     cursor: default;
@@ -20,6 +31,13 @@
 }
 #side-menu.active {
     right: 0;
+}
+
+#delete-account {
+    font-size: 0.9em;
+    color: var(--red);
+    font-weight: 500;
+    margin-bottom: 0.7em;
 }
 
 .username-close-btn {
@@ -87,11 +105,16 @@
     margin-right: 1em;
     margin-top: 0.5em;
     padding: 0.2em;
-    gap: 0.5em;
+    gap: 0.1em;
 }
 
 .menu-variant:hover {
     background-color: var(--blueGray);
+    border-radius: 0.5em;
+}
+
+#delete-account:hover {
+    background-color: var(--red10perc);
     border-radius: 0.5em;
 }
 
@@ -130,10 +153,8 @@
 }
 
 #dark-overlay {
-    background-color: rgba(0, 0, 0, 0.7);
+    background-color: rgba(0, 0, 0, 0.75);
 }
-
-
 
 .week-schedule-container {
     width: 100%;
@@ -143,10 +164,17 @@
 }
 
 .current-week-container {
-    width: 94%;
+    gap: 1em;
+    width: 96%;
     margin-top: 2em;
     display: flex;
-    justify-content: left;
+    justify-content: space-between;
+}
+
+.registration-info {
+    font-size: 0.95em;
+    font-weight: 600;
+    color: var(--inputText);
 }
 
 #current-week {
@@ -159,13 +187,16 @@
     margin-top: 0.5em;
     text-align: center;
     align-items: center;
-    width: 95%;
+    width: 97%;
     background-color: var(--darkBlue);
     border: 0.15em solid var(--headerBorder);
     border-radius: 1em;
 }
 
 
+.schedule {
+    vertical-align: top;
+}
 
 .week-schedule-table {
     table-layout: fixed;
@@ -186,11 +217,14 @@
     border-right: none;
 }
 
+.week {
+    padding-bottom: 1em;
+}
+
 .lesson {
-    padding-top: 1em;
     display: flex;
     justify-content: center;
-    padding-bottom: 1em;
+    padding-bottom: 1.7em;
 }
 
 .lesson-container {
@@ -199,24 +233,31 @@
     height: 5.7em;
     border: 0.1em solid var(--headerBorder);
     border-radius: 0.8em;
-    width: 80%;
-    background: linear-gradient(to right, var(--red) 5%, var(--blueGray) 0%);
+    width: 85%;
+    background: linear-gradient(to right, var(--red) 4%, var(--blueGray) 0%);
 }
 
 .subject-date-cabinet-subgroup {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: space-between;
     width: 100%;
     margin-left: 1.2em;
-    display: block;
-    justify-content: center;
+}
+
+.subject-date {
+    margin-top: 0.2em;
 }
 
 .subject-date, .subgroup{
-    margin-top: 0.2em;
     display: flex;
     justify-content: space-between;
+    min-height: 1.2em;
 }
 
 .subject {
+    text-align: left;
     font-size: 1.2em;
     font-weight: 600;
     color: white;
@@ -230,16 +271,28 @@
 }
 
 .subgroup {
+    margin-top: -0.3em;
     font-size: 0.9em;
     font-weight: 500;
     color: var(--inputText);
 }
 
 .status {
-    margin-top: 0.9em;
+    min-height: 1em;
+    margin-bottom: 0.3em;
+    display: flex;
+    justify-content: center;
 }
 
-.sign-up-to-queue, .sign-up-to-queue:visited {
+.queue-position-status, .leave-status {
+    margin-right: 1em;
+}
+
+.leave-status {
+    display: grid;
+}
+
+.register-to-queue, .register-to-queue:visited {
     margin-right: 1em;
     font-size: 0.7em;
     font-weight: 600;
@@ -257,13 +310,13 @@ a {
     font-weight: 600;
 }
 
-.signed-up-status {
+.registered-up-status {
     font-weight: 600;
     font-size: 0.7em;
     color: var(--inputText);
 }
 
-.cancel-register-status {
+.leave-register-status {
     font-weight: 500;
     font-size: 0.68em;
     color: var(--red);
@@ -298,4 +351,101 @@ a {
     color: var(--red);
     font-size: 0.8em;
     font-weight: 600;
+}
+
+.register-to-queue-container {
+    height: 27.7em;
+    width: 22.5em;
+    top: 45%;
+    left: 50%;
+    display: none;
+    position: fixed;
+    transform: translate(-50%, -50%);
+    background-color: var(--darkBlue);
+    box-shadow: 0 0 1em 1em rgba(0, 0, 0, 0.25);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+    border-radius: 2em;
+    z-index: 3;
+}
+
+.leave-lab-registration {
+    height: 15em;
+    width: 22.5em;
+    top: 45%;
+    left: 50%;
+    display: none;
+    position: fixed;
+    transform: translate(-50%, -50%);
+    background-color: var(--darkBlue);
+    box-shadow: 0 0 1em 1em rgba(0, 0, 0, 0.25);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+    border-radius: 2em;
+    z-index: 3;
+}
+
+.register-to-queue-label {
+    color: white;
+    font-size: 2em;
+    font-weight: 600;
+}
+
+.subject-info {
+    max-width: 78%;
+    min-width: 78%;
+    margin-top: 1.7em;
+    text-align: center;
+    display: inline-grid;
+}
+
+.subject-data {
+    align-items: center;
+    margin-top: 0.8em;
+    display: inline-flex;
+    justify-content: space-between;
+}
+
+.subject-data label {
+    color: var(--inputText);
+    font-size: 0.9em;
+    font-weight: 500;
+}
+
+.passing-labs-label {
+    display: inline-grid;
+}
+
+.invalid-labs-list {
+    max-height: 1.2em;
+    min-height: 1.2em;
+    margin-top: 0.2em;
+    margin-bottom: 0.8em;
+}
+
+#invalid-labs-list-label {
+    color: var(--red);
+    font-size: 0.8em;
+    font-weight: 600;
+}
+
+.leave-lab-registration-container {
+    margin: 0 2em 0 2em;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    gap: 1em;
+}
+
+.leave-lab-registration-text {
+    text-align: center;
+    font-size: 1.2em;
+    font-weight: 600;
+}
+
+#leave-queue-error, #delete-account-error {
+    max-height: 1em;
+    min-height: 1em;
+    font-size: 0.8em;
+    font-weight: 500;
+    color: var(--red);
 }

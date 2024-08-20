@@ -29,7 +29,7 @@ async function fillSideMenu() {
     let response = await fetchData('/user/get_info');
 
     let roleType = response.roleType;
-    if(roleType === 'GROUP_ADMIN' || roleType === 'SUDO') {
+    if(roleType !== 'USER') {
         document.getElementById('become-group-admin-variant').remove();
         document.getElementById('become-group-admin-horizontal-line').remove();
     }

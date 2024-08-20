@@ -1,13 +1,7 @@
 package com.example.groupqueue.models.enums;
 
 import com.example.groupqueue.exceptions.WeekTypeException;
-import org.apache.commons.io.IOUtils;
-import java.io.IOException;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.net.URL;
-import java.nio.charset.StandardCharsets;
-import java.time.LocalTime;
+import com.example.groupqueue.external.api.BsuirAPI;
 
 public enum WeekType {
 	FIRST,
@@ -15,11 +9,8 @@ public enum WeekType {
 	THIRD,
 	FOURTH;
 
-	private static final String CURRENT_WEEK_URL = "https://iis.bsuir.by/api/v1/schedule/current-week";
-	public static final LocalTime TIME_TO_GENERATE_NEW_SCHEDULE = LocalTime.of(18, 0);
-
 	public static WeekType getCurrentWeekType() throws WeekTypeException {
-		return switch(getCurrentWeekViaApi()) {
+		return switch(BsuirAPI.getCurrentWeek()) {
 			case 1 -> FIRST;
 			case 2 -> SECOND;
 			case 3 -> THIRD;
@@ -49,7 +40,7 @@ public enum WeekType {
 	}
 
 	public static WeekType getNextWeekType() throws WeekTypeException {
-		int nextWeek = getCurrentWeekViaApi() + 1;
+		int nextWeek = BsuirAPI.getCurrentWeek() + 1;
 		return switch(nextWeek) {
 			case 2 -> SECOND;
 			case 3 -> THIRD;
@@ -57,18 +48,6 @@ public enum WeekType {
 			case 5 -> FIRST;
 			default -> throw new WeekTypeException("failed to get next week type");
 		};
-	}
-
-	public static int getCurrentWeekViaApi() {
-		int currentWeek = 0;
-		try {
-			URL url = new URI(CURRENT_WEEK_URL).toURL();
-			currentWeek = Integer.parseInt(IOUtils.toString(url, StandardCharsets.UTF_8));
-		} catch(URISyntaxException | IOException e) {
-			System.err.println("Cannot get current week in GroupScheduleService.makeGetGroupScheduleRequest");
-			e.printStackTrace();
-		}
-		return currentWeek;
 	}
 
 	public static WeekType getWeekTypeByNumber(int weekNumber) {

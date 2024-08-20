@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Your queues</title>
+
+    <link rel="stylesheet" href="/styles/style.css">
+    <link rel="stylesheet" href="/styles/userQueues/userQueues.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+</head>
+<body>
+    <header>
+        <div id="logo">
+            <img src="/images/startPage/logo.png" alt="logo">
+            <span id="group-queue-logo-name">roupQ</span>
+        </div>
+    </header>
+
+    <div class="back-container">
+        <a href="/user/main_page">
+            Back
+        </a>
+    </div>
+
+    <div class="queues">
+        <div class="queues-container">
+            <table id="queues-table">
+                <tr>
+                    <th>
+                        Subject name
+                    </th>
+                    <th>
+                        Date
+                    </th>
+                    <th>
+                        Start time
+                    </th>
+                    <th>
+                        Subgroup
+                    </th>
+                    <th>
+                        Passing labs
+                    </th>
+                    <th>
+                        Registration status
+                    </th>
+                    <th>
+                        Number in Q
+                    </th>
+                    <th>
+                        Total number of students
+                    </th>
+                </tr>
+                <tr>
+                    <td>САИПиС</td>
+                    <td>12.09.2024</td>
+                    <td>9:00</td>
+                    <td>1</td>
+                    <td>1, 2, 3</td>
+                    <td class="status-closed">Closed</td>
+                    <td class="number-in-queue">3</td>
+                    <td>12</td>
+                </tr>
+                <tr>
+                    <td>Dddsvdfvfd</td>
+                    <td>12.09.2024</td>
+                    <td>12:25</td>
+                    <td>1</td>
+                    <td>1, 2, 3</td>
+                    <td class="status-open">Open</td>
+                    <td class="queue-not-ready" title="Registration is not finished yet">—</td>
+                    <td>7</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <script src="/js/mainPage/showUserQueues.js"></script>
+
+</body>
+</html>

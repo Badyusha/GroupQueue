@@ -58,6 +58,7 @@
 }
 
 #sign-in-username-input, #sign-in-password-input {
+    font-family: 'Montserrat', sans-serif;
     color: var(--inputText);
     font-weight: 600;
     width: 21em;

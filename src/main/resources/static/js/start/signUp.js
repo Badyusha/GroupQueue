@@ -17,8 +17,12 @@ function numberIsInRange(num, min, max) {
 }
 
 async function fetchData(requestText) {
-    let response = await fetch(requestText);
-    return await response.text();
+    try {
+        let response = await fetch(requestText);
+        return await response.text();
+    } catch (e) {
+        console.log(e);
+    }
 }
 
 

@@ -66,7 +66,8 @@
 
 #first-name-input, #last-name-input,
 #group-number-input, #sign-up-username-input,
-#sign-up-password-input, #repeated-password-input {
+#sign-up-password-input, #repeated-password-input, .empty-input {
+    font-family: 'Montserrat', sans-serif;
     color: var(--inputText);
     font-weight: 600;
     width: 11.5em;
@@ -78,7 +79,8 @@
     padding-top: 0.2em;
 }
 
-#group-number-input:disabled {
+#group-number-input:disabled,
+.empty-input:disabled {
     background-color: var(--blueGray);
 }
 

@@ -1,0 +1,67 @@
+.back-container {
+    margin: 1em 0 0 1.5em;
+    display: flex;
+    justify-content: left;
+}
+
+.back-container a, .back-container a:visited {
+    font-size: 0.9em;
+    font-weight: 600;
+    color: var(--gray);
+}
+
+.queues {
+    margin-top: 1em;
+    display: flex;
+    justify-content: center;
+}
+
+.queues-container {
+    border: 0.1em solid var(--headerBorder);
+    border-radius: 0.7em;
+    background-color: var(--darkBlue);
+    width: 96%;
+}
+
+#queues-table {
+    width: 100%;
+    border-collapse: collapse;
+    border-spacing: 1.5em 1em;
+}
+
+tr:nth-child(even) {
+    background-color: var(--black20perc);
+}
+
+td {
+    border-top: 0.1em solid var(--headerBorder);
+    vertical-align: top;
+}
+
+th, td {
+    cursor: default;
+    padding: 0.9em 1.5em 0.9em 1.5em;
+    text-align: left;
+    color: var(--inputText);
+    font-weight: 600;
+}
+
+td {
+    font-weight: 500;
+}
+
+.status-closed {
+    color: var(--red) !important;
+}
+
+.status-open {
+    color: var(--green) !important;
+}
+
+.number-in-queue {
+    color: white !important;
+}
+
+.queue-not-ready {
+    color: var(--gray) !important;
+}

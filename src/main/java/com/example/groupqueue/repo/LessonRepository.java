@@ -30,7 +30,6 @@ public interface LessonRepository extends CrudRepository<LessonEntity, Long> {
 				"ON queue.lessonId = lesson.id AND queue.userId = ?1 " +
 			"WHERE schedule.groupId = ?2 " +
 			"ORDER BY " +
-				"schedule.dayOfWeek ASC, " +
 				"schedule.startTime ASC")
 	List<Object[]> getScheduleInfoByUserIdGroupId(long userId, long groupId);
 }

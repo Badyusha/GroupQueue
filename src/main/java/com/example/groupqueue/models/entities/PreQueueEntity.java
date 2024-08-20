@@ -5,6 +5,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+import java.util.List;
+
 @Data
 @NoArgsConstructor
 @ToString
@@ -30,4 +32,13 @@ public class PreQueueEntity {
 
 	@Column(name = "user_id")
 	private Long userId;
+
+	@Column(name = "passing_labs", columnDefinition = "BLOB")
+	private byte[] passingLabs;
+
+	public PreQueueEntity(long lessonId, long userId, byte[] passingLabs) {
+		this.lessonId = lessonId;
+		this.userId = userId;
+		this.passingLabs = passingLabs;
+	}
 }

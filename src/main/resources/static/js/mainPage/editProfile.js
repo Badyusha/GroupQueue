@@ -29,8 +29,7 @@ let usernameIsOk = true;
 let passwordIsOk = true;
 let repeatedPasswordIsOk = true;
 
-editProfile.addEventListener('click',
-                                                            async function() {
+editProfile.addEventListener('click', async function() {
 
     fillProfileInputs();
 
