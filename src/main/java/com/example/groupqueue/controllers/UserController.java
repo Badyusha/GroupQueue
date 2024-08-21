@@ -44,7 +44,7 @@ public class UserController {
 		return userService.isPasswordMatches(request, password);
 	}
 
-	@GetMapping("/user/get_info")
+	@GetMapping("/user/get/info")
 	@ResponseBody
 	public User getUserInfo(HttpServletRequest request) {
 		return userService.getUserInfo(request);
@@ -60,5 +60,11 @@ public class UserController {
 	public void deleteUser(HttpServletRequest request, HttpServletResponse response) {
 		userService.deleteUserByUserId(request);
 		CookieUtils.deleteAllCookies(response, request);
+	}
+
+	@GetMapping("/user/get/role")
+	@ResponseBody
+	public String getUserRole(HttpServletRequest request) {
+		return userService.getUserRoleByUserId(request);
 	}
 }

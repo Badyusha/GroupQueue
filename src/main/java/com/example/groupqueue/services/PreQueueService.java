@@ -3,6 +3,7 @@ package com.example.groupqueue.services;
 import com.example.groupqueue.exceptions.QueueException;
 import com.example.groupqueue.models.dto.Lesson;
 import com.example.groupqueue.models.dto.PreQueue;
+import com.example.groupqueue.models.entities.PreQueueEntity;
 import com.example.groupqueue.models.enums.DayOfWeek;
 import com.example.groupqueue.repo.PreQueueRepository;
 import com.example.groupqueue.utils.CookieUtils;
@@ -18,8 +19,9 @@ import java.time.LocalTime;
 public class PreQueueService {
 	private final PreQueueRepository preQueueRepository;
 
-	public void removeUserFromPreQueueByLessonId(long lessonId) {
-		preQueueRepository.delete(preQueueRepository.getPreQueueEntityListByLessonId(lessonId));
+	public void removeUserFromPreQueueByLessonId(HttpServletRequest request, long lessonId) {
+		long userId = CookieUtils.getUserId(request);
+		preQueueRepository.delete(preQueueRepository.getPreQueueEntityByUserIdLessonId(userId, lessonId));
 	}
 
 	public void addUserToPreQueue(HttpServletRequest request, PreQueue preQueue) {

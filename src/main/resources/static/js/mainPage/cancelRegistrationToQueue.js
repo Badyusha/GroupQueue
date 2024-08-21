@@ -13,7 +13,7 @@ cancelLeavingRegistrationButton.addEventListener('click', function() {
 leaveRegistrationButton.addEventListener('click', function() {
    event.preventDefault();
     $.ajax({
-        type: 'POST',
+        type: 'DELETE',
         url: '/pre_queue/remove/user',
         headers: {
             'Accept': 'application/json',

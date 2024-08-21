@@ -26,7 +26,7 @@ menuOverlay.addEventListener('click', function() {
 
 
 async function fillSideMenu() {
-    let response = await fetchData('/user/get_info');
+    let response = await fetchData('/user/get/info');
 
     let roleType = response.roleType;
     if(roleType !== 'USER') {

@@ -114,7 +114,7 @@ async function drawSchedule() {
                 status = `
                     <div class="queue-position-status">
                         <a onclick="showQueue(${queueId})" class="number-in-queue-text-status">
-                            You are #<label style="color: white">${numberInQueue}</label> in Q
+                            You are <label style="color: white">${numberInQueue}</label> in Q
                         </a>
                     </div>
                 `;

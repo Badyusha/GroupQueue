@@ -55,4 +55,11 @@ public interface UserRepository extends CrudRepository<UserEntity, Long> {
 			"FROM UserEntity user " +
 			"WHERE user.id = ?1")
 	UserEntity getUserEntityByUserId(long userId);
+
+	@Query(value = "SELECT r.name " +
+				"FROM RoleEntity r " +
+				"JOIN UserEntity u " +
+				"ON u.roleId = r.id " +
+				"WHERE u.id = ?1")
+	String getUserRoleByUserId(long userId);
 }

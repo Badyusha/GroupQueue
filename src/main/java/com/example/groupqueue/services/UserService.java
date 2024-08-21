@@ -93,6 +93,11 @@ public class UserService {
 		userRepository.deleteById(userId);
 	}
 
+	public String getUserRoleByUserId(HttpServletRequest request) {
+		long userId = CookieUtils.getUserId(request);
+		return userRepository.getUserRoleByUserId(userId);
+	}
+
 	private void fillUser(User user, long userId, long roleId, long groupId) {
 		user.setUserId(userId);
 		user.setRoleId(roleId);
