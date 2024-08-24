@@ -11,8 +11,8 @@ import java.util.List;
 public interface LessonRepository extends CrudRepository<LessonEntity, Long> {
 	@Query(value = "select lesson " +
 			"from LessonEntity lesson " +
-			"where lesson.scheduleEntity.id = ?1")
-	LessonEntity getLessonEntityByScheduleId(long scheduleId);
+			"where lesson.id = ?1")
+	LessonEntity getLessonEntityById(long scheduleId);
 
 	@Query("SELECT new com.example.groupqueue.models.dto.Lesson" +
 			"(" +
@@ -47,5 +47,4 @@ public interface LessonRepository extends CrudRepository<LessonEntity, Long> {
 			"WHERE schedule.groupId = ?2 " +
 			"ORDER BY schedule.startTime ASC")
 	List<Lesson> getScheduleInfoByUserIdGroupId(long userId, long groupId);
-
 }

@@ -9,7 +9,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-
 @Controller
 @RequiredArgsConstructor
 public class UserController {
@@ -23,7 +22,6 @@ public class UserController {
 		return "views/user/mainPage";
 	}
 
-
 	@GetMapping("/user/queues")
 	public String getQueues(HttpServletRequest request) {
 		if(!CookieUtils.isCookiesExists(request)) {
@@ -32,14 +30,20 @@ public class UserController {
 		return "views/user/userQueues";
 	}
 
-	@ResponseBody
 	@GetMapping("/user/username/{username}/exists")
+	@ResponseBody
 	public boolean isUsernameExist(@PathVariable String username) {
 		return userService.isUsernameExist(username);
 	}
 
+	@GetMapping("/user/{roleType}/is_user_role")
 	@ResponseBody
+	public boolean isItUserRoleType(HttpServletRequest request, @PathVariable String roleType) {
+		return userService.isItUserRole(request, roleType);
+	}
+
 	@GetMapping("/user/password/{password}/matches")
+	@ResponseBody
 	public boolean isPasswordMatches(HttpServletRequest request, @PathVariable String password) {
 		return userService.isPasswordMatches(request, password);
 	}

@@ -12,6 +12,7 @@
 }
 
 .light-button {
+    color: var(--fadedBlueHover) !important;
     background-color: var(--blue);
     border: 0.13em solid var(--fadedBlue);
     border-radius: 0.7em;

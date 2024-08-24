@@ -1,5 +1,6 @@
 package com.example.groupqueue.models.entities;
 
+import com.example.groupqueue.models.enums.PermissionType;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -17,6 +18,7 @@ public class PermissionEntity {
 	@Column(name = "id")
 	private Long id;
 
-	@Column(name = "name", columnDefinition = "varchar(30)")
-	private String name;
+	@Enumerated(EnumType.STRING)
+	@Column(name = "name", columnDefinition = "ENUM('BECOME_GROUP_ADMIN','CHOOSE_SORT_TYPE')")
+	private PermissionType permissionType;
 }

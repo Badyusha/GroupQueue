@@ -56,7 +56,6 @@
 
 #full-name {
     color: white;
-    font-size: 1em;
     font-weight: 600;
 }
 
@@ -442,7 +441,7 @@ a {
     font-weight: 600;
 }
 
-#leave-queue-error, #delete-account-error {
+#leave-queue-error, #delete-account-error, #become-group-admin-error {
     max-height: 1em;
     min-height: 1em;
     font-size: 0.8em;

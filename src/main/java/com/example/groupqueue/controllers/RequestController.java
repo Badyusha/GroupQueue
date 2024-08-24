@@ -1,0 +1,65 @@
+package com.example.groupqueue.controllers;
+
+import com.example.groupqueue.exceptions.PermissionException;
+import com.example.groupqueue.models.dto.Request;
+import com.example.groupqueue.models.enums.PermissionType;
+import com.example.groupqueue.repo.PermissionRepository;
+import com.example.groupqueue.services.RequestService;
+import com.example.groupqueue.services.UserService;
+import com.example.groupqueue.utils.CookieUtils;
+import jakarta.servlet.http.HttpServletRequest;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.*;
+
+import java.security.Permissions;
+import java.util.List;
+
+@Controller
+@RequiredArgsConstructor
+public class RequestController {
+	private final RequestService requestService;
+	private final UserService userService;
+	private final PermissionRepository permissionRepository;
+
+	@GetMapping("/request/become_group_admin")
+	public String showBecomeGroupAdminRequests(HttpServletRequest request) {
+		if(!CookieUtils.isCookiesExists(request)) {
+			return "redirect:/";
+		}
+		
+		long roleId = userService.getRoleIdByUserId(CookieUtils.getUserId(request));
+		if(!permissionRepository.isActionAllowed(PermissionType.SHOW_BECOME_GROUP_ADMIN_REQUESTS, roleId)) {
+			return "views/errorPage/permissionIsNotAllowed";
+		}
+		return "views/groupAdminRequests/groupAdminRequests";
+	}
+
+	@PostMapping("/request/make/become_group_admin")
+	@ResponseBody
+	public void sendBecomeGroupAdminRequest(HttpServletRequest request) {
+		long roleId = userService.getRoleIdByUserId(CookieUtils.getUserId(request));
+		if(!permissionRepository.isActionAllowed(PermissionType.BECOME_GROUP_ADMIN, roleId)) {
+			throw new PermissionException("cannot become group admin");
+		}
+		requestService.sendBecomeGroupAdmin(request);
+	}
+
+	@GetMapping("/request/become_group_admin/get")
+	@ResponseBody
+	public List<Request> getBecomeGroupAdminRequests() {
+		return requestService.getRequests();
+	}
+
+	@PostMapping("/request/become_group_admin/accept")
+	@ResponseBody
+	public void acceptBecomeGroupAdminRequest(@RequestBody Request requestDto) {
+		requestService.acceptBecomeGroupAdminRequest(requestDto);
+	}
+
+	@PostMapping("/request/become_group_admin/decline")
+	@ResponseBody
+	public void declineBecomeGroupAdminRequest(@RequestBody Request requestDto) {
+		requestService.declineBecomeGroupAdminRequest(requestDto);
+	}
+}

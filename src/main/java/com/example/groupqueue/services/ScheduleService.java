@@ -3,6 +3,7 @@ package com.example.groupqueue.services;
 import com.example.groupqueue.exceptions.ScheduleException;
 import com.example.groupqueue.external.api.BsuirAPI;
 import com.example.groupqueue.models.dto.DayOfWeekScheduled;
+import com.example.groupqueue.models.dto.GroupSchedule;
 import com.example.groupqueue.models.dto.Lesson;
 import com.example.groupqueue.models.dto.Schedule;
 import com.example.groupqueue.models.entities.ScheduleEntity;
@@ -30,6 +31,10 @@ public class ScheduleService {
 	private final ScheduleRepository scheduleRepository;
 	private final GroupRepository groupRepository;
 	private final LessonService lessonService;
+
+	public List<GroupSchedule> getGroupSchedulesByGroupId(long groupId) {
+		return scheduleRepository.getGroupSchedulesByGroupId(groupId);
+	}
 
 	public Schedule getDayOfWeekScheduleList(HttpServletRequest request) {
 		long userId = CookieUtils.getUserId(request);

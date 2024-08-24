@@ -1,17 +1,11 @@
 const overlay = document.getElementById('dark-overlay');
-const showUserQueuesButton = document.getElementById('user-queues');
 
-showUserQueuesButton.addEventListener('click', function () {
-    window.location.href = '/user/queues';
-});
 
 document.addEventListener('DOMContentLoaded', async function() {
     await drawSchedule();
     await fillSideMenu();
     await fillCurrentWeek();
 });
-
-
 
 async function fetchData(requestText) {
     let response = await fetch(requestText);
@@ -37,7 +31,6 @@ function removeTextAfterParenthesis(input) {
     return index !== -1 ? input.slice(0, index) : input;
 }
 
-
 function removeSecondsFromTime(timeString) {
     // Check if the timeString is in the format "HH:MM:SS"
     if (timeString.length === 8 && timeString[2] === ':' && timeString[5] === ':') {
@@ -53,12 +46,38 @@ function showQueue(queueId) {
 }
 
 async function fillCurrentWeek() {
-    let currentWeek = await fetchData('/week/current');
-    document.getElementById('current-week').innerHTML = `Current week: ${currentWeek}`;
+    try {
+        let currentWeek = await fetchData('/week/get/current');
+        document.getElementById('current-week').innerHTML = `Current week: ${currentWeek}`;
+    } catch(e) {
+        console.error('cannot get response from /week/get/current');
+    }
 }
 
 async function drawSchedule() {
-    let schedule = await fetchData('/schedule/get');
+    let schedule;
+    try {
+        schedule = await fetchData('/schedule/get');
+    } catch(e) {
+        let scheduleTable = document.getElementById('week-schedule-table');
+        scheduleTable.deleteRow(0);
+        scheduleTable.deleteRow(0);
+
+        let tableRowHeader = document.createElement('tr');
+        let noDataHeader = document.createElement('th');
+        noDataHeader.innerText = "No data found";
+        scheduleTable.appendChild(noDataHeader);
+
+        noDataHeader.style.textAlign = 'center';
+        noDataHeader.style.color = 'var(--inputText)';
+        noDataHeader.style.paddingBottom = '1em';
+
+        scheduleTable.append(tableRowHeader);
+        scheduleTable.deleteRow(0);
+
+        console.error('cannot get response from /schedule/get');
+        return;
+    }
     for (const dayOfWeek in schedule) {
         let dayCell = document.getElementById(`${dayOfWeek}-schedule`);
         if (!dayCell) continue;
@@ -148,5 +167,6 @@ overlay.addEventListener('click', function() {
     registerToQueueContainer.style.display = 'none';
     leaveLabRegistrationContainer.style.display = 'none';
     deleteAccountForm.style.display = 'none';
+    becomeGroupAdminForm.style.display = 'none';
     passingLabsList.value = '';
 });

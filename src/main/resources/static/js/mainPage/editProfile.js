@@ -1,6 +1,5 @@
 const darkOverlay = document.getElementById('dark-overlay');
 const editProfileForm = document.getElementById('edit-profile-form');
-const editProfile = document.getElementById('edit-profile');
 
 const firstNameInput = document.getElementById('first-name-input');
 const lastNameInput = document.getElementById('last-name-input');
@@ -28,16 +27,6 @@ let groupNumberIsOk = true;
 let usernameIsOk = true;
 let passwordIsOk = true;
 let repeatedPasswordIsOk = true;
-
-editProfile.addEventListener('click', async function() {
-
-    fillProfileInputs();
-
-    darkOverlay.classList.toggle('active');
-    sideMenu.classList.remove('active');
-    menuOverlay.classList.remove('active');
-    editProfileForm.style.display = 'block';
-});
 
 darkOverlay.addEventListener('click', function() {
    darkOverlay.classList.remove('active');
@@ -216,7 +205,6 @@ saveButton.addEventListener('click', async function () {
             console.error("Error while registration: " + response.data)
         }
     });
-
 });
 
 function isAllFieldsNotChanged() {

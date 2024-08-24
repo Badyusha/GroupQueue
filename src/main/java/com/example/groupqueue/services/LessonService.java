@@ -1,6 +1,7 @@
 package com.example.groupqueue.services;
 
 import com.example.groupqueue.exceptions.ScheduleException;
+import com.example.groupqueue.models.dto.GroupSchedule;
 import com.example.groupqueue.models.dto.Lesson;
 import com.example.groupqueue.models.entities.LessonEntity;
 import com.example.groupqueue.models.entities.ScheduleEntity;
@@ -9,6 +10,7 @@ import com.example.groupqueue.models.enums.SortType;
 import com.example.groupqueue.models.enums.SubgroupType;
 import com.example.groupqueue.models.enums.WeekType;
 import com.example.groupqueue.repo.LessonRepository;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +23,16 @@ import java.util.List;
 @RequiredArgsConstructor
 public class LessonService {
 	private final LessonRepository lessonRepository;
+
+	public void changeSortType(GroupSchedule groupSchedule) {
+		long lessonId = groupSchedule.getLessonId();
+		SortType sortType = groupSchedule.getSortType();
+
+		LessonEntity lessonEntity = lessonRepository.getLessonEntityById(lessonId);
+		lessonEntity.setSortType(sortType);
+
+		lessonRepository.save(lessonEntity);
+	}
 
 	public List<Lesson> getScheduleInfoByUserIdGroupId(long userId, long groupId) {
 		return lessonRepository.getScheduleInfoByUserIdGroupId(userId, groupId);

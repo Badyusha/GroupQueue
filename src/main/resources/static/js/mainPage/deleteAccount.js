@@ -1,10 +1,12 @@
 const deleteAccountForm = document.getElementById('delete-account-container');
+const becomeGroupAdminForm = document.getElementById('become-group-admin-container');
 const cancelDeleteAccountButton = document.getElementById('cancel-delete-account-button');
 const deleteAccountButton = document.getElementById('delete-account-button');
 const deleteAccountError = document.getElementById('delete-account-error');
 
 cancelDeleteAccountButton.addEventListener('click', function() {
    deleteAccountForm.style.display = 'none';
+   becomeGroupAdminForm.style.display = 'none';
    overlay.classList.remove('active');
 });
 
@@ -26,6 +28,7 @@ deleteAccountButton.addEventListener('click', function() {
         success: async function (response) {
             await sendMessageWithDelay(deleteAccountError, 'Successfully deleted', '', 1500, 'green');
             deleteAccountForm.style.display = 'none';
+            becomeGroupAdminForm.style.display = 'none';
             overlay.classList.remove('active');
             window.location.replace('/');
         },

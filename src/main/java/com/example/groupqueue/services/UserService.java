@@ -18,6 +18,22 @@ public class UserService {
 	private final UserRepository userRepository;
 	private final RoleService roleService;
 
+	public long getRoleIdByUserId(long userId) {
+		return userRepository.getRoleIdByUserId(userId);
+	}
+
+	public void updateUserRoleType(long userId) {
+		UserEntity user = userRepository.getUserEntityByUserId(userId);
+		long roleId = roleService.getRoleIdByType(RoleType.GROUP_ADMIN);
+		user.setRoleId(roleId);
+		userRepository.save(user);
+	}
+
+	public boolean isItUserRole(HttpServletRequest request, String roleType) {
+		long userId = CookieUtils.getUserId(request);
+		return userRepository.isRoleMatchByUserIdRoleName(userId, roleType);
+	}
+
 	public void saveUser(User user) {
 		long roleId = roleService.getRoleIdByType(RoleType.USER);
 		user.setRoleId(roleId);

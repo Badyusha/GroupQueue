@@ -1,5 +1,6 @@
 package com.example.groupqueue.repo;
 
+import com.example.groupqueue.models.dto.GroupSchedule;
 import com.example.groupqueue.models.entities.UserEntity;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
@@ -12,6 +13,13 @@ public interface UserRepository extends CrudRepository<UserEntity, Long> {
 			"WHERE user.username = ?1")
 	UserEntity getUserByUsername(String username);
 
+	@Query(value = """
+					SELECT u.roleId
+					FROM UserEntity u
+					WHERE u.id = ?1
+					""")
+	long getRoleIdByUserId(long userId);
+
 	@Query(value = "SELECT count(user.id) as usernameExists " +
 			"FROM UserEntity user " +
 			"WHERE user.username = ?1")
@@ -19,6 +27,17 @@ public interface UserRepository extends CrudRepository<UserEntity, Long> {
 
 	default boolean isUsernameExist(String username) {
 		return usernameCountByName(username) != 0;
+	}
+
+	@Query(value = """
+					SELECT u.roleEntity.name
+					FROM UserEntity u
+					WHERE u.id = ?1
+	""")
+	String getRoleNameByUserId(long userId);
+
+	default boolean isRoleMatchByUserIdRoleName(long userId, String roleType) {
+		return getRoleNameByUserId(userId).equals(roleType);
 	}
 
 	@Query(value = "SELECT count(user.id) as userExists " +

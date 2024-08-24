@@ -1,5 +1,6 @@
 package com.example.groupqueue.repo;
 
+import com.example.groupqueue.models.dto.GroupSchedule;
 import com.example.groupqueue.models.entities.ScheduleEntity;
 import com.example.groupqueue.models.enums.WeekType;
 import org.springframework.data.jpa.repository.Query;
@@ -26,4 +27,19 @@ public interface ScheduleRepository extends CrudRepository<ScheduleEntity, Long>
 			"on group.id = schedule.groupId " +
 			"where group.number = ?1 and schedule.weekType = ?2")
 	List<ScheduleEntity> getScheduleEntityByGroupNumberWeekType(long groupId, WeekType week);
+
+	@Query(value = """
+				SELECT new com.example.groupqueue.models.dto.GroupSchedule(
+				l.id,
+				s.subjectName,
+				s.subjectFullName,
+				l.date,
+				s.startTime,
+				l.sortType)
+				FROM ScheduleEntity s
+				INNER JOIN LessonEntity l
+				ON l.scheduleId = s.id
+				WHERE s.groupId = ?1
+	""")
+	List<GroupSchedule> getGroupSchedulesByGroupId(long groupId);
 }

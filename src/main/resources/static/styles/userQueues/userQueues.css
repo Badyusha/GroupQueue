@@ -46,6 +46,10 @@ th, td {
     font-weight: 600;
 }
 
+th {
+    color: var(--gray);
+}
+
 td {
     font-weight: 500;
 }

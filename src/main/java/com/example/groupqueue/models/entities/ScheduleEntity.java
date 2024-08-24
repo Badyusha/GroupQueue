@@ -1,6 +1,5 @@
 package com.example.groupqueue.models.entities;
 
-import com.example.groupqueue.models.dto.Schedule;
 import com.example.groupqueue.models.enums.DayOfWeek;
 import com.example.groupqueue.models.enums.SubgroupType;
 import com.example.groupqueue.models.enums.WeekType;

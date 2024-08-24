@@ -60,6 +60,15 @@ document.addEventListener('DOMContentLoaded', async function() {
 
 async function fillUserQueues() {
     let queues = await fetchData('/queue/get');
+    if(queues.length === 0) {
+        document.getElementById('queues-table').remove();
+        let queuesContainer = document.getElementById('queues-container');
+        queuesContainer.innerText = 'You have no active registrations :(';
+        queuesContainer.style.padding = '1em';
+        queuesContainer.style.color = 'var(--gray)';
+        queuesContainer.style.fontWeight = '500';
+        return;
+    }
     insertDataIntoTable(queues);
 }
 
