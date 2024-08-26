@@ -1,8 +1,6 @@
 package com.example.groupqueue.models.entities;
 
-import com.example.groupqueue.models.dto.User;
-import com.example.groupqueue.models.enums.RoleType;
-import com.example.groupqueue.utils.EncryptionUtils;
+import com.example.groupqueue.utils.EncryptionUtil;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -59,7 +57,7 @@ public class UserEntity {
 		this.username = username;
 		this.firstName = firstName;
 		this.lastName = lastName;
-		this.password = EncryptionUtils.hashData(notEncryptedPassword);
+		this.password = EncryptionUtil.hashData(notEncryptedPassword);
 	}
 
 	public UserEntity(long id,

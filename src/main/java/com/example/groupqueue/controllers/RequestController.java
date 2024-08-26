@@ -6,13 +6,15 @@ import com.example.groupqueue.models.enums.PermissionType;
 import com.example.groupqueue.repo.PermissionRepository;
 import com.example.groupqueue.services.RequestService;
 import com.example.groupqueue.services.UserService;
-import com.example.groupqueue.utils.CookieUtils;
+import com.example.groupqueue.utils.CookieUtil;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.security.Permissions;
 import java.util.List;
 
 @Controller
@@ -24,11 +26,11 @@ public class RequestController {
 
 	@GetMapping("/request/become_group_admin")
 	public String showBecomeGroupAdminRequests(HttpServletRequest request) {
-		if(!CookieUtils.isCookiesExists(request)) {
+		if(!CookieUtil.isCookiesExists(request)) {
 			return "redirect:/";
 		}
 		
-		long roleId = userService.getRoleIdByUserId(CookieUtils.getUserId(request));
+		long roleId = userService.getRoleIdByUserId(CookieUtil.getUserId(request));
 		if(!permissionRepository.isActionAllowed(PermissionType.SHOW_BECOME_GROUP_ADMIN_REQUESTS, roleId)) {
 			return "views/errorPage/permissionIsNotAllowed";
 		}
@@ -38,7 +40,7 @@ public class RequestController {
 	@PostMapping("/request/make/become_group_admin")
 	@ResponseBody
 	public void sendBecomeGroupAdminRequest(HttpServletRequest request) {
-		long roleId = userService.getRoleIdByUserId(CookieUtils.getUserId(request));
+		long roleId = userService.getRoleIdByUserId(CookieUtil.getUserId(request));
 		if(!permissionRepository.isActionAllowed(PermissionType.BECOME_GROUP_ADMIN, roleId)) {
 			throw new PermissionException("cannot become group admin");
 		}

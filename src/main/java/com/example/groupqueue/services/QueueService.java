@@ -3,7 +3,7 @@ package com.example.groupqueue.services;
 import com.example.groupqueue.models.dto.GroupQueue;
 import com.example.groupqueue.models.dto.QueueInfo;
 import com.example.groupqueue.repo.QueueRepository;
-import com.example.groupqueue.utils.CookieUtils;
+import com.example.groupqueue.utils.CookieUtil;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -17,7 +17,7 @@ public class QueueService {
 	private final QueueRepository queueRepository;
 
 	public List<QueueInfo> getQueueInfoByUserIdGroupId(HttpServletRequest request) {
-		long userId = CookieUtils.getUserId(request);
+		long userId = CookieUtil.getUserId(request);
 		List<QueueInfo> queueResults = queueRepository.findQueueResults(userId);
 		List<QueueInfo> preQueueResults = queueRepository.findPreQueueResults(userId);
 

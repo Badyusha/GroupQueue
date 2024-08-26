@@ -3,7 +3,7 @@ package com.example.groupqueue.controllers;
 import com.example.groupqueue.models.dto.User;
 import com.example.groupqueue.services.AuthorizationService;
 import com.example.groupqueue.services.UserService;
-import com.example.groupqueue.utils.CookieUtils;
+import com.example.groupqueue.utils.CookieUtil;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -22,6 +22,6 @@ public class AuthorizationController {
 	public void authorizeUser(HttpServletResponse response, @RequestBody User user) {
 		authorizationService.isUserExist(user);
 		userService.fillInUser(user);
-		CookieUtils.addRequired(response, user);
+		CookieUtil.addRequired(response, user);
 	}
 }

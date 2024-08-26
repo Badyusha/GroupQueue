@@ -15,13 +15,13 @@ public enum DayOfWeek {
 	SATURDAY ("Суббота"),
 	SUNDAY ("Воскресенье");
 
-	public final String day;
-	public static final LocalTime TIME_TO_GENERATE_NEW_SCHEDULE = LocalTime.of(18, 0);
-	public static final LocalTime TIME_FOR_REGISTRATION = LocalTime.of(18, 0);
-
 	DayOfWeek(String day) {
 		this.day = day;
 	}
+
+	public final String day;
+	public static final LocalTime TIME_TO_GENERATE_NEW_SCHEDULE = LocalTime.of(18, 0);
+	public static final LocalTime TIME_FOR_REGISTRATION = LocalTime.of(18, 0);
 
 	public static DayOfWeek getDayOfWeekByName(String name) throws DayOfWeekException {
 		return switch (name) {

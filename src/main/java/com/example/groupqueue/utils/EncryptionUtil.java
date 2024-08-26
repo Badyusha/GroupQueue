@@ -10,7 +10,15 @@ import java.security.spec.InvalidKeySpecException;
 import java.security.spec.KeySpec;
 import java.util.Base64;
 
-public class EncryptionUtils {
+public class EncryptionUtil {
+	public static int[] convertByteArrayToIntArray(byte[] byteArray) {
+		int[] intArray = new int[byteArray.length];
+		for (int i = 0; i < byteArray.length; i++) {
+			intArray[i] = byteArray[i] & 0xFF;
+		}
+		return intArray;
+	}
+
 	// cipher method
 	public static String hashData(String message) {
 		MessageDigest messageDigest = null;

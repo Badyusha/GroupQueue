@@ -31,8 +31,14 @@ public class QueueEntity {
 	@Column(name = "user_id")
 	private Long userId;
 
-	@Column(name = "order", columnDefinition = "int")
+	@Column(name = "`order`", columnDefinition = "int")
 	private Integer order;
 
-	//	METHODS
+	public QueueEntity(long lessonId, long userId, int order) {
+		this.lessonId = lessonId;
+		this.userId = userId;
+		this.order = order;
+	}
+
+//	METHODS
 }

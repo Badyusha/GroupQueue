@@ -42,4 +42,11 @@ public interface ScheduleRepository extends CrudRepository<ScheduleEntity, Long>
 				WHERE s.groupId = ?1
 	""")
 	List<GroupSchedule> getGroupSchedulesByGroupId(long groupId);
+
+	@Query(value = """
+					SELECT s
+					FROM ScheduleEntity s
+					WHERE s.weekType = ?1
+					""")
+	List<ScheduleEntity> getScheduleEntityListByWeekType(WeekType weekType);
 }

@@ -4,8 +4,8 @@ import com.example.groupqueue.models.dto.User;
 import com.example.groupqueue.models.entities.UserEntity;
 import com.example.groupqueue.models.enums.RoleType;
 import com.example.groupqueue.repo.UserRepository;
-import com.example.groupqueue.utils.CookieUtils;
-import com.example.groupqueue.utils.EncryptionUtils;
+import com.example.groupqueue.utils.CookieUtil;
+import com.example.groupqueue.utils.EncryptionUtil;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -30,7 +30,7 @@ public class UserService {
 	}
 
 	public boolean isItUserRole(HttpServletRequest request, String roleType) {
-		long userId = CookieUtils.getUserId(request);
+		long userId = CookieUtil.getUserId(request);
 		return userRepository.isRoleMatchByUserIdRoleName(userId, roleType);
 	}
 
@@ -45,8 +45,8 @@ public class UserService {
 	}
 
 	public boolean isPasswordMatches(HttpServletRequest request, String password) {
-		String hashedPassword = EncryptionUtils.hashData(password);
-		String userPassword = userRepository.getPasswordByUserId(CookieUtils.getUserId(request));
+		String hashedPassword = EncryptionUtil.hashData(password);
+		String userPassword = userRepository.getPasswordByUserId(CookieUtil.getUserId(request));
 		return hashedPassword.equals(userPassword);
 	}
 
@@ -56,7 +56,7 @@ public class UserService {
 
 	public boolean isUserExistByUsernamePassword(User user) {
 		return userRepository.isUserExistByUsernamePassword(user.getUsername(),
-															EncryptionUtils.hashData(user.getPassword()));
+															EncryptionUtil.hashData(user.getPassword()));
 	}
 
 	public void fillInUser(User user) {
@@ -65,7 +65,7 @@ public class UserService {
 	}
 
 	public User getUserInfo(HttpServletRequest request) {
-		long userId = CookieUtils.getUserId(request);
+		long userId = CookieUtil.getUserId(request);
 
 		List<Object[]> userList = userRepository.getUserInfoByUserId(userId);
 		Object[] user = userList.getFirst();
@@ -90,7 +90,7 @@ public class UserService {
 	}
 
 	public void editProfile(HttpServletRequest request, User user) {
-		long userId = CookieUtils.getUserId(request);
+		long userId = CookieUtil.getUserId(request);
 		UserEntity userEntity = userRepository.getUserEntityByUserId(userId);
 		long roleId = userEntity.getRoleId();
 		long groupId = userEntity.getGroupId();
@@ -105,12 +105,12 @@ public class UserService {
 	}
 
 	public void deleteUserByUserId(HttpServletRequest request) {
-		long userId = CookieUtils.getUserId(request);
+		long userId = CookieUtil.getUserId(request);
 		userRepository.deleteById(userId);
 	}
 
 	public String getUserRoleByUserId(HttpServletRequest request) {
-		long userId = CookieUtils.getUserId(request);
+		long userId = CookieUtil.getUserId(request);
 		return userRepository.getUserRoleByUserId(userId);
 	}
 

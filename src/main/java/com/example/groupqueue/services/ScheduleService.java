@@ -6,22 +6,22 @@ import com.example.groupqueue.models.dto.DayOfWeekScheduled;
 import com.example.groupqueue.models.dto.GroupSchedule;
 import com.example.groupqueue.models.dto.Lesson;
 import com.example.groupqueue.models.dto.Schedule;
+import com.example.groupqueue.models.entities.PreQueueEntity;
 import com.example.groupqueue.models.entities.ScheduleEntity;
 import com.example.groupqueue.models.enums.DayOfWeek;
 import com.example.groupqueue.models.enums.WeekType;
 import com.example.groupqueue.repo.GroupRepository;
+import com.example.groupqueue.repo.PreQueueRepository;
+import com.example.groupqueue.repo.QueueRepository;
 import com.example.groupqueue.repo.ScheduleRepository;
-import com.example.groupqueue.utils.CookieUtils;
+import com.example.groupqueue.utils.CookieUtil;
+import com.example.groupqueue.utils.GenerateQueueUtil;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
-import org.apache.commons.io.IOUtils;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.io.IOException;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.net.URL;
-import java.nio.charset.StandardCharsets;
 import java.time.LocalTime;
 import java.util.List;
 
@@ -30,15 +30,17 @@ import java.util.List;
 public class ScheduleService {
 	private final ScheduleRepository scheduleRepository;
 	private final GroupRepository groupRepository;
+	private final PreQueueRepository preQueueRepository;
+	private final QueueRepository queueRepository;
 	private final LessonService lessonService;
 
 	public List<GroupSchedule> getGroupSchedulesByGroupId(long groupId) {
 		return scheduleRepository.getGroupSchedulesByGroupId(groupId);
 	}
 
-	public Schedule getDayOfWeekScheduleList(HttpServletRequest request) {
-		long userId = CookieUtils.getUserId(request);
-		long groupId = CookieUtils.getGroupId(request);
+	public Schedule getDayOfWeekSchedule(HttpServletRequest request) {
+		long userId = CookieUtil.getUserId(request);
+		long groupId = CookieUtil.getGroupId(request);
 		List<Lesson> lessonList = lessonService.getScheduleInfoByUserIdGroupId(userId, groupId);
 		if (lessonList.isEmpty()) {
 			throw new ScheduleException("there is no schedule for groupId=" + groupId);
@@ -51,7 +53,8 @@ public class ScheduleService {
 	private Schedule fillInSchedule(List<Lesson> lessonList, WeekType weekType) {
 		Schedule schedule = new Schedule(weekType);
 		for(Lesson lesson : lessonList) {
-			DayOfWeekScheduled dayOfWeekScheduled = switch(lesson.getDayOfWeek()) {
+			DayOfWeek dayOfWeek = lesson.getDayOfWeek();
+			DayOfWeekScheduled dayOfWeekScheduled = switch(dayOfWeek) {
 				case MONDAY -> schedule.getMonday();
 				case TUESDAY -> schedule.getTuesday();
 				case WEDNESDAY -> schedule.getWednesday();
@@ -60,16 +63,32 @@ public class ScheduleService {
 				case SATURDAY -> schedule.getSaturday();
 				case SUNDAY -> schedule.getSunday();
 			};
+			lesson.setRegistrationOpen(GenerateQueueUtil.isRegistrationOpen(dayOfWeek, lesson.getStartTime()));
 			dayOfWeekScheduled.addLesson(lesson);
 		}
 		return schedule;
 	}
-
-
+	
 	//	code below add records into schedule and lesson tables ===
 	public int getCurrentWeek() {
+		List<PreQueueEntity> preQueueEntityList = preQueueRepository.getPreQueueEntityListByLessonId(142);
+		System.err.println(GenerateQueueUtil.highestLabCount(preQueueEntityList));
+
 		return BsuirAPI.getCurrentWeek();
 	}
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 	public void addRecordsForNewGroupByGroupNumber(int groupNumber) {
 		int scheduleWeekNumber = getCurrentWeek();
@@ -96,8 +115,25 @@ public class ScheduleService {
 		if(!dayOfWeek.equals(DayOfWeek.SUNDAY)) {
 			return false;
 		}
-		
+
 		LocalTime generateNewScheduleTime = DayOfWeek.TIME_TO_GENERATE_NEW_SCHEDULE;
 		return !LocalTime.now().isBefore(generateNewScheduleTime);
+	}
+
+	// SCHEDULED
+	/**
+	method calls every Sunday at 18:00
+	*/
+	@Scheduled(cron = "0 0 18 * * SUN", zone = "Europe/Moscow")
+	@Transactional
+	public void updateLessonsForNextWeek() {
+		lessonService.deleteAll();
+		addLessonsForNextWeek();
+	}
+
+	private void addLessonsForNextWeek() {
+		WeekType weekType = WeekType.getCurrentWeekType();
+		List<ScheduleEntity> scheduleEntityList = scheduleRepository.getScheduleEntityListByWeekType(weekType);
+		lessonService.addLessonByScheduleList(weekType, scheduleEntityList);
 	}
 }

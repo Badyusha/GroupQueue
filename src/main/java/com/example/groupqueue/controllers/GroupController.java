@@ -1,5 +1,6 @@
 package com.example.groupqueue.controllers;
 
+import com.example.groupqueue.external.api.BsuirAPI;
 import com.example.groupqueue.services.GroupService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -16,9 +17,6 @@ public class GroupController {
 
 	@GetMapping("/group/number/{groupNumber}/exists")
 	public boolean groupExists(@PathVariable Integer groupNumber) {
-		if(groupService.isGroupExist(groupNumber)) {
-			return true;
-		}
-		return groupService.checkGroupExistenceViaApi(groupNumber);
+		return groupService.groupExists(groupNumber);
 	}
 }

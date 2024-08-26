@@ -3,7 +3,7 @@
 @media only screen and (min-width: 700px) {
 
     /*top right registration buttons*/
-        #sign-up-button-ref, #sign-in-button-ref {
+    #sign-up-button-ref, #sign-in-button-ref {
         font-family: 'Montserrat', sans-serif;
         font-weight: 600;
         font-size: 1em;
@@ -11,8 +11,6 @@
         border: none;
         color: var(--fadedBlue);
     }
-
-    /*  ===== FORMS =====   */
 
     /* Overlay style */
     .overlay {
@@ -28,5 +26,35 @@
         z-index: 2;
     }
 
+    .label-text {
+        color: var(--inputText);
+        font-weight: 600;
+        font-size: 1.2em;
+    }
 
+    a, a:visited {
+        color: var(--blue);
+    }
+
+    .introduction {
+        min-height: 35em;
+        display: flex;
+        justify-content: space-around;
+        margin-top: 3em;
+    }
+
+    .info {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 20em;
+        border: 0.15em solid var(--headerBorder);
+        border-radius: 1em;
+        background-color: var(--darkBlue);
+    }
+
+    .text {
+        margin: 1em;
+        text-align: center;
+    }
 }

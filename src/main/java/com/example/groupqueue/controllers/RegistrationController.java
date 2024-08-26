@@ -1,12 +1,8 @@
 package com.example.groupqueue.controllers;
 
 import com.example.groupqueue.models.dto.User;
-import com.example.groupqueue.models.enums.RoleType;
-import com.example.groupqueue.services.GroupService;
 import com.example.groupqueue.services.RegistrationService;
-import com.example.groupqueue.services.RoleService;
-import com.example.groupqueue.services.UserService;
-import com.example.groupqueue.utils.CookieUtils;
+import com.example.groupqueue.utils.CookieUtil;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -20,7 +16,8 @@ public class RegistrationController {
 
 	@PostMapping(value = "/user/registration")
 	public void registerUser(HttpServletResponse response, @RequestBody User user) {
+		registrationService.registerGroup(user.getGroupNumber());
 		registrationService.registerUser(user);
-		CookieUtils.addRequired(response, user);
+		CookieUtil.addRequired(response, user);
 	}
 }

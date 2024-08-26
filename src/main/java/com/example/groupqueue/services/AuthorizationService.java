@@ -13,7 +13,7 @@ public class AuthorizationService {
 	public void isUserExist(User user) {
 		boolean isUserExist = userService.isUserExistByUsernamePassword(user);
 		if(!isUserExist) {
-			throw new AuthorizationException("Incorrect username or password");
+			throw new AuthorizationException("Incorrect username or password\nFor user: " + user);
 		}
 	}
 }

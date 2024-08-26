@@ -11,4 +11,11 @@ public interface PreQueueRepository extends CrudRepository<PreQueueEntity, Long>
 			"FROM PreQueueEntity preQueue " +
 			"WHERE preQueue.userId = ?1 AND preQueue.lessonId = ?2")
 	PreQueueEntity getPreQueueEntityByUserIdLessonId(long userId, long groupId);
+
+	@Query(value = """
+					SELECT pq
+					FROM PreQueueEntity pq
+					WHERE pq.lessonId = ?1
+					""")
+	List<PreQueueEntity> getPreQueueEntityListByLessonId(long lessonId);
 }

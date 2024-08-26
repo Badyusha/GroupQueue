@@ -30,12 +30,7 @@ public interface LessonRepository extends CrudRepository<LessonEntity, Long> {
 			"queue.id, " +
 			"schedule.dayOfWeek, " +
 			"lesson.date, " +
-			"schedule.weekType, " +
-			"CASE " +
-				"WHEN preQueue.id IS NOT NULL " +
-				"THEN TRUE " +
-				"ELSE FALSE " +
-			"END" +
+			"schedule.weekType" +
 			") " +
 			"FROM LessonEntity lesson " +
 			"INNER JOIN ScheduleEntity schedule " +

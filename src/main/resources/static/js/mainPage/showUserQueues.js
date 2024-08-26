@@ -63,7 +63,7 @@ async function fillUserQueues() {
     if(queues.length === 0) {
         document.getElementById('queues-table').remove();
         let queuesContainer = document.getElementById('queues-container');
-        queuesContainer.innerText = 'You have no active registrations :(';
+        queuesContainer.innerText = 'You have no active queues';
         queuesContainer.style.padding = '1em';
         queuesContainer.style.color = 'var(--gray)';
         queuesContainer.style.fontWeight = '500';
@@ -140,8 +140,8 @@ async function insertDataIntoTable(data) {
                                                                         '${item.startTime}')`);
             subjectNameCell.style.cursor = 'pointer';
 
-            registrationStatusCell.className = 'status-closed';
-            registrationStatusCell.textContent = 'Closed';
+            registrationStatusCell.className = 'status-finished';
+            registrationStatusCell.textContent = 'Finished';
 
             numberInQueueCell.className = 'number-in-queue';
             numberInQueueCell.textContent = item.numberInQueue;
@@ -149,8 +149,8 @@ async function insertDataIntoTable(data) {
         } else {
             subjectNameCell.title = 'Registration is not finished yet';
 
-            registrationStatusCell.className = 'status-open';
-            registrationStatusCell.textContent = 'Open';
+            registrationStatusCell.className = 'status-not-finished';
+            registrationStatusCell.textContent = 'Not finished';
 
             numberInQueueCell.className = 'queue-not-ready';
             numberInQueueCell.title = 'Registration is not finished yet';

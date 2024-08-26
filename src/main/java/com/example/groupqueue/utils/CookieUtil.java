@@ -24,7 +24,7 @@ import java.util.Base64;
 
 @Service
 @RequiredArgsConstructor
-public class CookieUtils {
+public class CookieUtil {
 	private static final String ALGORITHM = "AES/CBC/PKCS5Padding";
 
 	public static boolean isCookiesExists(HttpServletRequest request) {
@@ -86,7 +86,7 @@ public class CookieUtils {
 		for(Cookie cookie : cookies) {
 			String cookieName = cookie.getName();
 			if(cookieName.equals(key)) {
-				return EncryptionUtils.decrypt(ALGORITHM, cookie.getValue(), getSecretKey(), getIv(request, key));
+				return EncryptionUtil.decrypt(ALGORITHM, cookie.getValue(), getSecretKey(), getIv(request, key));
 			}
 		}
 		throw new CookieException("there is no " + key + " cookie");
@@ -131,9 +131,9 @@ public class CookieUtils {
 	private static Pair<String, String> getEncryptedValueIVPair(String value) {
 		try {
 			SecretKey encryptionKey = getSecretKey();
-			IvParameterSpec ivParameterSpec = EncryptionUtils.generateIv();
+			IvParameterSpec ivParameterSpec = EncryptionUtil.generateIv();
 
-			return new Pair<>(EncryptionUtils.encrypt(ALGORITHM, value, encryptionKey, ivParameterSpec),
+			return new Pair<>(EncryptionUtil.encrypt(ALGORITHM, value, encryptionKey, ivParameterSpec),
 					Base64.getEncoder().encodeToString(ivParameterSpec.getIV()));
 		} catch(InvalidAlgorithmParameterException | NoSuchPaddingException |
 				IllegalBlockSizeException | NoSuchAlgorithmException | BadPaddingException | InvalidKeyException e)

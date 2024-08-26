@@ -2,9 +2,7 @@ package com.example.groupqueue.controllers;
 
 import com.example.groupqueue.models.dto.GroupQueue;
 import com.example.groupqueue.models.dto.QueueInfo;
-import com.example.groupqueue.repo.QueueRepository;
 import com.example.groupqueue.services.QueueService;
-import com.example.groupqueue.utils.CookieUtils;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;

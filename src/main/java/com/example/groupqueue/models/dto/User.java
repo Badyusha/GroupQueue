@@ -2,7 +2,7 @@ package com.example.groupqueue.models.dto;
 
 import com.example.groupqueue.models.entities.UserEntity;
 import com.example.groupqueue.models.enums.RoleType;
-import com.example.groupqueue.utils.EncryptionUtils;
+import com.example.groupqueue.utils.EncryptionUtil;
 import lombok.Data;
 
 @Data
@@ -40,7 +40,7 @@ public class User {
 	}
 
 	public UserEntity toUserEntityWithPasswordEncryption() {
-		return new UserEntity(userId, groupId, roleId, username, firstName, lastName, EncryptionUtils.hashData(password));
+		return new UserEntity(userId, groupId, roleId, username, firstName, lastName, EncryptionUtil.hashData(password));
 	}
 
 	public UserEntity toUserEntityWithOutPasswordEncryption() {

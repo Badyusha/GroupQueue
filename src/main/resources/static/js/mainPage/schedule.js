@@ -58,6 +58,7 @@ async function drawSchedule() {
     let schedule;
     try {
         schedule = await fetchData('/schedule/get');
+        console.log(schedule);
     } catch(e) {
         let scheduleTable = document.getElementById('week-schedule-table');
         scheduleTable.deleteRow(0);
@@ -99,6 +100,10 @@ async function drawSchedule() {
             let numberInQueue = lesson.numberInQueue;
             let queueId = lesson.queueId;
             let isRegistrationOpen = lesson.registrationOpen;
+            // console.log(lesson.lessonId)
+            // console.log(lesson.registrationOpen);
+            // console.log("==========================");
+
             let status = `
                             <div class="status">
                                 <a onclick="showLabRegistrationForm(${lessonId}, '${startTime}',

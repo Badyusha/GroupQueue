@@ -24,6 +24,10 @@ import java.util.List;
 public class LessonService {
 	private final LessonRepository lessonRepository;
 
+	public void deleteAll() {
+		lessonRepository.deleteAll();
+	}
+
 	public void changeSortType(GroupSchedule groupSchedule) {
 		long lessonId = groupSchedule.getLessonId();
 		SortType sortType = groupSchedule.getSortType();

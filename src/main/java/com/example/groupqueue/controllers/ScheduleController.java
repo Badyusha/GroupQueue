@@ -3,7 +3,7 @@ package com.example.groupqueue.controllers;
 import com.example.groupqueue.models.dto.GroupSchedule;
 import com.example.groupqueue.models.dto.Schedule;
 import com.example.groupqueue.services.ScheduleService;
-import com.example.groupqueue.utils.CookieUtils;
+import com.example.groupqueue.utils.CookieUtil;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -20,13 +20,13 @@ public class ScheduleController {
 
 	@GetMapping("/schedule/get")
 	public Schedule getSchedule(HttpServletRequest request) {
-		return scheduleService.getDayOfWeekScheduleList(request);
+		return scheduleService.getDayOfWeekSchedule(request);
 	}
 
 	@GetMapping("/schedule/group/get")
 	@ResponseBody
 	public List<GroupSchedule> getGroupSchedules(HttpServletRequest request) {
-		long groupId = CookieUtils.getGroupId(request);
+		long groupId = CookieUtil.getGroupId(request);
 		return scheduleService.getGroupSchedulesByGroupId(groupId);
 	}
 

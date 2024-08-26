@@ -2,7 +2,7 @@ package com.example.groupqueue.controllers;
 
 import com.example.groupqueue.models.dto.User;
 import com.example.groupqueue.services.UserService;
-import com.example.groupqueue.utils.CookieUtils;
+import com.example.groupqueue.utils.CookieUtil;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
@@ -16,7 +16,7 @@ public class UserController {
 
 	@GetMapping("/user/main_page")
 	public String mainPage(HttpServletRequest request) {
-		if(!CookieUtils.isCookiesExists(request)) {
+		if(!CookieUtil.isCookiesExists(request)) {
 			return "redirect:/";
 		}
 		return "views/user/mainPage";
@@ -24,7 +24,7 @@ public class UserController {
 
 	@GetMapping("/user/queues")
 	public String getQueues(HttpServletRequest request) {
-		if(!CookieUtils.isCookiesExists(request)) {
+		if(!CookieUtil.isCookiesExists(request)) {
 			return "redirect:/";
 		}
 		return "views/user/userQueues";
@@ -57,13 +57,13 @@ public class UserController {
 	@PostMapping("/user/edit_profile")
 	public void editProfile(HttpServletResponse response, HttpServletRequest request, @RequestBody User user) {
 		userService.editProfile(request, user);
-		CookieUtils.addRequired(response, user);
+		CookieUtil.addRequired(response, user);
 	}
 
 	@DeleteMapping("/user/delete")
 	public void deleteUser(HttpServletRequest request, HttpServletResponse response) {
 		userService.deleteUserByUserId(request);
-		CookieUtils.deleteAllCookies(response, request);
+		CookieUtil.deleteAllCookies(response, request);
 	}
 
 	@GetMapping("/user/get/role")

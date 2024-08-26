@@ -10,22 +10,15 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class GroupService {
 	private final GroupRepository groupRepository;
-	private final ScheduleService scheduleService;
 
-	public boolean checkGroupExistenceViaApi(int groupNumber) {
-		if(!BsuirAPI.isGroupExist(groupNumber)) {
-			return false;
+	public boolean groupExists(int groupNumber) {
+		if(isGroupExist(groupNumber)) {
+			return true;
 		}
-		groupRepository.saveGroup(groupNumber);
-		scheduleService.addRecordsForNewGroupByGroupNumber(groupNumber);
-		return true;
+		return BsuirAPI.isGroupExist(groupNumber);
 	}
 
 	public boolean isGroupExist(int groupNumber) {
 		return groupRepository.isGroupExist(groupNumber);
-	}
-	
-	public Long getGroupIdByNumber(int groupNumber) {
-		return groupRepository.getGroupIdByNumber(groupNumber);
 	}
 }

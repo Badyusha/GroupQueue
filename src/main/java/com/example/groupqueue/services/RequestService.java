@@ -4,7 +4,7 @@ import com.example.groupqueue.models.dto.Request;
 import com.example.groupqueue.models.entities.RequestEntity;
 import com.example.groupqueue.models.enums.RequestType;
 import com.example.groupqueue.repo.RequestRepository;
-import com.example.groupqueue.utils.CookieUtils;
+import com.example.groupqueue.utils.CookieUtil;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -22,7 +22,7 @@ public class RequestService {
 	}
 
 	public void sendBecomeGroupAdmin(HttpServletRequest request) {
-		long userId = CookieUtils.getUserId(request);
+		long userId = CookieUtil.getUserId(request);
 		requestRepository.save(new RequestEntity(RequestType.BECOME_GROUP_ADMIN, userId));
 	}
 
