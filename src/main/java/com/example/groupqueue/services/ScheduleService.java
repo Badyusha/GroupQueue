@@ -71,24 +71,8 @@ public class ScheduleService {
 	
 	//	code below add records into schedule and lesson tables ===
 	public int getCurrentWeek() {
-		List<PreQueueEntity> preQueueEntityList = preQueueRepository.getPreQueueEntityListByLessonId(142);
-		System.err.println(GenerateQueueUtil.highestLabCount(preQueueEntityList));
-
 		return BsuirAPI.getCurrentWeek();
 	}
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 	public void addRecordsForNewGroupByGroupNumber(int groupNumber) {
 		int scheduleWeekNumber = getCurrentWeek();
