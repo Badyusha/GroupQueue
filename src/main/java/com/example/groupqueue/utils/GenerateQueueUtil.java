@@ -1,9 +1,6 @@
 package com.example.groupqueue.utils;
 
-import com.example.groupqueue.comparators.HighestPassingLabsLengthComparator;
-import com.example.groupqueue.comparators.HighestPassingLabsSumComparator;
-import com.example.groupqueue.comparators.LowestPassingLabsLengthComparator;
-import com.example.groupqueue.comparators.RegistrationTimeComparator;
+import com.example.groupqueue.comparators.*;
 import com.example.groupqueue.models.dto.Pair;
 import com.example.groupqueue.models.entities.PreQueueEntity;
 import com.example.groupqueue.models.entities.QueueEntity;
@@ -43,6 +40,13 @@ public class GenerateQueueUtil {
 	public static List<QueueEntity> highestLabSum(List<PreQueueEntity> preQueueEntityList) {
 		Collections.shuffle(preQueueEntityList);
 		preQueueEntityList.sort(new HighestPassingLabsSumComparator());
+
+		return createOrderedQueueEntityList(preQueueEntityList);
+	}
+
+	public static List<QueueEntity> lowestLabSum(List<PreQueueEntity> preQueueEntityList) {
+		Collections.shuffle(preQueueEntityList);
+		preQueueEntityList.sort(new LowestPassingLabsSumComparator());
 
 		return createOrderedQueueEntityList(preQueueEntityList);
 	}

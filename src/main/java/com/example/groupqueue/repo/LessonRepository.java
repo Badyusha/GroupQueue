@@ -6,6 +6,8 @@ import com.example.groupqueue.models.enums.WeekType;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 
 public interface LessonRepository extends CrudRepository<LessonEntity, Long> {
@@ -42,4 +44,11 @@ public interface LessonRepository extends CrudRepository<LessonEntity, Long> {
 			"WHERE schedule.groupId = ?2 " +
 			"ORDER BY schedule.startTime ASC")
 	List<Lesson> getScheduleInfoByUserIdGroupId(long userId, long groupId);
+
+	@Query("""
+			SELECT l
+			FROM LessonEntity l
+			WHERE l.date = ?1 AND l.scheduleEntity.startTime = ?2
+			""")
+	List<LessonEntity> findLessonsStartingAt(LocalDate date, LocalTime time);
 }

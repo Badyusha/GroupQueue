@@ -116,7 +116,7 @@ public class ScheduleService {
 	}
 
 	private void addLessonsForNextWeek() {
-		WeekType weekType = WeekType.getCurrentWeekType();
+		WeekType weekType = WeekType.getNextWeekType();
 		List<ScheduleEntity> scheduleEntityList = scheduleRepository.getScheduleEntityListByWeekType(weekType);
 		lessonService.addLessonByScheduleList(weekType, scheduleEntityList);
 	}
