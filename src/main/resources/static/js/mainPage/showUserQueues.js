@@ -8,7 +8,7 @@ overlay.addEventListener('click', function() {
     overlay.classList.remove('active');
     finalQueue.style.display = 'none';
 
-    for (let i = 0; i < finalTable.rows.length; ++i) {
+    for (let i = 0; i < finalTable.rows.length + 1; ++i) {
         finalTable.deleteRow(1);
     }
 })
@@ -87,8 +87,8 @@ async function showFinalQueue(lessonId, subjectName, date, startTime) {
         row.innerHTML = `
         <td>${index + 1}</td>
         <td>${data.firstName}</td>
-        <td>${data.lastName}</td>
         <td>${data.username}</td>
+        <td>${data.lastName}</td>
         <td>${decodeBase64(data.passingLabs)}</td>
     `;
 

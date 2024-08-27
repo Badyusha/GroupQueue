@@ -14,6 +14,7 @@ import com.example.groupqueue.utils.GenerateQueueUtil;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.scheduling.annotation.Schedules;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -45,15 +46,25 @@ public class QueueService {
 		return queueRepository.getGroupQueueByLessonId(lessonId);
 	}
 
-
-	@Scheduled(fixedRate = 60000) // runs every minute to check for lessons starting in an hour
-	@Transactional
+	/**
+	 * This method generate queues
+	 * and run at the time in each @Scheduled annotation
+	 */
+	@Schedules({
+			@Scheduled(cron = "0 0 8 * * *", zone = "Europe/Minsk"),
+			@Scheduled(cron = "0 35 9 * * *", zone = "Europe/Minsk"),
+			@Scheduled(cron = "0 25 11 * * *", zone = "Europe/Minsk"),
+			@Scheduled(cron = "0 0 13 * * *", zone = "Europe/Minsk"),
+			@Scheduled(cron = "0 50 14 * * *", zone = "Europe/Minsk"),
+			@Scheduled(cron = "0 25 16 * * *", zone = "Europe/Minsk"),
+			@Scheduled(cron = "0 0 18 * * *", zone = "Europe/Minsk"),
+			@Scheduled(cron = "0 40 19 * * *", zone = "Europe/Minsk")
+	})
 	public void generateQueueForUpcomingLessons() {
 		LocalDate currentDate = LocalDate.now();
 		LocalTime currentTimeOneHourLater = LocalTime.now().plusHours(1);
 
 		List<LessonEntity> upcomingLessons = lessonRepository.findLessonsStartingAt(currentDate, currentTimeOneHourLater);
-
 		for (LessonEntity lesson : upcomingLessons) {
 			List<PreQueueEntity> preQueueEntities = preQueueRepository.getPreQueueEntityListByLessonId(lesson.getId());
 			List<QueueEntity> queueEntities = generateQueueBasedOnSortType(preQueueEntities, lesson.getSortType());
