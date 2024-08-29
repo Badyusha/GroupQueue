@@ -128,8 +128,6 @@ document.addEventListener('DOMContentLoaded', async function() {
                 comparison = parseDate(cellA) - parseDate(cellB);
             } else if (columnIndex === 3) { // Start time column
                 comparison = cellA.localeCompare(cellB);
-            } else if (columnIndex === 1) { // Subgroup column
-                comparison = parseInt(cellA) - parseInt(cellB);
             } else { // Subject name or Sort type column
                 comparison = cellA.localeCompare(cellB);
             }

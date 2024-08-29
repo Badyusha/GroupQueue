@@ -122,9 +122,7 @@ function fillTableHeader() {
                 comparison = parseDate(cellA) - parseDate(cellB);
             } else if (columnIndex === 2) { // Start time column
                 comparison = cellA.localeCompare(cellB);
-            } else if (columnIndex === 3) { // Subgroup column
-                comparison = parseInt(cellA) - parseInt(cellB);
-            } else if(columnIndex === 0 || columnIndex === 5){ // Subject name or Sort type column
+            } else if(columnIndex === 0 || columnIndex === 3|| columnIndex === 5){ // Subject name or Sort type column
                 comparison = cellA.localeCompare(cellB);
             }
 
