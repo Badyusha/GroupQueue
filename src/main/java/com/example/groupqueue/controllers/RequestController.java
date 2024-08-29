@@ -5,7 +5,7 @@ import com.example.groupqueue.models.dto.Request;
 import com.example.groupqueue.models.enums.PermissionType;
 import com.example.groupqueue.repo.PermissionRepository;
 import com.example.groupqueue.services.RequestService;
-import com.example.groupqueue.services.UserService;
+import com.example.groupqueue.services.StudentService;
 import com.example.groupqueue.utils.CookieUtil;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
@@ -21,7 +21,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class RequestController {
 	private final RequestService requestService;
-	private final UserService userService;
+	private final StudentService studentService;
 	private final PermissionRepository permissionRepository;
 
 	@GetMapping("/request/become_group_admin")
@@ -30,8 +30,8 @@ public class RequestController {
 			return "redirect:/";
 		}
 		
-		long roleId = userService.getRoleIdByUserId(CookieUtil.getUserId(request));
-		if(!permissionRepository.isActionAllowed(PermissionType.SHOW_BECOME_GROUP_ADMIN_REQUESTS, roleId)) {
+		long roleId = studentService.getRoleIdByStudentId(CookieUtil.getStudentId(request));
+		if(permissionRepository.isActionAllowed(PermissionType.SHOW_BECOME_GROUP_ADMIN_REQUESTS, roleId)) {
 			return "views/errorPage/permissionIsNotAllowed";
 		}
 		return "views/groupAdminRequests/groupAdminRequests";
@@ -40,8 +40,8 @@ public class RequestController {
 	@PostMapping("/request/send/become_group_admin")
 	@ResponseBody
 	public void sendBecomeGroupAdminRequest(HttpServletRequest request) {
-		long roleId = userService.getRoleIdByUserId(CookieUtil.getUserId(request));
-		if(!permissionRepository.isActionAllowed(PermissionType.BECOME_GROUP_ADMIN, roleId)) {
+		long roleId = studentService.getRoleIdByStudentId(CookieUtil.getStudentId(request));
+		if(permissionRepository.isActionAllowed(PermissionType.BECOME_GROUP_ADMIN, roleId)) {
 			throw new PermissionException("cannot become group admin");
 		}
 		requestService.sendBecomeGroupAdmin(request);

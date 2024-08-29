@@ -14,13 +14,13 @@ import org.springframework.web.bind.annotation.RestController;
 public class PreQueueController {
 	private final PreQueueService preQueueService;
 
-	@PostMapping("/pre_queue/register/user")
-	public void registerUserToPreQueue(HttpServletRequest request, @RequestBody PreQueue preQueue) {
-		preQueueService.addUserToPreQueue(request, preQueue);
+	@PostMapping("/pre_queue/register/student")
+	public void registerStudentToPreQueue(HttpServletRequest request, @RequestBody PreQueue preQueue) {
+		preQueueService.addStudentToPreQueue(request, preQueue);
 	}
 
-	@DeleteMapping("/pre_queue/remove/user")
-	public void removeUserFromPreQueue(@RequestBody Long lessonId, HttpServletRequest request) {
-		preQueueService.removeUserFromPreQueueByLessonId(request, lessonId);
+	@DeleteMapping("/pre_queue/remove/student")
+	public void removeStudentFromPreQueue(@RequestBody Long lessonId, HttpServletRequest request) {
+		preQueueService.removeStudentFromPreQueueByLessonId(request, lessonId);
 	}
 }

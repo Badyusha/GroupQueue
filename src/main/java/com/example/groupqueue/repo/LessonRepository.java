@@ -2,7 +2,6 @@ package com.example.groupqueue.repo;
 
 import com.example.groupqueue.models.dto.Lesson;
 import com.example.groupqueue.models.entities.LessonEntity;
-import com.example.groupqueue.models.enums.WeekType;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
@@ -19,7 +18,7 @@ public interface LessonRepository extends CrudRepository<LessonEntity, Long> {
 	LessonEntity getLessonEntityById(long scheduleId);
 
 	@Query("""
-   			SELECT new com.example.groupqueue.models.dto.Lesson(
+			SELECT new com.example.groupqueue.models.dto.Lesson(
 			lesson.id,
 			schedule.subjectName,
 			schedule.subjectFullName,
@@ -40,13 +39,13 @@ public interface LessonRepository extends CrudRepository<LessonEntity, Long> {
 			INNER JOIN ScheduleEntity schedule
 				ON schedule.id = lesson.scheduleId
 			LEFT JOIN PreQueueEntity preQueue
-				ON preQueue.lessonId = lesson.id AND preQueue.userId = ?1
+				ON preQueue.lessonId = lesson.id AND preQueue.studentId = ?1
 			LEFT JOIN QueueEntity queue
-				ON queue.lessonId = lesson.id AND queue.userId = ?1
+				ON queue.lessonId = lesson.id AND queue.studentId = ?1
 			WHERE schedule.groupId = ?2
 			ORDER BY schedule.startTime ASC
 			""")
-	List<Lesson> getScheduleInfoByUserIdGroupId(long userId, long groupId);
+	List<Lesson> getScheduleInfoByStudentIdGroupId(long studentId, long groupId);
 
 	@Query("""
 			SELECT l

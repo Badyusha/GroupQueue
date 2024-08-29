@@ -8,7 +8,7 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 public class Request {
-	private long userId;
+	private long studentId;
 	private String lastName;
 	private String firstName;
 	private String username;

@@ -10,8 +10,8 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString
 @Entity
-@Table(name = "`user`")
-public class UserEntity {
+@Table(name = "`student`")
+public class StudentEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
@@ -44,12 +44,12 @@ public class UserEntity {
 	private String password;
 
 
-	public UserEntity(Long groupId,
-					  Long roleId,
-					  String username,
-					  String firstName,
-					  String lastName,
-					  String notEncryptedPassword) {
+	public StudentEntity(Long groupId,
+						 Long roleId,
+						 String username,
+						 String firstName,
+						 String lastName,
+						 String notEncryptedPassword) {
 		this.groupId = groupId;
 		this.roleId = roleId;
 		this.username = username;
@@ -58,13 +58,13 @@ public class UserEntity {
 		this.password = EncryptionUtil.hashData(notEncryptedPassword);
 	}
 
-	public UserEntity(long id,
-					  long groupId,
-					  long roleId,
-					  String username,
-					  String firstName,
-					  String lastName,
-					  String encryptedPassword) {
+	public StudentEntity(long id,
+						 long groupId,
+						 long roleId,
+						 String username,
+						 String firstName,
+						 String lastName,
+						 String encryptedPassword) {
 		this.id = id;
 		this.roleId = roleId;
 		this.groupId = groupId;

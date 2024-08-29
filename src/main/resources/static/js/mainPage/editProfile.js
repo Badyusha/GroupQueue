@@ -182,7 +182,7 @@ saveButton.addEventListener('click', async function () {
 
     $.ajax({
         type: 'POST',
-        url: '/user/edit_profile',
+        url: '/student/edit_profile',
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'

@@ -14,7 +14,7 @@ leaveRegistrationButton.addEventListener('click', function() {
    event.preventDefault();
     $.ajax({
         type: 'DELETE',
-        url: '/pre_queue/remove/user',
+        url: '/pre_queue/remove/student',
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'

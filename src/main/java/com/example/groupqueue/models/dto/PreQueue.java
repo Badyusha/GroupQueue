@@ -7,12 +7,12 @@ import lombok.Data;
 public class PreQueue {
 	long id;
 	long lessonId;
-	long userId;
+	long studentId;
 	String dayOfWeek;
 	String startTime;
 	byte[] passingLabs;
 
-	public PreQueueEntity toPreQueueEntity(long userId) {
-		return new PreQueueEntity(lessonId, userId, passingLabs);
+	public PreQueueEntity toPreQueueEntity(long studentId) {
+		return new PreQueueEntity(lessonId, studentId, passingLabs);
 	}
 }

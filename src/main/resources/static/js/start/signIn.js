@@ -15,7 +15,7 @@ signInButton.addEventListener('click', async function () {
 
     $.ajax({
         type: 'POST',
-        url: '/user/authorization',
+        url: '/student/authorization',
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
@@ -25,7 +25,7 @@ signInButton.addEventListener('click', async function () {
             password: password.value
         }),
         success: function (response) {
-            window.location.replace('/user/main_page');
+            window.location.replace('/student/main_page');
         },
         error: async function (response) {
             await sendMessageWithDelay(errorMessage, 'Incorrect username or password', '', 4000);

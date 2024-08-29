@@ -30,7 +30,7 @@ registerToQueueButton.addEventListener('click', async function () {
     let passingLabsNumbersList = getPassingLabsList(passingLabs);
     $.ajax({
         type: 'POST',
-        url: '/pre_queue/register/user',
+        url: '/pre_queue/register/student',
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'

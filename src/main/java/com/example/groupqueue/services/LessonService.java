@@ -7,16 +7,11 @@ import com.example.groupqueue.models.entities.LessonEntity;
 import com.example.groupqueue.models.entities.ScheduleEntity;
 import com.example.groupqueue.models.enums.DayOfWeek;
 import com.example.groupqueue.models.enums.SortType;
-import com.example.groupqueue.models.enums.SubgroupType;
 import com.example.groupqueue.models.enums.WeekType;
 import com.example.groupqueue.repo.LessonRepository;
-import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -38,8 +33,8 @@ public class LessonService {
 		lessonRepository.save(lessonEntity);
 	}
 
-	public List<Lesson> getScheduleInfoByUserIdGroupId(long userId, long groupId) {
-		return lessonRepository.getScheduleInfoByUserIdGroupId(userId, groupId);
+	public List<Lesson> getScheduleInfoByStudentIdGroupId(long studentId, long groupId) {
+		return lessonRepository.getScheduleInfoByStudentIdGroupId(studentId, groupId);
 	}
 
 	public void addLessonByScheduleList(WeekType weekType, List<ScheduleEntity> scheduleEntityList) {

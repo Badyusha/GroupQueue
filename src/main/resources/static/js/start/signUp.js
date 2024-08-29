@@ -203,7 +203,7 @@ signUpButton.addEventListener('click', async function () {
 
     $.ajax({
         type: 'POST',
-        url: '/user/registration',
+        url: '/student/registration',
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
@@ -216,7 +216,7 @@ signUpButton.addEventListener('click', async function () {
             password: passwordInput.value
         }),
         success: function (response) {
-            window.location.replace('/user/main_page');
+            window.location.replace('/student/main_page');
         },
         error: async function (response) {
             await sendMessageWithDelay(invalidMessage, 'System error', '', 4000);

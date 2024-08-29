@@ -5,7 +5,7 @@
 
 Business funcs:
 
-   #=== For user
+   #=== For student
 
    register
    authorize
@@ -19,7 +19,7 @@ Business funcs:
       # ?=== TODO
       change avatar, app theme
 
-   #=== For admin (extends user)
+   #=== For admin (extends student)
 
    choose queue ordering option
 

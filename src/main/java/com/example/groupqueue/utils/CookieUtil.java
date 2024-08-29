@@ -2,7 +2,7 @@ package com.example.groupqueue.utils;
 
 import com.example.groupqueue.exceptions.CookieException;
 import com.example.groupqueue.models.dto.Pair;
-import com.example.groupqueue.models.dto.User;
+import com.example.groupqueue.models.dto.Student;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -92,17 +92,17 @@ public class CookieUtil {
 		throw new CookieException("there is no " + key + " cookie");
 	}
 
-	public static void addRequired(HttpServletResponse response, User user) {
-		create(response, "userId", user.getUserId().toString());
-		create(response, "groupId", user.getGroupId().toString());
+	public static void addRequired(HttpServletResponse response, Student student) {
+		create(response, "studentId", student.getStudentId().toString());
+		create(response, "groupId", student.getGroupId().toString());
 	}
 
 	public static Long getGroupId(HttpServletRequest request) {
 		return Long.parseLong(getCookie(request, "groupId"));
 	}
 
-	public static Long getUserId(HttpServletRequest request) {
-		return Long.parseLong(getCookie(request, "userId"));
+	public static Long getStudentId(HttpServletRequest request) {
+		return Long.parseLong(getCookie(request, "studentId"));
 	}
 
 	private static Pair<String, String> getEncryptedValueIVPair(String value) {

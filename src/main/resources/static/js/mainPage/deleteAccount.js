@@ -20,7 +20,7 @@ function showDeleteAccountForm() {
 deleteAccountButton.addEventListener('click', function() {
     $.ajax({
         type: 'DELETE',
-        url: '/user/delete',
+        url: '/student/delete',
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'

@@ -22,14 +22,14 @@ public class RequestEntity {
 	private RequestType requestType;
 
 	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "user_id", insertable = false, updatable = false, nullable = false)
-	private UserEntity user;
+	@JoinColumn(name = "student_id", insertable = false, updatable = false, nullable = false)
+	private StudentEntity studentEntity;
 
-	@Column(name = "user_id", columnDefinition = "BIGINT")
-	private Long userId;
+	@Column(name = "student_id", columnDefinition = "BIGINT")
+	private Long studentId;
 
-	public RequestEntity(RequestType requestType, long userId) {
+	public RequestEntity(RequestType requestType, long studentId) {
 		this.requestType = requestType;
-		this.userId = userId;
+		this.studentId = studentId;
 	}
 }

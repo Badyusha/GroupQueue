@@ -29,10 +29,10 @@ public class QueueService {
 	private LessonRepository lessonRepository;
 	private PreQueueRepository preQueueRepository;
 
-	public List<QueueInfo> getQueueInfoByUserIdGroupId(HttpServletRequest request) {
-		long userId = CookieUtil.getUserId(request);
-		List<QueueInfo> queueResults = queueRepository.findQueueResults(userId);
-		List<QueueInfo> preQueueResults = queueRepository.findPreQueueResults(userId);
+	public List<QueueInfo> getQueueInfoByStudentIdGroupId(HttpServletRequest request) {
+		long studentId = CookieUtil.getStudentId(request);
+		List<QueueInfo> queueResults = queueRepository.findQueueResultsByStudentId(studentId);
+		List<QueueInfo> preQueueResults = queueRepository.findPreQueueResults(studentId);
 
 		List<QueueInfo> combinedResults = new ArrayList<>();
 		combinedResults.addAll(queueResults);

@@ -18,7 +18,7 @@ public class QueueController {
 	@GetMapping("/queue/get")
 	@ResponseBody
 	public List<QueueInfo> getQueues(HttpServletRequest request) {
-		return queueService.getQueueInfoByUserIdGroupId(request);
+		return queueService.getQueueInfoByStudentIdGroupId(request);
 	}
 
 	@GetMapping("/queue/lesson/{lessonId}/get")

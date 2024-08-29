@@ -34,9 +34,9 @@ public class ScheduleService {
 	}
 
 	public Schedule getDayOfWeekSchedule(HttpServletRequest request) {
-		long userId = CookieUtil.getUserId(request);
+		long studentId = CookieUtil.getStudentId(request);
 		long groupId = CookieUtil.getGroupId(request);
-		List<Lesson> lessonList = lessonService.getScheduleInfoByUserIdGroupId(userId, groupId);
+		List<Lesson> lessonList = lessonService.getScheduleInfoByStudentIdGroupId(studentId, groupId);
 		if (lessonList.isEmpty()) {
 			throw new ScheduleException("there is no schedule for groupId=" + groupId);
 		}

@@ -26,11 +26,11 @@ public class PreQueueEntity {
 	private Long lessonId;
 
 	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "user_id", insertable = false, updatable = false, nullable = false)
-	private UserEntity userEntity;
+	@JoinColumn(name = "student_id", insertable = false, updatable = false, nullable = false)
+	private StudentEntity studentEntity;
 
-	@Column(name = "user_id", columnDefinition = "BIGINT")
-	private Long userId;
+	@Column(name = "student_id", columnDefinition = "BIGINT")
+	private Long studentId;
 
 	@Column(name = "passing_labs", columnDefinition = "BLOB")
 	private byte[] passingLabs;
@@ -39,14 +39,14 @@ public class PreQueueEntity {
 	private LocalTime registrationTime;
 
 
-	public PreQueueEntity(long lessonId, long userId, byte[] passingLabs) {
+	public PreQueueEntity(long lessonId, long studentId, byte[] passingLabs) {
 		this.lessonId = lessonId;
-		this.userId = userId;
+		this.studentId = studentId;
 		this.passingLabs = passingLabs;
 		this.registrationTime = LocalTime.now();
 	}
 
 	public QueueEntity toQueueEntity(int order) {
-		return new QueueEntity(lessonId, userId, order);
+		return new QueueEntity(lessonId, studentId, order);
 	}
 }

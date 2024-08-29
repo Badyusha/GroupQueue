@@ -133,7 +133,7 @@ async function drawSchedule() {
             if(numberInQueue !== null) {
                 status = `
                     <div class="queue-position-status">
-                        <a href="/user/queues" class="number-in-queue-text-status">
+                        <a href="/student/queues" class="number-in-queue-text-status">
                             You are <span style="color: white">${numberInQueue}</span> in Q
                         </a>
                     </div>

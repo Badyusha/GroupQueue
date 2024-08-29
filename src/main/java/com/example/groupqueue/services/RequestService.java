@@ -15,28 +15,28 @@ import java.util.List;
 @RequiredArgsConstructor
 public class RequestService {
 	private final RequestRepository requestRepository;
-	private final UserService userService;
+	private final StudentService studentService;
 
 	public List<Request> getRequests() {
 		return requestRepository.getRequests();
 	}
 
 	public void sendBecomeGroupAdmin(HttpServletRequest request) {
-		long userId = CookieUtil.getUserId(request);
-		requestRepository.save(new RequestEntity(RequestType.BECOME_GROUP_ADMIN, userId));
+		long studentId = CookieUtil.getStudentId(request);
+		requestRepository.save(new RequestEntity(RequestType.BECOME_GROUP_ADMIN, studentId));
 	}
 
 	public void acceptBecomeGroupAdminRequest(Request requestDto) {
-		long userId = requestDto.getUserId();
-		userService.updateUserRoleType(userId);
+		long studentId = requestDto.getStudentId();
+		studentService.updateStudentRoleType(studentId);
 
-		long requestId = requestRepository.getRequestIdByRequestTypeUserId(requestDto.getRequestType(), userId);
+		long requestId = requestRepository.getRequestIdByRequestTypeStudentId(requestDto.getRequestType(), studentId);
 		requestRepository.deleteById(requestId);
 	}
 
 	public void declineBecomeGroupAdminRequest(Request requestDto) {
-		long requestId = requestRepository.getRequestIdByRequestTypeUserId(requestDto.getRequestType(),
-				requestDto.getUserId());
+		long requestId = requestRepository.getRequestIdByRequestTypeStudentId(requestDto.getRequestType(),
+																				requestDto.getStudentId());
 		requestRepository.deleteById(requestId);
 	}
 }

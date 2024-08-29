@@ -26,7 +26,7 @@ menuOverlay.addEventListener('click', function() {
 
 
 async function fillSideMenu() {
-    let response = await fetchData('/user/get/info');
+    let response = await fetchData('/student/get/info');
 
     username = response.username;
     firstName = response.firstName;
@@ -87,7 +87,7 @@ async function fillSideMenu() {
 function addEventListeners(roleType) {
     const showUserQueuesButton = document.getElementById('user-queues');
     showUserQueuesButton.addEventListener('click', function () {
-        window.location.href = '/user/queues';
+        window.location.href = '/student/queues';
         sideMenu.classList.remove('active');
         menuOverlay.classList.remove('active');
     });
@@ -104,7 +104,6 @@ function addEventListeners(roleType) {
 
     const signOut = document.getElementById('sign-out');
     signOut.addEventListener('click', function() {
-        console.log("cookie: "+document.cookie);
         window.location.replace('/');
     });
 
@@ -127,7 +126,7 @@ function addEventListeners(roleType) {
 }
 
 async function sendBecomeGroupAdminRequest(roleType) {
-    let isUserRoleCorrect = await fetchData(`/user/${roleType}/is_user_role`);
+    let isUserRoleCorrect = await fetchData(`/student/${roleType}/is_student_role`);
     if(!isUserRoleCorrect) {
         return;
     }
@@ -138,7 +137,7 @@ async function sendBecomeGroupAdminRequest(roleType) {
 }
 
 async function chooseSortType(roleType) {
-    let isUserRoleIncorrect = await fetchData(`/user/${roleType}/is_user_role`);
+    let isUserRoleIncorrect = await fetchData(`/student/${roleType}/is_student_role`);
     if(isUserRoleIncorrect) {
         return;
     }
@@ -148,7 +147,7 @@ async function chooseSortType(roleType) {
 }
 
 async function showBecomeAdminRequests(roleType) {
-    let isUserRoleCorrect = await fetchData(`/user/${roleType}/is_user_role`);
+    let isUserRoleCorrect = await fetchData(`/student/${roleType}/is_student_role`);
     if(!isUserRoleCorrect) {
         return;
     }

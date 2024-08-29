@@ -21,7 +21,7 @@ CREATE TABLE `role` (
     AUTO_INCREMENT=4
 ;
 
-CREATE TABLE `user` (
+CREATE TABLE `student` (
     `id` BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
     `group_id` BIGINT(20) UNSIGNED NOT NULL,
     `role_id` BIGINT(20) UNSIGNED NOT NULL,
@@ -31,10 +31,10 @@ CREATE TABLE `user` (
     `password` VARCHAR(65) NULL DEFAULT NULL COLLATE 'utf8mb4_general_ci',
     PRIMARY KEY (`id`) USING BTREE,
     UNIQUE INDEX `username` (`username`) USING BTREE,
-    INDEX `FK_user_role` (`role_id`) USING BTREE,
-    INDEX `FK_user_group` (`group_id`) USING BTREE,
-    CONSTRAINT `FK_user_group` FOREIGN KEY (`group_id`) REFERENCES `group` (`id`) ON UPDATE RESTRICT ON DELETE RESTRICT,
-    CONSTRAINT `FK_user_role` FOREIGN KEY (`role_id`) REFERENCES `role` (`id`) ON UPDATE RESTRICT ON DELETE RESTRICT
+    INDEX `FK_student_role` (`role_id`) USING BTREE,
+    INDEX `FK_student_group` (`group_id`) USING BTREE,
+    CONSTRAINT `FK_student_group` FOREIGN KEY (`group_id`) REFERENCES `group` (`id`) ON UPDATE RESTRICT ON DELETE RESTRICT,
+    CONSTRAINT `FK_student_role` FOREIGN KEY (`role_id`) REFERENCES `role` (`id`) ON UPDATE RESTRICT ON DELETE RESTRICT
 )
     COLLATE='utf8mb4_general_ci'
     ENGINE=InnoDB
@@ -103,14 +103,14 @@ CREATE TABLE `permission_role` (
 CREATE TABLE `pre_queue` (
      `id` BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
      `lesson_id` BIGINT(20) UNSIGNED NOT NULL,
-     `user_id` BIGINT(20) UNSIGNED NOT NULL,
+     `student_id` BIGINT(20) UNSIGNED NOT NULL,
      `passing_labs` BLOB NULL DEFAULT NULL,
      `registration_time` TIME NOT NULL,
      PRIMARY KEY (`id`) USING BTREE,
      INDEX `FK_pre_queue_lesson` (`lesson_id`) USING BTREE,
-     INDEX `FK_pre_queue_user` (`user_id`) USING BTREE,
+     INDEX `FK_pre_queue_student` (`student_id`) USING BTREE,
      CONSTRAINT `FK_pre_queue_lesson` FOREIGN KEY (`lesson_id`) REFERENCES `lesson` (`id`) ON UPDATE CASCADE ON DELETE CASCADE,
-     CONSTRAINT `FK_pre_queue_user` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON UPDATE CASCADE ON DELETE RESTRICT
+     CONSTRAINT `FK_pre_queue_student` FOREIGN KEY (`student_id`) REFERENCES student (`id`) ON UPDATE CASCADE ON DELETE RESTRICT
 )
     COLLATE='utf8mb4_general_ci'
     ENGINE=InnoDB
@@ -120,13 +120,13 @@ CREATE TABLE `pre_queue` (
 CREATE TABLE `queue` (
      `id` BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
      `lesson_id` BIGINT(20) UNSIGNED NOT NULL,
-     `user_id` BIGINT(20) UNSIGNED NOT NULL,
+     `student_id` BIGINT(20) UNSIGNED NOT NULL,
      `order` INT(10) UNSIGNED NOT NULL,
      PRIMARY KEY (`id`) USING BTREE,
-     INDEX `FK_queue_user` (`user_id`) USING BTREE,
+     INDEX `FK_queue_student` (`student_id`) USING BTREE,
      INDEX `FK_queue_lesson` (`lesson_id`) USING BTREE,
      CONSTRAINT `FK_queue_lesson` FOREIGN KEY (`lesson_id`) REFERENCES `lesson` (`id`) ON UPDATE RESTRICT ON DELETE CASCADE,
-     CONSTRAINT `FK_queue_user` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON UPDATE CASCADE ON DELETE RESTRICT
+     CONSTRAINT `FK_queue_student` FOREIGN KEY (`student_id`) REFERENCES student (`id`) ON UPDATE CASCADE ON DELETE RESTRICT
 )
     COLLATE='utf8mb4_general_ci'
     ENGINE=InnoDB
@@ -136,10 +136,10 @@ CREATE TABLE `queue` (
 CREATE TABLE `request` (
    `id` BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
    `request_type` ENUM('BECOME_GROUP_ADMIN') NOT NULL COLLATE 'utf8mb4_general_ci',
-   `user_id` BIGINT(20) UNSIGNED NOT NULL,
+   `student_id` BIGINT(20) UNSIGNED NOT NULL,
    PRIMARY KEY (`id`) USING BTREE,
-   UNIQUE INDEX `user_id` (`user_id`) USING BTREE,
-   CONSTRAINT `FK_request_user` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON UPDATE CASCADE ON DELETE CASCADE
+   UNIQUE INDEX `student_id` (`student_id`) USING BTREE,
+   CONSTRAINT `FK_request_student` FOREIGN KEY (`student_id`) REFERENCES student (`id`) ON UPDATE CASCADE ON DELETE CASCADE
 )
     COLLATE='utf8mb4_general_ci'
     ENGINE=InnoDB

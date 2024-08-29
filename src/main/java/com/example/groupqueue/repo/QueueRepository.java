@@ -5,13 +5,12 @@ import com.example.groupqueue.models.dto.QueueInfo;
 import com.example.groupqueue.models.entities.QueueEntity;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
-import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
 public interface QueueRepository extends CrudRepository<QueueEntity, Long> {
 
-	@Query("""
+	@Query(value = """
 				SELECT new com.example.groupqueue.models.dto.QueueInfo(
 				s.subjectName,
 				s.subjectFullName,
@@ -25,12 +24,12 @@ public interface QueueRepository extends CrudRepository<QueueEntity, Long> {
 				FROM QueueEntity q
 				JOIN q.lessonEntity l
 				JOIN l.scheduleEntity s
-				LEFT JOIN PreQueueEntity pq ON q.lessonId = pq.lessonId AND q.userId = pq.userId
-				WHERE q.userId = ?1
+				LEFT JOIN PreQueueEntity pq ON q.lessonId = pq.lessonId AND q.studentId = pq.studentId
+				WHERE q.studentId = ?1
 			""")
-	List<QueueInfo> findQueueResults(long userId);
+	List<QueueInfo> findQueueResultsByStudentId(long studentId);
 
-	@Query("""
+	@Query(value = """
 				SELECT new com.example.groupqueue.models.dto.QueueInfo(
 				s.subjectName,
 				s.subjectFullName,
@@ -44,22 +43,22 @@ public interface QueueRepository extends CrudRepository<QueueEntity, Long> {
 				FROM PreQueueEntity pq
 				JOIN pq.lessonEntity l
 				JOIN l.scheduleEntity s
-				LEFT JOIN QueueEntity q ON pq.lessonId = q.lessonId AND pq.userId = q.userId
-				WHERE pq.userId = ?1 AND q.id IS NULL
+				LEFT JOIN QueueEntity q ON pq.lessonId = q.lessonId AND pq.studentId = q.studentId
+				WHERE pq.studentId = ?1 AND q.id IS NULL
 			""")
-	List<QueueInfo> findPreQueueResults(long userId);
+	List<QueueInfo> findPreQueueResults(long studentId);
 
 	@Query(value = """
-     				SELECT new com.example.groupqueue.models.dto.GroupQueue(
-						q.order, u.username,
-						u.lastName, u.firstName,
+					SELECT new com.example.groupqueue.models.dto.GroupQueue(
+						q.order, s.username,
+						s.lastName, s.firstName,
 						pq.passingLabs
 					)
 					FROM QueueEntity q
-					INNER JOIN UserEntity u
-						ON u.id = q.userId
+					INNER JOIN StudentEntity s
+						ON s.id = q.studentId
 					INNER JOIN PreQueueEntity pq
-						ON pq.userId = q.userId
+						ON pq.studentId = q.studentId
 					WHERE q.lessonId = ?1
 					ORDER BY q.order ASC
 					""")

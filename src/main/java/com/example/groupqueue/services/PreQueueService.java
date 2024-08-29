@@ -10,7 +10,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.time.LocalTime;
 
 @Service
@@ -18,17 +17,17 @@ import java.time.LocalTime;
 public class PreQueueService {
 	private final PreQueueRepository preQueueRepository;
 
-	public void removeUserFromPreQueueByLessonId(HttpServletRequest request, long lessonId) {
-		long userId = CookieUtil.getUserId(request);
-		preQueueRepository.delete(preQueueRepository.getPreQueueEntityByUserIdLessonId(userId, lessonId));
+	public void removeStudentFromPreQueueByLessonId(HttpServletRequest request, long lessonId) {
+		long studentId = CookieUtil.getStudentId(request);
+		preQueueRepository.delete(preQueueRepository.getPreQueueEntityByStudentIdLessonId(studentId, lessonId));
 	}
 
-	public void addUserToPreQueue(HttpServletRequest request, PreQueue preQueue) {
-		long userId = CookieUtil.getUserId(request);
+	public void addStudentToPreQueue(HttpServletRequest request, PreQueue preQueue) {
+		long studentId = CookieUtil.getStudentId(request);
 		LocalTime startTime = LocalTime.parse(preQueue.getStartTime());
 		DayOfWeek dayOfWeek = DayOfWeek.getDayOfWeekByName(preQueue.getDayOfWeek());
 		if(GenerateQueueUtil.isRegistrationOpen(dayOfWeek, startTime)) {
-			preQueueRepository.save(preQueue.toPreQueueEntity(userId));
+			preQueueRepository.save(preQueue.toPreQueueEntity(studentId));
 			return;
 		}
 		throw new QueueException("cannot register to pre_queue because of current day of week or current time");
