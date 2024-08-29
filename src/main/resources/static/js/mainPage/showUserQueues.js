@@ -1,7 +1,7 @@
 const overlay = document.getElementById('dark-overlay');
 const finalQueue = document.getElementById('final-queue');
 const finalTable = document.getElementById('final-queue-table');
-const finalTableTbody = document.getElementById('final-table-tbody');
+const finalQueueTable = document.getElementById('final-queue-table');
 const subjectInfo = document.getElementById('subject-info');
 
 overlay.addEventListener('click', function() {
@@ -65,11 +65,86 @@ async function fillUserQueues() {
         let queuesContainer = document.getElementById('queues-container');
         queuesContainer.innerText = 'You have no active queues';
         queuesContainer.style.padding = '1em';
-        queuesContainer.style.color = 'var(--gray)';
-        queuesContainer.style.fontWeight = '500';
+        queuesContainer.style.color = 'var(--inputText)';
+        queuesContainer.style.fontWeight = '600';
         return;
     }
+    fillTableHeader();
     insertDataIntoTable(queues);
+}
+
+function fillTableHeader() {
+    // Create and append header cells with arrows
+    const headers = [
+        { text: 'Subject name', index: 0 },
+        { text: 'Date', index: 1 },
+        { text: 'Start time', index: 2 },
+        { text: 'Subgroup', index: 3 },
+        { text: 'Passing labs', index: 4 },
+        { text: 'Registration status', index: 5 },
+        { text: 'Number in Q', index: 6 },
+        { text: 'Sort type', index: 7 }
+    ];
+
+    const table = document.getElementById('queues-table');
+    const tableRowHeader = document.createElement('tr');
+
+    headers.forEach(header => {
+        let th = document.createElement('th');
+        th.innerHTML = `${header.text}`;
+        if (header.index !== 4 && header.index !== 6 && header.index !== 7) {
+            th.innerHTML = `${header.text} <span class="arrow">&#9650;</span><span class="arrow">&#9660;</span>`;
+        }
+        th.style.cursor = 'pointer';
+
+        if (header.index !== 4 && header.index !== 6 && header.index !== 7) {
+            th.addEventListener('click', () => sortTable(header.index, th));
+        }
+        tableRowHeader.appendChild(th);
+    });
+    table.append(tableRowHeader);
+
+    function sortTable(columnIndex, headerElement) {
+        let rows = Array.from(table.querySelectorAll('tr')).slice(1); // exclude header row
+        let isAscending = headerElement.getAttribute('data-sort-direction') === 'asc';
+
+        rows.sort((rowA, rowB) => {
+            let cellA = rowA.cells[columnIndex].innerText.trim();
+            let cellB = rowB.cells[columnIndex].innerText.trim();
+
+            let comparison = 0;
+
+            if (columnIndex === 1) { // Date column
+                const parseDate = (dateStr) => {
+                    let [day, month, year] = dateStr.split('.');
+                    return new Date(`${year}-${month}-${day}`);
+                };
+                comparison = parseDate(cellA) - parseDate(cellB);
+            } else if (columnIndex === 2) { // Start time column
+                comparison = cellA.localeCompare(cellB);
+            } else if (columnIndex === 3) { // Subgroup column
+                comparison = parseInt(cellA) - parseInt(cellB);
+            } else if(columnIndex === 0 || columnIndex === 5){ // Subject name or Sort type column
+                comparison = cellA.localeCompare(cellB);
+            }
+
+            return isAscending ? comparison : -comparison;
+        });
+
+        // Toggle sort direction
+        isAscending = !isAscending;
+        headerElement.setAttribute('data-sort-direction', isAscending ? 'asc' : 'desc');
+
+        // Update arrow visibility
+        headerElement.querySelectorAll('.arrow').forEach(arrow => arrow.style.color = 'var(--gray)');
+        if (isAscending) {
+            headerElement.querySelector('.arrow:first-child').style.color = 'var(--headerBorder)';
+        } else {
+            headerElement.querySelector('.arrow:last-child').style.color = 'var(--headerBorder)';
+        }
+
+        rows.forEach(row => table.appendChild(row));
+    }
 }
 
 async function showFinalQueue(lessonId, subjectName, date, startTime) {
@@ -92,7 +167,7 @@ async function showFinalQueue(lessonId, subjectName, date, startTime) {
         <td>${decodeBase64(data.passingLabs)}</td>
     `;
 
-        finalTableTbody.appendChild(row);
+        finalQueueTable.appendChild(row);
     });
 
 }
@@ -118,7 +193,7 @@ async function insertDataIntoTable(data) {
 
         const subgroupTypeCell = document.createElement('td');
         subgroupTypeCell.textContent = (item.subgroupType === 'ALL') ? 'All' :
-            (item.subgroupType === 'FIRST' ? 'First' : 'Second');
+            (item.subgroupType === 'FIRST' ? '1' : '2');
         row.appendChild(subgroupTypeCell);
 
         const passingLabsCell = document.createElement('td');

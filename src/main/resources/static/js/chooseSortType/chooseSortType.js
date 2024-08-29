@@ -33,34 +33,40 @@ document.addEventListener('DOMContentLoaded', async function() {
     let lessonsTable = document.getElementById('lessons-table');
     let tableRowHeader = document.createElement('tr');
 
-    if(lessons.length === 0) {
+    if (lessons.length === 0) {
         let noDataHeader = document.createElement('th');
         noDataHeader.innerText = "No data found";
         tableRowHeader.appendChild(noDataHeader);
 
         noDataHeader.style.textAlign = 'center';
-        noDataHeader.style.color = 'var(--inputText)';
+        noDataHeader.style.color = 'var(--gray)';
 
         lessonsTable.append(tableRowHeader);
         return;
     }
 
-    let subjectNameHeader = document.createElement('th');
-    subjectNameHeader.innerText = "Subject name";
+    // Create and append header cells with arrows
+    const headers = [
+        { text: 'Subject name', index: 0 },
+        { text: 'Subgroup', index: 1 },
+        { text: 'Date', index: 2 },
+        { text: 'Start time', index: 3 },
+        { text: 'Sort type', index: 4 }
+    ];
 
-    let dateHeader = document.createElement('th');
-    dateHeader.innerText = "Date";
+    headers.forEach(header => {
+        let th = document.createElement('th');
+        th.innerHTML = `${header.text}`;
+        if(header.index !== 4) {
+            th.innerHTML = `${header.text} <span class="arrow">&#9650;</span><span class="arrow">&#9660;</span>`
+        }
+        th.style.cursor = 'pointer';
 
-    let startTimeHeader = document.createElement('th');
-    startTimeHeader.innerText = "Start time";
-
-    let sortTypeSelectionHeader = document.createElement('th');
-    sortTypeSelectionHeader.innerHTML = "Sort type";
-
-    tableRowHeader.appendChild(subjectNameHeader);
-    tableRowHeader.appendChild(dateHeader);
-    tableRowHeader.appendChild(startTimeHeader);
-    tableRowHeader.appendChild(sortTypeSelectionHeader);
+        if(header.index !== 4) {
+            th.addEventListener('click', () => sortTable(header.index, th));
+        }
+        tableRowHeader.appendChild(th);
+    });
 
     lessonsTable.append(tableRowHeader);
 
@@ -72,13 +78,18 @@ document.addEventListener('DOMContentLoaded', async function() {
         subjectName.innerText = lesson.subjectName;
         subjectName.title = `${lesson.subjectFullName}`;
 
-        let date = tableRow.insertCell(1);
+        let subgroup = tableRow.insertCell(1);
+        let subgroupType = lesson.subgroupType;
+        subgroup.innerText = (subgroupType === 'ALL') ? 'All' :
+            (subgroupType === 'FIRST' ? '1' : '2');
+
+        let date = tableRow.insertCell(2);
         date.innerText = formatDate(lesson.date);
 
-        let startTime = tableRow.insertCell(2);
+        let startTime = tableRow.insertCell(3);
         startTime.innerText = removeSecondsFromTime(lesson.startTime);
 
-        let sortTypeSelection = tableRow.insertCell(3);
+        let sortTypeSelection = tableRow.insertCell(4);
         sortTypeSelection.innerHTML = `<select id="${lesson.lessonId}"></select>`;
 
         lessonsTable.append(tableRow);
@@ -98,7 +109,50 @@ document.addEventListener('DOMContentLoaded', async function() {
             await changeSortType(lesson.lessonId);
         });
     });
+
+    function sortTable(columnIndex, headerElement) {
+        let rows = Array.from(lessonsTable.querySelectorAll('tr')).slice(1); // exclude header row
+        let isAscending = headerElement.getAttribute('data-sort-direction') === 'asc';
+
+        rows.sort((rowA, rowB) => {
+            let cellA = rowA.cells[columnIndex].innerText.trim();
+            let cellB = rowB.cells[columnIndex].innerText.trim();
+
+            let comparison = 0;
+
+            if (columnIndex === 2) { // Date column
+                const parseDate = (dateStr) => {
+                    let [day, month, year] = dateStr.split('.');
+                    return new Date(`${year}-${month}-${day}`);
+                };
+                comparison = parseDate(cellA) - parseDate(cellB);
+            } else if (columnIndex === 3) { // Start time column
+                comparison = cellA.localeCompare(cellB);
+            } else if (columnIndex === 1) { // Subgroup column
+                comparison = parseInt(cellA) - parseInt(cellB);
+            } else { // Subject name or Sort type column
+                comparison = cellA.localeCompare(cellB);
+            }
+
+            return isAscending ? comparison : -comparison;
+        });
+
+        // Toggle sort direction
+        isAscending = !isAscending;
+        headerElement.setAttribute('data-sort-direction', isAscending ? 'asc' : 'desc');
+
+        // Update arrow visibility
+        headerElement.querySelectorAll('.arrow').forEach(arrow => arrow.style.color = 'var(--gray)');
+        if (isAscending) {
+            headerElement.querySelector('.arrow:first-child').style.color = 'var(--headerBorder)';
+        } else {
+            headerElement.querySelector('.arrow:last-child').style.color = 'var(--headerBorder)';
+        }
+
+        rows.forEach(row => lessonsTable.appendChild(row));
+    }
 });
+
 
 async function sleep(ms) {
     return new Promise(resolve=>setTimeout(resolve, ms));

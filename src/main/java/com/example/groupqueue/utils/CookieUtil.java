@@ -95,37 +95,14 @@ public class CookieUtil {
 	public static void addRequired(HttpServletResponse response, User user) {
 		create(response, "userId", user.getUserId().toString());
 		create(response, "groupId", user.getGroupId().toString());
-		create(response, "groupNumber", user.getGroupNumber().toString());
-		create(response, "username", user.getUsername());
-		create(response, "firstName", user.getFirstName());
-		create(response, "lastName", user.getLastName());
 	}
 
-	/**
-	 * method returns groupId from cookie if it exists, if it does not -> exception
-	 */
 	public static Long getGroupId(HttpServletRequest request) {
 		return Long.parseLong(getCookie(request, "groupId"));
 	}
 
-	public static Integer getGroupNumber(HttpServletRequest request) {
-		return Integer.parseInt(getCookie(request, "groupNumber"));
-	}
-
 	public static Long getUserId(HttpServletRequest request) {
 		return Long.parseLong(getCookie(request, "userId"));
-	}
-
-	public static String getUsername(HttpServletRequest request) {
-		return getCookie(request, "username");
-	}
-
-	public static String getFirstName(HttpServletRequest request) {
-		return getCookie(request, "firstName");
-	}
-
-	public static String getLastName(HttpServletRequest request) {
-		return getCookie(request, "lastName");
 	}
 
 	private static Pair<String, String> getEncryptedValueIVPair(String value) {

@@ -9,25 +9,6 @@ public enum WeekType {
 	THIRD,
 	FOURTH;
 
-	public static WeekType getCurrentWeekType() throws WeekTypeException {
-		return switch(BsuirAPI.getCurrentWeek()) {
-			case 1 -> FIRST;
-			case 2 -> SECOND;
-			case 3 -> THIRD;
-			case 4 -> FOURTH;
-			default -> throw new WeekTypeException("failed to get current week type");
-		};
-	}
-
-	public static int getWeekNumber(WeekType week) {
-		return switch(week) {
-			case FIRST -> 1;
-			case SECOND -> 2;
-			case THIRD -> 3;
-			case FOURTH -> 4;
-		};
-	}
-
 	public static int getNextWeekNumber(int week) {
 		int nextWeekNumber = week + 1;
 		return switch(nextWeekNumber) {

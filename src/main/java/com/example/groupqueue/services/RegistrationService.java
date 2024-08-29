@@ -2,6 +2,7 @@ package com.example.groupqueue.services;
 
 import com.example.groupqueue.external.api.BsuirAPI;
 import com.example.groupqueue.models.dto.User;
+import com.example.groupqueue.models.entities.GroupEntity;
 import com.example.groupqueue.repo.GroupRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -23,7 +24,7 @@ public class RegistrationService {
 
 	public void registerGroup(int groupNumber) {
 		if(!groupRepository.isGroupExist(groupNumber) && BsuirAPI.isGroupExist(groupNumber)) {
-			groupRepository.saveGroup(groupNumber);
+			groupRepository.save(new GroupEntity(groupNumber));
 			scheduleService.addRecordsForNewGroupByGroupNumber(groupNumber);
 		}
 	}

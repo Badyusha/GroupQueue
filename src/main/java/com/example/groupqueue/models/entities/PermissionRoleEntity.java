@@ -11,7 +11,6 @@ import lombok.ToString;
 @Entity
 @Table(name = "`permission_role`")
 public class PermissionRoleEntity {
-	//	FIELDS
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
@@ -21,13 +20,13 @@ public class PermissionRoleEntity {
 	@JoinColumn(name = "permission_id", insertable = false, updatable = false, nullable = false)
 	private PermissionEntity permissionEntity;
 
-	@Column(name = "permission_id", updatable = false)
+	@Column(name = "permission_id", columnDefinition = "BIGINT", updatable = false)
 	private Long permissionId;
 
 	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name = "role_id", insertable = false, updatable = false, nullable = false)
 	private RoleEntity roleEntity;
 
-	@Column(name = "role_id", updatable = false)
+	@Column(name = "role_id", columnDefinition = "BIGINT", updatable = false)
 	private Long roleId;
 }

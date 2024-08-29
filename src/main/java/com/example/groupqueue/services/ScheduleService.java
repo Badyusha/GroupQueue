@@ -6,13 +6,10 @@ import com.example.groupqueue.models.dto.DayOfWeekScheduled;
 import com.example.groupqueue.models.dto.GroupSchedule;
 import com.example.groupqueue.models.dto.Lesson;
 import com.example.groupqueue.models.dto.Schedule;
-import com.example.groupqueue.models.entities.PreQueueEntity;
 import com.example.groupqueue.models.entities.ScheduleEntity;
 import com.example.groupqueue.models.enums.DayOfWeek;
 import com.example.groupqueue.models.enums.WeekType;
 import com.example.groupqueue.repo.GroupRepository;
-import com.example.groupqueue.repo.PreQueueRepository;
-import com.example.groupqueue.repo.QueueRepository;
 import com.example.groupqueue.repo.ScheduleRepository;
 import com.example.groupqueue.utils.CookieUtil;
 import com.example.groupqueue.utils.GenerateQueueUtil;
@@ -30,8 +27,6 @@ import java.util.List;
 public class ScheduleService {
 	private final ScheduleRepository scheduleRepository;
 	private final GroupRepository groupRepository;
-	private final PreQueueRepository preQueueRepository;
-	private final QueueRepository queueRepository;
 	private final LessonService lessonService;
 
 	public List<GroupSchedule> getGroupSchedulesByGroupId(long groupId) {

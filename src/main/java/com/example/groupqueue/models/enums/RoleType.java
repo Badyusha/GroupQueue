@@ -1,7 +1,6 @@
 package com.example.groupqueue.models.enums;
 
 import com.example.groupqueue.exceptions.RoleTypeException;
-import com.example.groupqueue.models.dto.User;
 
 public enum RoleType {
 	USER,

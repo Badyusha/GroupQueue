@@ -1,8 +1,9 @@
 @media only screen and (min-width: 700px) {
     .back-container {
-        margin: 1em 0 0 2.3em;
+        margin: 1em 0 0 1.9em;
         display: flex;
-        justify-content: left;
+        justify-content: space-between;
+        gap: 0.5em;
     }
 
     .back-container a, .back-container a:visited {
@@ -14,14 +15,16 @@
     .queues {
         margin-top: 1em;
         display: flex;
-        justify-content: center;
+        justify-content: space-between;
     }
 
     .queues-container {
-        border: 0.1em solid var(--headerBorder);
-        border-radius: 0.7em;
+        border: 0.15em solid var(--headerBorder);
+        border-radius: 1em;
         background-color: var(--darkBlue);
-        width: 96%;
+        width: 97%;
+        margin-left: 1.5%;
+        margin-right: 1.5%;
     }
 
     #queues-table {
@@ -87,6 +90,7 @@
         z-index: 3;
     }
 
+
     #final-queue-table {
         border-collapse: collapse;
     }
@@ -95,10 +99,76 @@
         border: 0.1em solid var(--headerBorder);
         border-radius: 1em;
         margin: 1.5em;
+
+        max-height: 70vh; /* Restrict height to 70% of the viewport height */
+        overflow-y: auto; /* Enable vertical scrolling */
+        overflow-x: hidden; /* Prevent horizontal scrolling */
+        position: relative;
+
+        /* Custom scrollbar styling */
+        scrollbar-width: thin;          /* Firefox */
+        scrollbar-color: #666 #333;     /* Firefox */
+
+        /* WebKit browsers (Chrome, Safari) */
+        &::-webkit-scrollbar {
+            width: 12px; /* Width of the scrollbar */
+        }
+
+        &::-webkit-scrollbar-track {
+            background: var(--darkBlue); /* Match container background color */
+            border-radius: 1em; /* Match the border radius of the container */
+        }
+
+        &::-webkit-scrollbar-thumb {
+            background-color: #666; /* Scrollbar color */
+            border-radius: 10px; /* Scrollbar border radius */
+            border: 3px solid var(--darkBlue); /* Padding around scrollbar */
+        }
+
+        &::-webkit-scrollbar-thumb:hover {
+            background-color: #888; /* Hover color for scrollbar */
+        }
+
+        &::-webkit-scrollbar-corner {
+            background-color: var(--darkBlue); /* Match corner with the container background */
+        }
     }
+
+    .final-queue-container thead th {
+        position: sticky;
+        top: 0;
+        background-color: var(--darkBlue); /* Same background color as container */
+        z-index: 2; /* Ensure the header is above the table content */
+        padding: 0.9em 1.5em 0.9em 1.5em;
+    }
+
 
     .subject-info {
         font-weight: 500;
         color: var(--inputText);
     }
+
+    .sort-arrow {
+        cursor: pointer;
+        font-size: 0.8em;
+        margin-left: 5px;
+        display: inline-block;
+        vertical-align: middle;
+    }
+
+    .arrow {
+        font-size: 12px;
+        color: var(--gray);
+        margin-left: 5px;
+    }
+
+    th[data-sort-direction='asc'] .arrow:first-child {
+        color: var(--headerBorder);
+    }
+
+    th[data-sort-direction='desc'] .arrow:last-child {
+        color: var(--headerBorder);
+    }
+
+
 }

@@ -1,9 +1,7 @@
 package com.example.groupqueue.controllers;
 
-import com.example.groupqueue.external.api.BsuirAPI;
 import com.example.groupqueue.services.GroupService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;

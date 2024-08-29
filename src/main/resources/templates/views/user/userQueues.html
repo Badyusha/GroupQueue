@@ -21,39 +21,14 @@
     <div class="back-container">
         <a href="/user/main_page">
             <i class="fa-solid fa-arrow-left"></i>
-            Back to schedule
+            <span>Back to schedule</span>
         </a>
     </div>
 
     <div class="queues">
         <div id="queues-container" class="queues-container">
             <table id="queues-table">
-                <tr id="table-header-row">
-                    <th>
-                        Subject name
-                    </th>
-                    <th>
-                        Date
-                    </th>
-                    <th>
-                        Start time
-                    </th>
-                    <th>
-                        Subgroup
-                    </th>
-                    <th>
-                        Passing labs
-                    </th>
-                    <th>
-                        Registration status
-                    </th>
-                    <th>
-                        Number in Q
-                    </th>
-                    <th>
-                        Sort type
-                    </th>
-                </tr>
+
             </table>
         </div>
     </div>
@@ -71,12 +46,61 @@
                         <th>Passing labs</th>
                     </tr>
                 </thead>
-                <tbody id="final-table-tbody"></tbody>
             </table>
         </div>
     </div>
 
     <div id="dark-overlay"></div>
+
+    <script>
+        function sortTable(columnIndex) {
+            var table, rows, switching, i, x, y, shouldSwitch, dir, switchCount = 0;
+            table = document.getElementById("queues-table");
+            switching = true;
+            dir = "asc"; // Set the sorting direction to ascending initially
+
+            while (switching) {
+                switching = false;
+                rows = table.rows;
+
+                for (i = 1; i < (rows.length - 1); i++) {
+                    shouldSwitch = false;
+
+                    x = rows[i].getElementsByTagName("TD")[columnIndex];
+                    y = rows[i + 1].getElementsByTagName("TD")[columnIndex];
+
+                    if (dir == "asc") {
+                        if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+                            shouldSwitch = true;
+                            break;
+                        }
+                    } else if (dir == "desc") {
+                        if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+                            shouldSwitch = true;
+                            break;
+                        }
+                    }
+                }
+
+                if (shouldSwitch) {
+                    rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+                    switching = true;
+                    switchCount++;
+                } else {
+                    if (switchCount == 0 && dir == "asc") {
+                        dir = "desc";
+                        switching = true;
+                    }
+                }
+            }
+
+            // Reset sorting arrows
+            for (i = 0; i < table.rows[0].cells.length; i++) {
+                table.rows[0].cells[i].classList.remove('sort-asc', 'sort-desc');
+            }
+            table.rows[0].cells[columnIndex].classList.add(dir == "asc" ? 'sort-asc' : 'sort-desc');
+        }
+    </script>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 

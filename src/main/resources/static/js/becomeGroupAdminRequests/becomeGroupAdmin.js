@@ -10,7 +10,7 @@ becomeGroupAdminButton.addEventListener('click', function() {
     const becomeGroupAdminError = document.getElementById('become-group-admin-error');
     $.ajax({
         type: 'POST',
-        url: '/request/make/become_group_admin',
+        url: '/request/send/become_group_admin',
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'

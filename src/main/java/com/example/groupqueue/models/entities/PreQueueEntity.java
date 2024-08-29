@@ -6,7 +6,6 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import java.time.LocalTime;
-import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -14,7 +13,6 @@ import java.util.List;
 @Entity
 @Table(name = "`pre_queue`")
 public class PreQueueEntity {
-	//	FIELDS
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
@@ -24,14 +22,14 @@ public class PreQueueEntity {
 	@JoinColumn(name = "lesson_id", insertable = false, updatable = false, nullable = false)
 	private LessonEntity lessonEntity;
 
-	@Column(name = "lesson_id")
+	@Column(name = "lesson_id", columnDefinition = "BIGINT")
 	private Long lessonId;
 
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "user_id", insertable = false, updatable = false, nullable = false)
 	private UserEntity userEntity;
 
-	@Column(name = "user_id")
+	@Column(name = "user_id", columnDefinition = "BIGINT")
 	private Long userId;
 
 	@Column(name = "passing_labs", columnDefinition = "BLOB")
@@ -39,6 +37,7 @@ public class PreQueueEntity {
 
 	@Column(name = "registration_time", columnDefinition = "TIME")
 	private LocalTime registrationTime;
+
 
 	public PreQueueEntity(long lessonId, long userId, byte[] passingLabs) {
 		this.lessonId = lessonId;

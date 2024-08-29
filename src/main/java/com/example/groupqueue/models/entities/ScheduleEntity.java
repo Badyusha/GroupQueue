@@ -16,16 +16,15 @@ import java.time.LocalTime;
 @Entity
 @Table(name = "`schedule`")
 public class ScheduleEntity {
-	//	FIELDS
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
 	private Long id;
 
-	@Column(name = "subject_name", columnDefinition = "varchar(20)")
+	@Column(name = "subject_name", columnDefinition = "VARCHAR(20)")
 	private String subjectName;
 
-	@Column(name = "subject_full_name", columnDefinition = "varchar(100)")
+	@Column(name = "subject_full_name", columnDefinition = "VARCHAR(100)")
 	private String subjectFullName;
 
 	@Enumerated(EnumType.STRING)
@@ -39,7 +38,7 @@ public class ScheduleEntity {
 	@JoinColumn(name = "group_id", insertable = false, updatable = false, nullable = false)
 	private GroupEntity groupEntity;
 
-	@Column(name = "group_id")
+	@Column(name = "group_id", columnDefinition = "BIGINT")
 	private Long groupId;
 
 	@Enumerated(EnumType.STRING)
@@ -51,11 +50,14 @@ public class ScheduleEntity {
 													"'THURSDAY','FRIDAY','SATURDAY','SUNDAY')")
 	private DayOfWeek dayOfWeek;
 
-	//	METHODS
-	public ScheduleEntity(String subjectName, String subjectFullName,
-						  SubgroupType subgroupType, LocalTime startTime,
-						  Long groupId, WeekType weekType, DayOfWeek dayOfWeek)
-	{
+
+	public ScheduleEntity(String subjectName,
+						  String subjectFullName,
+						  SubgroupType subgroupType,
+						  LocalTime startTime,
+						  Long groupId,
+						  WeekType weekType,
+						  DayOfWeek dayOfWeek) {
 		this.subjectName = subjectName;
 		this.subjectFullName = subjectFullName;
 		this.subgroupType = subgroupType;

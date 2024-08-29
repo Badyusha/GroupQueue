@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+
 import java.time.LocalDate;
 
 @Data
@@ -13,7 +14,6 @@ import java.time.LocalDate;
 @Entity
 @Table(name = "`lesson`")
 public class LessonEntity {
-	//	FIELDS
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
@@ -23,7 +23,7 @@ public class LessonEntity {
 	@JoinColumn(name = "schedule_id", insertable = false, updatable = false, nullable = false)
 	private ScheduleEntity scheduleEntity;
 
-	@Column(name = "schedule_id")
+	@Column(name = "schedule_id", columnDefinition = "BIGINT")
 	private Long scheduleId;
 
 	@Enumerated(EnumType.STRING)
@@ -32,6 +32,7 @@ public class LessonEntity {
 
 	@Column(name = "date", columnDefinition = "DATETIME")
 	private LocalDate date;
+
 
 	public LessonEntity(Long scheduleId, SortType sortType, LocalDate date) {
 		this.scheduleId = scheduleId;

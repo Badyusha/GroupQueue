@@ -1,7 +1,6 @@
 package com.example.groupqueue.models.entities;
 
 import com.example.groupqueue.models.enums.RequestType;
-import com.example.groupqueue.models.enums.SubgroupType;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -26,7 +25,7 @@ public class RequestEntity {
 	@JoinColumn(name = "user_id", insertable = false, updatable = false, nullable = false)
 	private UserEntity user;
 
-	@Column(name = "user_id")
+	@Column(name = "user_id", columnDefinition = "BIGINT")
 	private Long userId;
 
 	public RequestEntity(RequestType requestType, long userId) {

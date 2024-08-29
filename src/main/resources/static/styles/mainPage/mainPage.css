@@ -256,7 +256,7 @@
 
     .subject {
         text-align: left;
-        font-size: 1.2em;
+        font-size: 1.1em;
         font-weight: 600;
         color: white;
     }
@@ -449,6 +449,6 @@
     }
 
     .fa-bars {
-        font-size: 1.3em;
+        font-size: 1.2em;
     }
 }

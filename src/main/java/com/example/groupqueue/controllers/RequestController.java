@@ -37,7 +37,7 @@ public class RequestController {
 		return "views/groupAdminRequests/groupAdminRequests";
 	}
 
-	@PostMapping("/request/make/become_group_admin")
+	@PostMapping("/request/send/become_group_admin")
 	@ResponseBody
 	public void sendBecomeGroupAdminRequest(HttpServletRequest request) {
 		long roleId = userService.getRoleIdByUserId(CookieUtil.getUserId(request));

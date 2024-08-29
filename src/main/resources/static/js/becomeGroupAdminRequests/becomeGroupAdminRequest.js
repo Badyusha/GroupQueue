@@ -11,14 +11,15 @@ document.addEventListener('DOMContentLoaded', async function() {
     let tableRowHeader = document.createElement('tr');
 
     if(requests.length === 0) {
-        let noDataHeader = document.createElement('th');
-        noDataHeader.innerText = "No data found";
-        tableRowHeader.appendChild(noDataHeader);
+        let requestsContainer = document.getElementById('requests');
+        requestsContainer.innerText = "No requests found";
 
-        noDataHeader.style.textAlign = 'center';
-        noDataHeader.style.color = 'var(--inputText)';
+        requestsContainer.style.textAlign = 'center';
+        requestsContainer.style.color = 'var(--inputText)';
+        requestsContainer.style.padding = '1em';
+        requestsContainer.style.fontWeight = '600';
 
-        requestsTable.append(tableRowHeader);
+        requestsTable.remove();
         return;
     }
 

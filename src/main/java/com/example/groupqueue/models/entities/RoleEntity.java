@@ -12,7 +12,6 @@ import lombok.ToString;
 @Entity
 @Table(name = "`role`")
 public class RoleEntity {
-	//	FIELDS
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")

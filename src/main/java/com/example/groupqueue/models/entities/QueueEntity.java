@@ -11,7 +11,6 @@ import lombok.ToString;
 @Entity
 @Table(name = "`queue`")
 public class QueueEntity {
-	//	FIELDS
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
@@ -21,24 +20,23 @@ public class QueueEntity {
 	@JoinColumn(name = "lesson_id", insertable = false, updatable = false, nullable = false)
 	private LessonEntity lessonEntity;
 
-	@Column(name = "lesson_id")
+	@Column(name = "lesson_id", columnDefinition = "BIGINT")
 	private Long lessonId;
 
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "user_id", insertable = false, updatable = false, nullable = false)
 	private UserEntity userEntity;
 
-	@Column(name = "user_id")
+	@Column(name = "user_id", columnDefinition = "BIGINT")
 	private Long userId;
 
-	@Column(name = "`order`", columnDefinition = "int")
+	@Column(name = "`order`", columnDefinition = "INT")
 	private Integer order;
+
 
 	public QueueEntity(long lessonId, long userId, int order) {
 		this.lessonId = lessonId;
 		this.userId = userId;
 		this.order = order;
 	}
-
-//	METHODS
 }

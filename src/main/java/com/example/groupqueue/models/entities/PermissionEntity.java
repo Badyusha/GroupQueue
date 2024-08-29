@@ -12,13 +12,14 @@ import lombok.ToString;
 @Entity
 @Table(name = "`permission`")
 public class PermissionEntity {
-	//	FIELDS
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
 	private Long id;
 
 	@Enumerated(EnumType.STRING)
-	@Column(name = "name", columnDefinition = "ENUM('BECOME_GROUP_ADMIN','CHOOSE_SORT_TYPE')")
+	@Column(name = "name", columnDefinition = "ENUM('SHOW_BECOME_GROUP_ADMIN_REQUESTS'," +
+												"'BECOME_GROUP_ADMIN'," +
+												"'CHOOSE_SORT_TYPE')")
 	private PermissionType permissionType;
 }

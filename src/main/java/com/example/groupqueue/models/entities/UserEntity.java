@@ -12,7 +12,6 @@ import lombok.ToString;
 @Entity
 @Table(name = "`user`")
 public class UserEntity {
-	//	FIELDS
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
@@ -26,32 +25,31 @@ public class UserEntity {
 	@JoinColumn(name = "role_id", insertable = false, updatable = false, nullable = false)
 	private RoleEntity roleEntity;
 
-	@Column(name = "group_id")
+	@Column(name = "group_id", columnDefinition = "BIGINT")
 	private Long groupId;
 
-	@Column(name = "role_id")
+	@Column(name = "role_id", columnDefinition = "BIGINT")
 	private Long roleId;
 
-	@Column(name = "username", columnDefinition = "varchar(65)")
+	@Column(name = "username", columnDefinition = "VARCHAR(65)")
 	private String username;
 
-	@Column(name = "first_name", columnDefinition = "varchar(65)")
+	@Column(name = "first_name", columnDefinition = "VARCHAR(65)")
 	private String firstName;
 
-	@Column(name = "last_name", columnDefinition = "varchar(65)")
+	@Column(name = "last_name", columnDefinition = "VARCHAR(65)")
 	private String lastName;
 
-	@Column(name = "password", columnDefinition = "varchar(65)")
+	@Column(name = "password", columnDefinition = "VARCHAR(65)")
 	private String password;
 
-	//	METHODS
+
 	public UserEntity(Long groupId,
 					  Long roleId,
 					  String username,
 					  String firstName,
 					  String lastName,
-					  String notEncryptedPassword)
-	{
+					  String notEncryptedPassword) {
 		this.groupId = groupId;
 		this.roleId = roleId;
 		this.username = username;

@@ -7,9 +7,11 @@ import org.springframework.data.repository.CrudRepository;
 import java.util.List;
 
 public interface PreQueueRepository extends CrudRepository<PreQueueEntity, Long> {
-	@Query(value = "SELECT preQueue " +
-			"FROM PreQueueEntity preQueue " +
-			"WHERE preQueue.userId = ?1 AND preQueue.lessonId = ?2")
+	@Query(value = """
+					SELECT preQueue
+					FROM PreQueueEntity preQueue
+					WHERE preQueue.userId = ?1 AND preQueue.lessonId = ?2
+					""")
 	PreQueueEntity getPreQueueEntityByUserIdLessonId(long userId, long groupId);
 
 	@Query(value = """

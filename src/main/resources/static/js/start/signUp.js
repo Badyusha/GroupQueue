@@ -224,5 +224,3 @@ signUpButton.addEventListener('click', async function () {
         }
     });
 });
-
-// FUNCTIONS
