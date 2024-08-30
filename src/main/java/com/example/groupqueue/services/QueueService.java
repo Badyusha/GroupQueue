@@ -26,8 +26,8 @@ import java.util.List;
 @RequiredArgsConstructor
 public class QueueService {
 	private final QueueRepository queueRepository;
-	private LessonRepository lessonRepository;
-	private PreQueueRepository preQueueRepository;
+	private final LessonRepository lessonRepository;
+	private final PreQueueRepository preQueueRepository;
 
 	public List<QueueInfo> getQueueInfoByStudentIdGroupId(HttpServletRequest request) {
 		long studentId = CookieUtil.getStudentId(request);
