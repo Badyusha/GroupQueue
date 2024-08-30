@@ -3,6 +3,17 @@ async function fetchData(requestText) {
     return await response.json();
 }
 
+function transformText(input) {
+    // Convert the input to lowercase
+    let lowerCaseText = input.toLowerCase();
+
+    // Replace underscores with spaces
+    let spacedText = lowerCaseText.replace(/_/g, ' ');
+
+    // Capitalize the first letter
+    return spacedText.charAt(0).toUpperCase() + spacedText.slice(1);
+}
+
 document.addEventListener('DOMContentLoaded', async function() {
     let requests = await fetchData('/request/become_group_admin/get');
 
@@ -74,13 +85,14 @@ document.addEventListener('DOMContentLoaded', async function() {
         groupNumber.innerText = request.groupNumber;
 
         let requestType = tableRow.insertCell(5);
-        requestType.innerText = request.requestType;
+        requestType.innerText = transformText(request.requestType);
 
         let action = tableRow.insertCell(6);
+
         action.innerHTML = `
             <div class="action-type">
-                <a class="accept-request" onclick="acceptRequest(${request.userId}, '${request.requestType}')">Accept</a>
-                <a class="decline-request" onclick="declineRequest(${request.userId}, '${request.requestType}')">Decline</a>
+                <a class="accept-request" onclick="acceptRequest(${request.studentId}, '${request.requestType}')">Accept</a>
+                <a class="decline-request" onclick="declineRequest(${request.studentId}, '${request.requestType}')">Decline</a>
             </div>
             `;
 
@@ -88,12 +100,12 @@ document.addEventListener('DOMContentLoaded', async function() {
     });
 });
 
-function acceptRequest(userId, requestType) {
+function acceptRequest(studentId, requestType) {
     $.ajax({
         type: 'POST',
         url: '/request/become_group_admin/accept',
         data: JSON.stringify({
-            userId: userId,
+            studentId: studentId,
             requestType: requestType
         }),
         headers: {
@@ -109,12 +121,12 @@ function acceptRequest(userId, requestType) {
     });
 }
 
-function declineRequest(userId, requestType) {
+function declineRequest(studentId, requestType) {
     $.ajax({
         type: 'POST',
         url: '/request/become_group_admin/decline',
         data: JSON.stringify({
-            userId: userId,
+            studentId: studentId,
             requestType: requestType
         }),
         headers: {

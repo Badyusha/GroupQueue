@@ -170,6 +170,17 @@ async function showFinalQueue(lessonId, subjectName, date, startTime) {
 
 }
 
+function transformText(input) {
+    // Convert the input to lowercase
+    let lowerCaseText = input.toLowerCase();
+
+    // Replace underscores with spaces
+    let spacedText = lowerCaseText.replace(/_/g, ' ');
+
+    // Capitalize the first letter
+    return spacedText.charAt(0).toUpperCase() + spacedText.slice(1);
+}
+
 async function insertDataIntoTable(data) {
     const table = document.getElementById('queues-table');
 
@@ -204,7 +215,7 @@ async function insertDataIntoTable(data) {
 
         const numberInQueueCell = document.createElement('td');
         const sortTypeCell = document.createElement('td');
-        sortTypeCell.textContent = item.sortType.toLowerCase();
+        sortTypeCell.textContent = transformText(item.sortType);
 
         if (!isNumberInQueueNull) {
             subjectNameCell.setAttribute('onclick', `showFinalQueue(${item.lessonId},

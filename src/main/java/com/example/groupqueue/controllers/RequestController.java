@@ -56,6 +56,7 @@ public class RequestController {
 	@PostMapping("/request/become_group_admin/accept")
 	@ResponseBody
 	public void acceptBecomeGroupAdminRequest(@RequestBody Request requestDto) {
+		System.err.println(requestDto);
 		requestService.acceptBecomeGroupAdminRequest(requestDto);
 	}
 
