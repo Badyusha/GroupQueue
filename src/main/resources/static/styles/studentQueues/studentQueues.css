@@ -47,7 +47,7 @@
     th, td {
         vertical-align: middle;
         cursor: default;
-        padding: 0.9em 1.2em 0.9em 1.5em;
+        padding: 0.9em 1em 0.9em 1em;
         text-align: left;
         color: var(--inputText);
         font-weight: 600;
@@ -173,13 +173,17 @@
         font-family: 'Montserrat', sans-serif;
         color: var(--inputText);
         font-weight: 600;
-        width: 11.5em;
+        width: 7em;
         height: 2em;
         background: none;
         border: 0.15em solid var(--headerBorder);
         border-radius: 0.5em;
         padding-left: 0.5em;
         padding-top: 0.2em;
+    }
+
+    .passing-labs-input:disabled {
+        background-color: var(--blueGray);
     }
 }
 
