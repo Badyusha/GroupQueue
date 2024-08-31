@@ -2,6 +2,7 @@ package com.example.groupqueue.services;
 
 import com.example.groupqueue.exceptions.QueueException;
 import com.example.groupqueue.models.dto.PreQueue;
+import com.example.groupqueue.models.entities.PreQueueEntity;
 import com.example.groupqueue.models.enums.DayOfWeek;
 import com.example.groupqueue.repo.PreQueueRepository;
 import com.example.groupqueue.utils.CookieUtil;
@@ -31,5 +32,13 @@ public class PreQueueService {
 			return;
 		}
 		throw new QueueException("cannot register to pre_queue because of current day of week or current time");
+	}
+
+	public void changePassingLabs(HttpServletRequest request, PreQueue preQueue) {
+		PreQueueEntity preQueueEntity =
+				preQueueRepository.getPreQueueEntityByStudentIdLessonId(CookieUtil.getStudentId(request),
+																		preQueue.getLessonId());
+		preQueueEntity.setPassingLabs(preQueue.getPassingLabs());
+		preQueueRepository.save(preQueueEntity);
 	}
 }

@@ -236,7 +236,7 @@
         border: 0.1em solid var(--headerBorder);
         border-radius: 0.8em;
         width: 85%;
-        background: linear-gradient(to right, var(--red) 6%, var(--blueGray) 0%);
+        background: linear-gradient(to right, var(--red) 4%, var(--blueGray) 0%);
     }
 
     .subject-date-cabinet-subgroup {
@@ -256,8 +256,11 @@
     }
 
     .subgroup {
+        font-size: 0.9em;
+        font-weight: 500;
+        color: var(--inputText);
         display: flex;
-        justify-content: space-between;
+        justify-content: left;
         min-height: 1.2em;
     }
 
@@ -275,12 +278,6 @@
         padding-right: 0.5em;
     }
 
-    .subgroup {
-        font-size: 0.9em;
-        font-weight: 500;
-        color: var(--inputText);
-    }
-
     .status {
         min-height: 1em;
         margin-bottom: 0.3em;
@@ -288,11 +285,8 @@
         justify-content: center;
     }
 
-    .queue-position-status, .leave-status {
-        margin-right: 1em;
-    }
-
     .leave-status {
+        margin-right: 1em;
         display: grid;
     }
 
@@ -460,16 +454,6 @@
 }
 
 @media only screen and (min-width: 1025px) {
-    .lesson-container {
-        display: flex;
-        justify-content: left;
-        height: 5.7em;
-        border: 0.1em solid var(--headerBorder);
-        border-radius: 0.8em;
-        width: 85%;
-        background: linear-gradient(to right, var(--yellow) 4%, var(--blueGray) 0%);
-    }
-
     ::placeholder {
         color: var(--gray);
         opacity: 1; /* Firefox */
@@ -713,16 +697,16 @@
         flex-wrap: wrap;
         justify-content: space-between;
         width: 100%;
-        margin-left: 1.2em;
+        margin-left: 1em;
     }
 
     .subject-date {
+        justify-content: space-between;
         margin-top: 0.2em;
     }
 
     .subject-date, .subgroup {
         display: flex;
-        justify-content: space-between;
         min-height: 1.2em;
     }
 
@@ -741,6 +725,7 @@
     }
 
     .subgroup {
+        justify-content: left;
         margin-top: -0.3em;
         font-size: 0.9em;
         font-weight: 500;
@@ -754,11 +739,8 @@
         justify-content: center;
     }
 
-    .queue-position-status, .leave-status {
-        margin-right: 1em;
-    }
-
     .leave-status {
+        margin-right: 1em;
         display: grid;
     }
 

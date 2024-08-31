@@ -70,7 +70,7 @@ async function fillUserQueues() {
         return;
     }
     fillTableHeader();
-    insertDataIntoTable(queues);
+    await insertDataIntoTable(queues);
 }
 
 function fillTableHeader() {
@@ -206,12 +206,25 @@ async function insertDataIntoTable(data) {
         row.appendChild(subgroupTypeCell);
 
         const passingLabsCell = document.createElement('td');
-
-        passingLabsCell.textContent = item.passingLabs ? decodeBase64(item.passingLabs) : 'N/A';
-        row.appendChild(passingLabsCell);
+        let passingLabs = item.passingLabs ? decodeBase64(item.passingLabs) : 'N/A';
 
         const registrationStatusCell = document.createElement('td');
         let isNumberInQueueNull = item.numberInQueue === -1;
+
+        if(isNumberInQueueNull) {
+            passingLabsCell.innerHTML = `
+                <input id="${item.lessonId}" class="passing-labs-input"
+                value="${passingLabs}" onblur="changePassingLabs(${item.lessonId})"
+                placeholder="1, 2, 3 or 1,2,3 or 1 2 3">
+            `;
+        } else {
+            passingLabsCell.innerHTML = `
+                <input id="${item.lessonId}" class="passing-labs-input"
+                value="${passingLabs}" onblur="changePassingLabs(${item.lessonId})"
+                placeholder="1, 2, 3 or 1,2,3 or 1 2 3" disabled>
+            `;
+        }
+        row.appendChild(passingLabsCell);
 
         const numberInQueueCell = document.createElement('td');
         const sortTypeCell = document.createElement('td');
@@ -247,4 +260,66 @@ async function insertDataIntoTable(data) {
 
         table.appendChild(row);
     });
+}
+
+async function changePassingLabs(lessonId) {
+    let passingLabs = document.getElementById(lessonId).value;
+    if (!isPassingLabsListOk(passingLabs)) {
+        alert('Lab number is not in range(1, 20), numbers are not unique or incorrect template');
+        document.getElementById(lessonId).style.borderBottomColor = 'var(--red)';
+        await sleep(2000);
+        document.getElementById(lessonId).style.borderBottomColor = '';
+        return false;
+    }
+
+    $.ajax({
+        type: 'POST',
+        url: '/pre_queue/change_passing_labs',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        data: JSON.stringify({
+            lessonId: lessonId,
+            passingLabs: passingLabs.split(/[,\s]+/).map(Number)
+        }),
+        success: async function (response) {
+            document.getElementById(lessonId).style.borderBottomColor = 'var(--green)';
+            await sleep(2000);
+            document.getElementById(lessonId).style.borderBottomColor = '';
+            window.location.reload();
+        },
+        error: async function (response) {
+            document.getElementById(lessonId).style.borderBottomColor = 'var(--red)';
+            await sleep(2000);
+            document.getElementById(lessonId).style.borderBottomColor = '';
+            alert("System error");
+        }
+    });
+}
+
+async function sleep(ms) {
+    return new Promise(resolve=>setTimeout(resolve, ms));
+}
+
+function isPassingLabsListOk(text) {
+    if(text.length === 0) {
+        return false;
+    }
+    const regex = /^\d{1,2}(\s*,\s*\d{1,2})*$/;
+
+    if (!regex.test(text)) {
+        return false;
+    }
+
+    const numbers = text.split(/[,\s]+/).map(Number);
+    const uniqueNumbers = new Set();
+
+    for (let number of numbers) {
+        if (number < 1 || number > 20 || uniqueNumbers.has(number)) {
+            return false;
+        }
+        uniqueNumbers.add(number);
+    }
+    return true;
 }

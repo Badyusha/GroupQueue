@@ -41,9 +41,11 @@
     td {
         border-top: 0.1em solid var(--headerBorder);
         vertical-align: top;
+        font-weight: 500;
     }
 
     th, td {
+        vertical-align: middle;
         cursor: default;
         padding: 0.9em 1.2em 0.9em 1.5em;
         text-align: left;
@@ -53,10 +55,6 @@
 
     th {
         color: var(--gray);
-    }
-
-    td {
-        font-weight: 500;
     }
 
     .status-not-finished {
@@ -169,6 +167,19 @@
 
     th[data-sort-direction='desc'] .arrow:last-child {
         color: var(--headerBorder);
+    }
+
+    .passing-labs-input {
+        font-family: 'Montserrat', sans-serif;
+        color: var(--inputText);
+        font-weight: 600;
+        width: 11.5em;
+        height: 2em;
+        background: none;
+        border: 0.15em solid var(--headerBorder);
+        border-radius: 0.5em;
+        padding-left: 0.5em;
+        padding-top: 0.2em;
     }
 }
 
@@ -212,11 +223,13 @@
     }
 
     td {
+        font-weight: 500;
         border-top: 0.1em solid var(--headerBorder);
         vertical-align: top;
     }
 
     th, td {
+        vertical-align: middle;
         cursor: default;
         padding: 0.9em 1.5em 0.9em 1.5em;
         text-align: left;
@@ -226,10 +239,6 @@
 
     th {
         color: var(--gray);
-    }
-
-    td {
-        font-weight: 500;
     }
 
     .status-not-finished {
@@ -342,5 +351,22 @@
 
     th[data-sort-direction='desc'] .arrow:last-child {
         color: var(--headerBorder);
+    }
+
+    .passing-labs-input {
+        font-family: 'Montserrat', sans-serif;
+        color: var(--inputText);
+        font-weight: 600;
+        width: 11.5em;
+        height: 2em;
+        background: none;
+        border: 0.15em solid var(--headerBorder);
+        border-radius: 0.5em;
+        padding-left: 0.5em;
+        padding-top: 0.2em;
+    }
+
+    .passing-labs-input:disabled {
+        background-color: var(--blueGray);
     }
 }
