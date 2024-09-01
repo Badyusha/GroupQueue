@@ -2,6 +2,7 @@ const overlay = document.getElementById('dark-overlay');
 
 
 document.addEventListener('DOMContentLoaded', async function() {
+    drawTable();
     await drawSchedule();
     await fillSideMenu();
     await fillCurrentWeek();
@@ -54,11 +55,84 @@ async function fillCurrentWeek() {
     }
 }
 
+
+
+function drawTable() {
+    if (window.screen.width > 1024) {
+        document.getElementById('week-schedule-table').innerHTML = `
+            <tr>
+                <th id="monday" class="week"></th>
+                <th id="tuesday" class="week"></th>
+                <th id="wednesday" class="week"></th>
+                <th id="thursday" class="week"></th>
+                <th id="friday" class="week"></th>
+                <th id="saturday" class="week"></th>
+                <th id="sunday" class="week"></th>
+            </tr>
+            <tr>
+                <td class="schedule" id="monday-schedule"></td>
+                <td class="schedule" id="tuesday-schedule"></td>
+                <td class="schedule" id="wednesday-schedule"></td>
+                <td class="schedule" id="thursday-schedule"></td>
+                <td class="schedule" id="friday-schedule"></td>
+                <td class="schedule" id="saturday-schedule"></td>
+                <td class="schedule" id="sunday-schedule"></td>
+            </tr>
+        `;
+    } else {
+        document.getElementById('week-schedule-table').innerHTML = `
+            <tbody>
+            <tr>
+                <th id="monday" className="week"></th>
+            </tr>
+            <tr>
+                <td className="schedule" id="monday-schedule"></td>
+            </tr>
+            <tr>
+                <th id="tuesday" className="week"></th>
+            </tr>
+            <tr>
+                <td className="schedule" id="tuesday-schedule"></td>
+            </tr>
+            <tr>
+                <th id="wednesday" className="week"></th>
+            </tr>
+            <tr>
+                <td className="schedule" id="wednesday-schedule"></td>
+            </tr>
+            <tr>
+                <th id="thursday" className="week"></th>
+            </tr>
+            <tr>
+                <td className="schedule" id="thursday-schedule"></td>
+            </tr>
+            <tr>
+                <th id="friday" className="week"></th>
+            </tr>
+            <tr>
+                <td className="schedule" id="friday-schedule"></td>
+            </tr>
+            <tr>
+                <th id="saturday" className="week"></th>
+            </tr>
+            <tr>
+                <td className="schedule" id="saturday-schedule"></td>
+            </tr>
+            <tr>
+                <th id="sunday" className="week"></th>
+            </tr>
+            <tr>
+                <td className="schedule" id="sunday-schedule"></td>
+            </tr>
+        </tbody>`;
+    }
+}
+
 async function drawSchedule() {
     let schedule;
     try {
         schedule = await fetchData('/schedule/get');
-    } catch(e) {
+    } catch (e) {
         let scheduleTable = document.getElementById('week-schedule-table');
         scheduleTable.deleteRow(0);
         scheduleTable.deleteRow(0);
@@ -157,6 +231,16 @@ async function drawSchedule() {
                 </div>
             `;
         });
+
+        if(dayContent.length === 0) {
+            if(window.screen.width > 1024) {
+                dayCell.innerHTML = `<label class="no-lessons">No labs</label>`;
+            } else {
+                dayCell.innerHTML = `<label class="no-lessons">No labs</label>
+                                    <div class="horizontal-line"></div>`;
+            }
+            continue;
+        }
 
         dayCell.innerHTML = dayContent;
     }

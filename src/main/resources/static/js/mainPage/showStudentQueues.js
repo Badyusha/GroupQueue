@@ -146,7 +146,6 @@ function fillTableHeader() {
 }
 
 async function showFinalQueue(lessonId, subjectName, date, startTime) {
-
     overlay.classList.add('active');
     finalQueue.style.display = 'block';
 

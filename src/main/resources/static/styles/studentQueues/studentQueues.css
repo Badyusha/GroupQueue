@@ -1,5 +1,4 @@
 @media only screen and (max-width: 1024px) {
-
     .back-container {
         margin: 1em 0 0 1.9em;
         display: flex;
@@ -8,7 +7,7 @@
     }
 
     .back-container a, .back-container a:visited {
-        font-size: 0.9em;
+        font-size: 1.3em;
         font-weight: 600;
         color: var(--gray);
     }
@@ -74,8 +73,8 @@
     }
 
     .final-queue {
-        min-height: 5em;
-        min-width: 20em;
+        min-height: 10em;
+        min-width: 50em;
         top: 50%;
         left: 50%;
         display: none;
@@ -91,7 +90,13 @@
 
 
     #final-queue-table {
+        width: 100%;
         border-collapse: collapse;
+    }
+
+    #final-queue-table td,
+    #final-queue-table th {
+        font-size: 1.4em;
     }
 
     .final-queue-container {
@@ -103,6 +108,7 @@
         overflow-y: auto; /* Enable vertical scrolling */
         overflow-x: hidden; /* Prevent horizontal scrolling */
         position: relative;
+
 
         /* Custom scrollbar styling */
         scrollbar-width: thin;          /* Firefox */
@@ -143,6 +149,7 @@
 
 
     .subject-info {
+        font-size: 1.5em;
         font-weight: 500;
         color: var(--inputText);
     }

@@ -1,82 +1,166 @@
-/* Popup form style */
-.sign-in-popup-form {
-    height: 24em;
-    width: 22em;
-    top: 45%;
-    left: 50%;
-    display: none;
-    position: fixed;
-    transform: translate(-50%, -50%);
-    background-color: var(--darkBlue);
-    box-shadow: 0 0 1em 1em rgba(0, 0, 0, 0.25);
-    transition: opacity 0.5s ease, transform 0.5s ease;
-    border-radius: 2em;
-    z-index: 3;
-}
+@media only screen and (max-width: 1024px) {
+    .sign-in-popup-form {
+        height: 40em;
+        width: 42em;
+        top: 45%;
+        left: 50%;
+        display: none;
+        position: fixed;
+        transform: translate(-50%, -50%);
+        background-color: var(--darkBlue);
+        box-shadow: 0 0 1em 1em rgba(0, 0, 0, 0.25);
+        transition: opacity 0.5s ease, transform 0.5s ease;
+        border-radius: 2em;
+        z-index: 3;
+    }
 
-.auth-action {
-    margin: 0.7em;
-    font-size: 2.5em;
-    font-weight: 600;
-}
+    .auth-action {
+        margin: 0.7em;
+        font-size: 3.5em;
+        font-weight: 600;
+    }
 
-.square-separator {
-    margin-top: -1em;
-    height: 1em;
-}
+    .square-separator {
+        margin-top: -1em;
+        height: 1em;
+    }
 
-#invalid-sign-in-request {
-    margin-top: 0.5em;
-    font-size: 0.7em;
-    font-weight: 600;
-    color: var(--red);
-}
+    #invalid-sign-in-request {
+        margin-top: 0.5em;
+        font-size: 1.4em;
+        font-weight: 600;
+        color: var(--red);
+    }
 
-.sign-in-form {
-    margin-top: 2em;
-    color: var(--gray);
-    font-weight: 600;
-}
+    .sign-in-form {
+        color: var(--gray);
+        font-weight: 600;
+    }
 
-.sign-in-data-input {
-    display: grid;
-    justify-content: center;
-    margin-top: 1.5em;
-}
+    .sign-in-data-input {
+        display: grid;
+        justify-content: center;
+        margin-top: 2.7em;
+    }
 
-.form-top-password-placeholder a {
-    font-size: 0.85em;
-    color: var(--headerBorder);
-}
+    .form-top-password-placeholder a {
+        font-size: 0.85em;
+        color: var(--headerBorder);
+    }
 
-.form-top-placeholder, .form-top-password-placeholder {
-    font-size: 0.85em;
-    text-align: left;
-    align-items: end;
-    display: flex;
-    justify-content: space-between;
-}
+    .form-top-placeholder, .form-top-password-placeholder {
+        font-size: 0.85em;
+        text-align: left;
+        align-items: end;
+        display: flex;
+        justify-content: space-between;
+    }
 
-#sign-in-username-input, #sign-in-password-input {
-    font-family: 'Montserrat', sans-serif;
-    color: var(--inputText);
-    font-weight: 600;
-    width: 21em;
-    height: 2em;
-    background: none;
-    border: 0.15em solid var(--headerBorder);
-    border-radius: 0.5em;
-    padding-left: 0.5em;
-    padding-top: 0.2em;
-}
+    #sign-in-username-input, #sign-in-password-input {
+        font-family: 'Montserrat', sans-serif;
+        color: var(--inputText);
+        font-size: 1.5em;
+        font-weight: 600;
+        width: 21em;
+        height: 2em;
+        background: none;
+        border: 0.15em solid var(--headerBorder);
+        border-radius: 0.5em;
+        padding-left: 0.5em;
+        padding-top: 0.2em;
+    }
 
-#sign-in-form-button {
-    width: 20.3em;
-    margin: 2em 0.5em 1em 0.5em;
-}
+    #sign-in-form-button {
+        width: 22em;
+        margin: 2em 0.5em 1em 0.5em;
+    }
 
-.new-to-groupqueue {
-    color: var(--gray);
-    font-weight: 600;
-    font-size: 0.8em;
+    .new-to-groupqueue {
+        color: var(--gray);
+        font-weight: 600;
+        font-size: 1.3em;
+    }
+}
+@media only screen and (min-width: 1025px) {
+    .sign-in-popup-form {
+        height: 24em;
+        width: 22em;
+        top: 45%;
+        left: 50%;
+        display: none;
+        position: fixed;
+        transform: translate(-50%, -50%);
+        background-color: var(--darkBlue);
+        box-shadow: 0 0 1em 1em rgba(0, 0, 0, 0.25);
+        transition: opacity 0.5s ease, transform 0.5s ease;
+        border-radius: 2em;
+        z-index: 3;
+    }
+
+    .auth-action {
+        margin: 0.7em;
+        font-size: 2.5em;
+        font-weight: 600;
+    }
+
+    .square-separator {
+        margin-top: -1em;
+        height: 1em;
+    }
+
+    #invalid-sign-in-request {
+        margin-top: 0.5em;
+        font-size: 0.7em;
+        font-weight: 600;
+        color: var(--red);
+    }
+
+    .sign-in-form {
+        margin-top: 2em;
+        color: var(--gray);
+        font-weight: 600;
+    }
+
+    .sign-in-data-input {
+        display: grid;
+        justify-content: center;
+        margin-top: 1.5em;
+    }
+
+    .form-top-password-placeholder a {
+        font-size: 0.85em;
+        color: var(--headerBorder);
+    }
+
+    .form-top-placeholder, .form-top-password-placeholder {
+        font-size: 0.85em;
+        text-align: left;
+        align-items: end;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    #sign-in-username-input, #sign-in-password-input {
+        font-family: 'Montserrat', sans-serif;
+        color: var(--inputText);
+        font-weight: 600;
+        width: 21em;
+        height: 2em;
+        background: none;
+        border: 0.15em solid var(--headerBorder);
+        border-radius: 0.5em;
+        padding-left: 0.5em;
+        padding-top: 0.2em;
+    }
+
+    #sign-in-form-button {
+        width: 20.3em;
+        margin: 2em 0.5em 1em 0.5em;
+    }
+
+    .new-to-groupqueue {
+        color: var(--gray);
+        font-weight: 600;
+        font-size: 0.8em;
+    }
 }

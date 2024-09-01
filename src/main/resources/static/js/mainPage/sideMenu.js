@@ -40,7 +40,7 @@ async function fillSideMenu() {
     document.getElementById('role-type').innerHTML = `Role: ${roleType}`;
 
     let editProfile = `<div id="edit-profile" class="menu-variant">
-                                    <i class="fa-solid fa-user"></i>
+                                    <i class="fa-solid fa-user-large"></i>
                                     <label class="menu-label">Edit profile</label>
                                 </div>`;
     let userQueues = `<div id="user-queues" class="menu-variant">

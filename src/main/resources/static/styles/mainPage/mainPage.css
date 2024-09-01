@@ -21,8 +21,8 @@
         cursor: default;
         position: fixed;
         top: 0;
-        right: -19em;
-        width: 18em;
+        right: -26em;
+        width: 25em;
         height: 100%;
         background-color: var(--darkBlue);
         color: white;
@@ -47,7 +47,7 @@
         padding: 0.7em 0.7em 0.3em 0.7em;
         display: flex;
         justify-content: space-between;
-        height: 6em;
+        height: 11em;
     }
 
     .username-full-name {
@@ -57,14 +57,15 @@
     }
 
     #full-name {
+        font-size: 1.7em;
         color: white;
         font-weight: 600;
     }
 
     #username {
+        font-size: 1.7em;
         margin-top: 0.2em;
         color: var(--inputText);
-        font-size: 0.9em;
         font-weight: 500;
     }
 
@@ -78,13 +79,13 @@
 
     #group-number, #role-type {
         color: var(--inputText);
-        font-size: 0.8em;
+        font-size: 1.2em;
         font-weight: 500;
     }
 
     .close-btn {
         color: var(--headerBorder);
-        font-size: 2em;
+        font-size: 3.5em;
         margin-right: 0.2em;
         margin-top: -0.3em;
     }
@@ -99,14 +100,14 @@
     }
 
     .menu-variant {
-        min-height: 1.5em;
+        min-height: 3em;
         display: flex;
         align-items: center;
         margin-left: 1em;
         margin-right: 1em;
         margin-top: 0.5em;
         padding: 0.2em;
-        gap: 0.1em;
+        gap: 0.7em;
     }
 
     .menu-variant:hover {
@@ -119,6 +120,10 @@
         border-radius: 0.5em;
     }
 
+    .menu-variant .fa-solid {
+        font-size: 1.7em;
+    }
+
     .fa-solid {
         color: var(--gray);
         min-width: 2em;
@@ -126,7 +131,7 @@
 
     .menu-label {
         color: var(--inputText);
-        font-size: 0.9em;
+        font-size: 1.4em;
         font-weight: 500;
     }
 
@@ -166,18 +171,21 @@
 
     .current-week-container {
         gap: 1em;
-        margin: 2em 2em 0 2em;
-        display: flex;
-        justify-content: space-between;
+        margin: 1em 2em 1em 4.5em;
+        display: grid;
+        justify-content: start;
+        font-size: 1.5em;
     }
 
     .registration-info {
+        text-align: left;
         font-size: 0.95em;
         font-weight: 600;
         color: var(--inputText);
     }
 
     #current-week {
+        text-align: left;
         color: var(--inputText);
         font-weight: 600;
     }
@@ -186,11 +194,10 @@
         display: flex;
         text-align: center;
         align-items: center;
-        margin: 0.5em 1.2em 0 1.2em;
+        margin: 0.5em 6em 0 6em;
         background-color: var(--darkBlue);
         border: 0.15em solid var(--headerBorder);
         border-radius: 1em;
-        min-height: 80%;
     }
 
 
@@ -210,6 +217,7 @@
     }
 
     .week-schedule-table th {
+        font-size: 1.6em;
         color: var(--inputText);
     }
 
@@ -218,24 +226,22 @@
     }
 
     .week {
-        word-spacing: 100em;
-        white-space: pre-line;
         padding-bottom: 1em;
     }
 
     .lesson {
         display: flex;
         justify-content: center;
-        padding-bottom: 1.7em;
+        padding-bottom: 4.5em;
     }
 
     .lesson-container {
         display: flex;
         justify-content: left;
-        height: 5.7em;
+        height: 15em;
         border: 0.1em solid var(--headerBorder);
-        border-radius: 0.8em;
-        width: 85%;
+        border-radius: 1.1em;
+        width: 70%;
         background: linear-gradient(to right, var(--red) 4%, var(--blueGray) 0%);
     }
 
@@ -245,44 +251,52 @@
         flex-wrap: wrap;
         justify-content: space-between;
         width: 100%;
-        margin-left: 1em;
+        margin-left: 3em;
     }
 
     .subject-date {
-        display: grid;
-        justify-items: start;
-        margin-top: 0.2em;
-        min-height: 1.2em;
+        justify-content: space-between;
+        margin-top: 1em;
     }
 
-    .subgroup {
-        font-size: 0.9em;
-        font-weight: 500;
-        color: var(--inputText);
+    .subject-date, .subgroup {
         display: flex;
-        justify-content: left;
         min-height: 1.2em;
     }
 
     .subject {
         text-align: left;
-        font-size: 0.9em;
+        font-size: 2.2em;
         font-weight: 600;
         color: white;
     }
 
     .date {
-        font-size: 0.8em;
+        font-size:1.5em;
         font-weight: 500;
         color: var(--inputText);
         padding-right: 0.5em;
     }
 
+    .subgroup {
+        justify-content: left;
+        margin-top: -0.3em;
+        font-size: 1.3em;
+        font-weight: 500;
+        color: var(--inputText);
+    }
+
     .status {
         min-height: 1em;
-        margin-bottom: 0.3em;
+        margin-bottom: 1em;
         display: flex;
         justify-content: center;
+    }
+
+    .no-lessons {
+        font-size: 1.5em;
+        font-weight: 600;
+        color: var(--gray);
     }
 
     .leave-status {
@@ -292,7 +306,7 @@
 
     .register-to-queue, .register-to-queue:visited {
         margin-right: 1em;
-        font-size: 0.7em;
+        font-size: 1.5em;
         font-weight: 600;
         color: var(--inputText);
     }
@@ -304,19 +318,19 @@
     .number-in-queue-text-status {
         margin-right: 1em;
         color: var(--inputText);
-        font-size: 0.7em;
+        font-size: 1.5em;
         font-weight: 600;
     }
 
     .registered-up-status {
         font-weight: 600;
-        font-size: 0.6em;
+        font-size: 1.5em;
         color: var(--inputText);
     }
 
     .leave-register-status {
         font-weight: 500;
-        font-size: 0.6em;
+        font-size: 1.4em;
         color: var(--red);
     }
 
@@ -324,7 +338,7 @@
         color: white;
         margin-top: 1em;
         font-weight: 600;
-        font-size: 2em;
+        font-size: 3.5em;
     }
 
     .edit-profile {
@@ -333,12 +347,19 @@
     }
 
     .edit-profile table {
+        margin-top: -2em;
         border-collapse: separate;
-        border-spacing: 1em;
+        border-spacing: 2.5em;
+    }
+
+    .invalid-profile-editing {
+        min-height: 2em;
+        margin-top: 0.5em;
+        font-size: 1.8em;
     }
 
     .placeholder {
-        font-size: 0.85em;
+        font-size: 1.5em;
         text-align: left;
         align-items: end;
         display: flex;
@@ -367,8 +388,8 @@
     }
 
     .leave-lab-registration {
-        height: 15em;
-        width: 22.5em;
+        height: 22em;
+        width: 30em;
         top: 45%;
         left: 50%;
         display: none;
@@ -436,7 +457,7 @@
 
     .leave-lab-registration-text {
         text-align: center;
-        font-size: 1.2em;
+        font-size: 1.7em;
         font-weight: 600;
     }
 
@@ -449,7 +470,7 @@
     }
 
     .fa-bars {
-        font-size: 1.2em;
+        font-size: 2em;
     }
 }
 
@@ -739,6 +760,12 @@
         justify-content: center;
     }
 
+    .no-lessons {
+        font-size: 1em;
+        font-weight: 600;
+        color: var(--gray);
+    }
+
     .leave-status {
         margin-right: 1em;
         display: grid;
@@ -789,6 +816,11 @@
     .edit-profile table {
         border-collapse: separate;
         border-spacing: 1em;
+    }
+
+    .invalid-profile-editing {
+        min-height: 1.2em;
+        margin-top: 0.5em;
     }
 
     .placeholder {

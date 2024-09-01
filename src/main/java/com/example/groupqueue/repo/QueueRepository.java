@@ -58,7 +58,7 @@ public interface QueueRepository extends CrudRepository<QueueEntity, Long> {
 					INNER JOIN StudentEntity s
 						ON s.id = q.studentId
 					INNER JOIN PreQueueEntity pq
-						ON pq.studentId = q.studentId
+						ON pq.studentId = q.studentId AND pq.lessonId = ?1
 					WHERE q.lessonId = ?1
 					ORDER BY q.order ASC
 					""")

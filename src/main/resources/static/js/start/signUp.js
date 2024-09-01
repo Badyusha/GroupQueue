@@ -79,7 +79,7 @@ usernameInput.addEventListener('blur', async function() {
         return;
     }
 
-    let usernameExists = (await fetchData('/user/username/'+usernameInput.value+'/exists') === 'true');
+    let usernameExists = (await fetchData('/student/username/'+usernameInput.value+'/exists') === 'true');
 
     if(!numberIsInRange(usernameInput.value.length, USERNAME_MIN_LEN, USERNAME_MAX_LEN)) {
         usernameIsOk = false;

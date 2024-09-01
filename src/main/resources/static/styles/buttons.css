@@ -1,60 +1,123 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 
-.empty-button {
-    border: 0;
-    background: 0;
+@media only screen and (max-width: 1024px) {
+    .empty-button {
+        border: 0;
+        background: 0;
+    }
+
+    .dark-button {
+        background: 0;
+        border: 0.13em solid var(--fadedBlue);
+        border-radius: 0.7em;
+    }
+
+    .light-button {
+        color: var(--fadedBlueHover) !important;
+        background-color: var(--blue);
+        border: 0.13em solid var(--fadedBlue);
+        border-radius: 0.7em;
+    }
+
+    .red-button {
+        cursor: pointer;
+        font-size: 1.5em;
+        color: var(--red);
+        height: 2.7em;
+        font-family: 'Montserrat', sans-serif;
+        font-weight: 600;
+        padding: 0.6em;
+        width: 100%;
+        white-space: nowrap;
+        background-color: var(--red10perc);
+        border: 0.13em solid var(--red);
+        border-radius: 0.7em;
+    }
+
+    .button {
+        cursor: pointer;
+        font-size: 1.5em;
+        color: var(--fadedBlue);
+        height: 2.7em;
+        font-family: 'Montserrat', sans-serif;
+        font-weight: 600;
+        padding: 0.6em;
+        width: 100%;
+        white-space: nowrap;
+    }
+
+    .button:hover {
+        border-color: var(--fadedBlueHover);
+        color: var(--fadedBlueHover);
+    }
+
+    .light-button:hover {
+        background-color: var(--blueHover);
+    }
+
+    .red-button:hover {
+        color: var(--red80perc);
+        border-color: var(--red80perc);
+    }
 }
 
-.dark-button {
-    background: 0;
-    border: 0.13em solid var(--fadedBlue);
-    border-radius: 0.7em;
-}
+@media only screen and (min-width: 1025px) {
+    .empty-button {
+        border: 0;
+        background: 0;
+    }
 
-.light-button {
-    color: var(--fadedBlueHover) !important;
-    background-color: var(--blue);
-    border: 0.13em solid var(--fadedBlue);
-    border-radius: 0.7em;
-}
+    .dark-button {
+        background: 0;
+        border: 0.13em solid var(--fadedBlue);
+        border-radius: 0.7em;
+    }
 
-.red-button {
-    cursor: pointer;
-    font-size: 0.9em;
-    color: var(--red);
-    height: 2.7em;
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 600;
-    padding: 0.6em;
-    width: 100%;
-    white-space: nowrap;
-    background-color: var(--red10perc);
-    border: 0.13em solid var(--red);
-    border-radius: 0.7em;
-}
+    .light-button {
+        color: var(--fadedBlueHover) !important;
+        background-color: var(--blue);
+        border: 0.13em solid var(--fadedBlue);
+        border-radius: 0.7em;
+    }
 
-.button {
-    cursor: pointer;
-    font-size: 0.9em;
-    color: var(--fadedBlue);
-    height: 2.7em;
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 600;
-    padding: 0.6em;
-    width: 100%;
-    white-space: nowrap;
-}
+    .red-button {
+        cursor: pointer;
+        font-size: 0.9em;
+        color: var(--red);
+        height: 2.7em;
+        font-family: 'Montserrat', sans-serif;
+        font-weight: 600;
+        padding: 0.6em;
+        width: 100%;
+        white-space: nowrap;
+        background-color: var(--red10perc);
+        border: 0.13em solid var(--red);
+        border-radius: 0.7em;
+    }
 
-.button:hover {
-    border-color: var(--fadedBlueHover);
-    color: var(--fadedBlueHover);
-}
+    .button {
+        cursor: pointer;
+        font-size: 0.9em;
+        color: var(--fadedBlue);
+        height: 2.7em;
+        font-family: 'Montserrat', sans-serif;
+        font-weight: 600;
+        padding: 0.6em;
+        width: 100%;
+        white-space: nowrap;
+    }
 
-.light-button:hover {
-    background-color: var(--blueHover);
-}
+    .button:hover {
+        border-color: var(--fadedBlueHover);
+        color: var(--fadedBlueHover);
+    }
 
-.red-button:hover {
-    color: var(--red80perc);
-    border-color: var(--red80perc);
+    .light-button:hover {
+        background-color: var(--blueHover);
+    }
+
+    .red-button:hover {
+        color: var(--red80perc);
+        border-color: var(--red80perc);
+    }
 }
