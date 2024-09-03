@@ -171,10 +171,10 @@
 
     .current-week-container {
         gap: 1em;
-        margin: 1em 2em 1em 4.5em;
+        margin: 1em 2em 1em 3.5em;
         display: grid;
         justify-content: start;
-        font-size: 1.5em;
+        font-size: 1.8em;
     }
 
     .registration-info {
@@ -217,7 +217,7 @@
     }
 
     .week-schedule-table th {
-        font-size: 1.6em;
+        font-size: 2.2em;
         color: var(--inputText);
     }
 
@@ -266,23 +266,22 @@
 
     .subject {
         text-align: left;
-        font-size: 2.2em;
+        font-size: 3.5em;
         font-weight: 600;
         color: white;
     }
 
     .date {
-        font-size:1.5em;
-        font-weight: 500;
+        font-size: 2.1em;
+        font-weight: 600;
         color: var(--inputText);
         padding-right: 0.5em;
     }
 
     .subgroup {
         justify-content: left;
-        margin-top: -0.3em;
-        font-size: 1.3em;
-        font-weight: 500;
+        font-size: 1.5em;
+        font-weight: 600;
         color: var(--inputText);
     }
 
@@ -306,7 +305,7 @@
 
     .register-to-queue, .register-to-queue:visited {
         margin-right: 1em;
-        font-size: 1.5em;
+        font-size: 2em;
         font-weight: 600;
         color: var(--inputText);
     }
@@ -318,19 +317,19 @@
     .number-in-queue-text-status {
         margin-right: 1em;
         color: var(--inputText);
-        font-size: 1.5em;
+        font-size: 2em;
         font-weight: 600;
     }
 
     .registered-up-status {
         font-weight: 600;
-        font-size: 1.5em;
+        font-size: 2em;
         color: var(--inputText);
     }
 
     .leave-register-status {
         font-weight: 500;
-        font-size: 1.4em;
+        font-size: 1.8em;
         color: var(--red);
     }
 
@@ -373,8 +372,8 @@
     }
 
     .register-to-queue-container {
-        height: 27.7em;
-        width: 22.5em;
+        height: 41em;
+        width: 50em;
         top: 45%;
         left: 50%;
         display: none;
@@ -404,7 +403,7 @@
 
     .register-to-queue-label {
         color: white;
-        font-size: 2em;
+        font-size: 3.5em;
         font-weight: 600;
     }
 
@@ -425,7 +424,7 @@
 
     .subject-data label {
         color: var(--inputText);
-        font-size: 0.9em;
+        font-size: 2em;
         font-weight: 500;
     }
 
@@ -434,15 +433,15 @@
     }
 
     .invalid-labs-list {
-        max-height: 1.2em;
-        min-height: 1.2em;
+        max-height: 2em;
+        min-height: 2em;
         margin-top: 0.2em;
         margin-bottom: 0.8em;
     }
 
     #invalid-labs-list-label {
         color: var(--red);
-        font-size: 0.8em;
+        font-size: 1.8em;
         font-weight: 600;
     }
 
@@ -470,7 +469,7 @@
     }
 
     .fa-bars {
-        font-size: 2em;
+        font-size: 2.5em;
     }
 }
 
