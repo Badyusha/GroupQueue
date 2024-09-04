@@ -110,7 +110,7 @@ CREATE TABLE `pre_queue` (
      INDEX `FK_pre_queue_lesson` (`lesson_id`) USING BTREE,
      INDEX `FK_pre_queue_student` (`student_id`) USING BTREE,
      CONSTRAINT `FK_pre_queue_lesson` FOREIGN KEY (`lesson_id`) REFERENCES `lesson` (`id`) ON UPDATE CASCADE ON DELETE CASCADE,
-     CONSTRAINT `FK_pre_queue_student` FOREIGN KEY (`student_id`) REFERENCES student (`id`) ON UPDATE CASCADE ON DELETE RESTRICT
+     CONSTRAINT `FK_pre_queue_student` FOREIGN KEY (`student_id`) REFERENCES student (`id`) ON UPDATE CASCADE ON DELETE CASCADE
 )
     COLLATE='utf8mb4_general_ci'
     ENGINE=InnoDB
@@ -126,7 +126,7 @@ CREATE TABLE `queue` (
      INDEX `FK_queue_student` (`student_id`) USING BTREE,
      INDEX `FK_queue_lesson` (`lesson_id`) USING BTREE,
      CONSTRAINT `FK_queue_lesson` FOREIGN KEY (`lesson_id`) REFERENCES `lesson` (`id`) ON UPDATE RESTRICT ON DELETE CASCADE,
-     CONSTRAINT `FK_queue_student` FOREIGN KEY (`student_id`) REFERENCES student (`id`) ON UPDATE CASCADE ON DELETE RESTRICT
+     CONSTRAINT `FK_queue_student` FOREIGN KEY (`student_id`) REFERENCES student (`id`) ON UPDATE CASCADE ON DELETE CASCADE
 )
     COLLATE='utf8mb4_general_ci'
     ENGINE=InnoDB
