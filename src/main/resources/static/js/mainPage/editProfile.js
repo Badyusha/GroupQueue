@@ -214,8 +214,7 @@ function isAllFieldsNotChanged() {
 }
 
 async function passwordIsTheSame() {
-    let res = await fetchData('/user/password/'+passwordInput.value+'/matches');
-    console.log(res);
+    let res = await fetchData('/student/password/'+passwordInput.value+'/matches');
     return res;
 }
 
