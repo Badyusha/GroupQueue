@@ -63,18 +63,14 @@
     }
 
     #username {
+        margin-top: -0.2em;
         font-size: 1.7em;
-        margin-top: 0.2em;
         color: var(--inputText);
         font-weight: 500;
     }
 
     #group-number {
         margin-top: 1em;
-    }
-
-    #role-type {
-        margin-top: 0.5em;
     }
 
     #group-number, #role-type {
@@ -441,7 +437,7 @@
 
     #invalid-labs-list-label {
         color: var(--red);
-        font-size: 1.8em;
+        font-size: 1.5em;
         font-weight: 600;
     }
 
@@ -461,9 +457,9 @@
     }
 
     #leave-queue-error, #delete-account-error, #become-group-admin-error {
-        max-height: 1em;
-        min-height: 1em;
-        font-size: 0.8em;
+        max-height: 2em;
+        min-height: 2em;
+        font-size: 1.2em;
         font-weight: 500;
         color: var(--red);
     }

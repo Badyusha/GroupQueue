@@ -1,0 +1,23 @@
+services:
+  db:
+    image: mysql
+    container_name: group-queue-mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=group_queue
+    ports:
+      - "3307:3306"
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    restart: always
+  app:
+    build: .
+    image: group-queue
+    container_name: group-queue-app
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/group_queue?useSSL=false
+    ports:
+      - "8000:8080"
+    restart: always
+    depends_on:
+      - db

@@ -305,7 +305,7 @@ function isPassingLabsListOk(text) {
     if(text.length === 0) {
         return false;
     }
-    const regex = /^\d{1,2}(\s*,\s*\d{1,2})*$/;
+    const regex = /^\d{1,2}(\s*,\s*\d{1,2}|\s+\d{1,2})*$/;
 
     if (!regex.test(text)) {
         return false;
