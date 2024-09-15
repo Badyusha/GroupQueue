@@ -19,7 +19,7 @@ public class StudentController {
 		if(!CookieUtil.isCookiesExists(request)) {
 			return "redirect:/";
 		}
-		return "/views/student/mainPage";
+		return "views/student/mainPage";
 	}
 
 	@GetMapping("/student/queues")

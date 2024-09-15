@@ -8,6 +8,6 @@ import org.springframework.boot.web.servlet.error.ErrorController;
 public class ApplicationErrorController implements ErrorController {
 	@RequestMapping("/error")
 	public String errorMapping() {
-		return "/views/errorPage/error";
+		return "views/errorPage/error";
 	}
 }

@@ -8,15 +8,13 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
 import javax.crypto.BadPaddingException;
 import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
 import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
@@ -25,6 +23,7 @@ import java.util.Base64;
 @Service
 @RequiredArgsConstructor
 public class CookieUtil {
+	private static final String SECRET_KEY = "b6y7UPSCt2HnClqdhikmag==";
 	private static final String ALGORITHM = "AES/CBC/PKCS5Padding";
 
 	public static boolean isCookiesExists(HttpServletRequest request) {
@@ -46,7 +45,6 @@ public class CookieUtil {
 	public static void deleteCookie(HttpServletResponse response, String key) {
 		Cookie cookie = new Cookie(key, null);
 		cookie.setMaxAge(0);
-		cookie.setSecure(true);
 		cookie.setHttpOnly(true);
 		cookie.setPath("/");
 
@@ -63,14 +61,12 @@ public class CookieUtil {
 
 		Cookie cookie = new Cookie(key, encryptedValue);
 		cookie.setMaxAge(3600);
-		cookie.setSecure(true);
 		cookie.setHttpOnly(true);
 		cookie.setPath("/");
 		response.addCookie(cookie);
 
 		Cookie cookieIV = new Cookie(key + "IV", encryptedValueIVPair.getSecond());
 		cookieIV.setMaxAge(3600);
-		cookieIV.setSecure(true);
 		cookieIV.setHttpOnly(true);
 		cookieIV.setPath("/");
 
@@ -131,25 +127,7 @@ public class CookieUtil {
 	}
 
 	private static SecretKey getSecretKey() {
-		byte[] decodedKey = new byte[0];
-		try {
-			File file = new File("file.txt");
-			FileInputStream inputStream = new FileInputStream(file);
-
-			byte[] buffer = new byte[1024];
-			int bytesRead;
-			StringBuilder key = new StringBuilder();
-
-			while ((bytesRead = inputStream.read(buffer)) != -1) {
-				key.append(new String(buffer, 0, bytesRead));
-			}
-			inputStream.close();
-
-			decodedKey = Base64.getDecoder().decode(key.toString());
-		} catch(IOException e) {
-			System.err.println("Exception in getFileKey");
-			e.printStackTrace();
-		}
+		byte[] decodedKey = Base64.getDecoder().decode(SECRET_KEY);
 		return new SecretKeySpec(decodedKey, 0, decodedKey.length, "AES");
 	}
 }

@@ -11,6 +11,6 @@ public class MainController {
     @GetMapping("/")
     public String start(HttpServletResponse response, HttpServletRequest request) {
         CookieUtil.deleteAllCookies(response, request);
-        return "/views/startPage/startPageDesktop";
+        return "views/startPage/startPageDesktop";
     }
 }

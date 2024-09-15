@@ -8,7 +8,7 @@ CREATE TABLE `group` (
 )
     COLLATE='utf8mb4_general_ci'
     ENGINE=InnoDB
-    AUTO_INCREMENT=33
+    AUTO_INCREMENT=1
 ;
 
 CREATE TABLE `role` (
@@ -18,7 +18,7 @@ CREATE TABLE `role` (
 )
     COLLATE='utf8mb4_general_ci'
     ENGINE=InnoDB
-    AUTO_INCREMENT=4
+    AUTO_INCREMENT=1
 ;
 
 CREATE TABLE `student` (
@@ -38,7 +38,7 @@ CREATE TABLE `student` (
 )
     COLLATE='utf8mb4_general_ci'
     ENGINE=InnoDB
-    AUTO_INCREMENT=47
+    AUTO_INCREMENT=1
 ;
 
 CREATE TABLE `schedule` (
@@ -57,7 +57,7 @@ CREATE TABLE `schedule` (
     COMMENT='schedule for group from BSUIR API'
     COLLATE='utf8mb4_general_ci'
     ENGINE=InnoDB
-    AUTO_INCREMENT=369
+    AUTO_INCREMENT=1
 ;
 
 CREATE TABLE `lesson` (
@@ -72,7 +72,7 @@ CREATE TABLE `lesson` (
     COMMENT='schedule for each subject, in concrete study week\r\nunique lesson (in full year)\r\nexm: 1-st of Sep'
     COLLATE='utf8mb4_general_ci'
     ENGINE=InnoDB
-    AUTO_INCREMENT=159
+    AUTO_INCREMENT=1
 ;
 
 CREATE TABLE `permission` (
@@ -82,7 +82,7 @@ CREATE TABLE `permission` (
 )
     COLLATE='utf8mb4_general_ci'
     ENGINE=InnoDB
-    AUTO_INCREMENT=4
+    AUTO_INCREMENT=1
 ;
 
 CREATE TABLE `permission_role` (
@@ -97,7 +97,7 @@ CREATE TABLE `permission_role` (
 )
     COLLATE='utf8mb4_general_ci'
     ENGINE=InnoDB
-    AUTO_INCREMENT=5
+    AUTO_INCREMENT=1
 ;
 
 CREATE TABLE `pre_queue` (
@@ -114,7 +114,7 @@ CREATE TABLE `pre_queue` (
 )
     COLLATE='utf8mb4_general_ci'
     ENGINE=InnoDB
-    AUTO_INCREMENT=41
+    AUTO_INCREMENT=1
 ;
 
 CREATE TABLE `queue` (
@@ -130,7 +130,7 @@ CREATE TABLE `queue` (
 )
     COLLATE='utf8mb4_general_ci'
     ENGINE=InnoDB
-    AUTO_INCREMENT=7
+    AUTO_INCREMENT=1
 ;
 
 CREATE TABLE `request` (
@@ -143,7 +143,7 @@ CREATE TABLE `request` (
 )
     COLLATE='utf8mb4_general_ci'
     ENGINE=InnoDB
-    AUTO_INCREMENT=6
+    AUTO_INCREMENT=1
 ;
 
 
