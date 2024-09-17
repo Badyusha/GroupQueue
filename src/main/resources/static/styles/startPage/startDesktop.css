@@ -48,8 +48,8 @@
         align-items: center;
         justify-content: center;
         min-width: 20em;
-        border: 0.15em solid var(--headerBorder);
-        border-radius: 1em;
+        border: 0.1em solid var(--headerBorder);
+        border-radius: 0.7em;
         background-color: var(--darkBlue);
     }
 

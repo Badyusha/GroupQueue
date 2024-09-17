@@ -15,7 +15,7 @@ function transformText(input) {
 }
 
 document.addEventListener('DOMContentLoaded', async function() {
-    let requests = await fetchData('/request/become_group_admin/get');
+    let requests = await fetchData('/request/get/become_group_admin');
 
     // fill in table header
     let requestsTable = document.getElementById('requests-table');
@@ -34,34 +34,24 @@ document.addEventListener('DOMContentLoaded', async function() {
         return;
     }
 
-    let lastNameHeader = document.createElement('th');
-    lastNameHeader.innerText = "Last name";
+    const headers = [
+        { text: 'Last name', index: 0 },
+        { text: 'First name', index: 1 },
+        { text: 'Username', index: 2 },
+        { text: 'Role type', index: 3 },
+        { text: 'Group number', index: 4 },
+        { text: 'Request type', index: 5 }
+    ];
 
-    let firstNameHeader = document.createElement('th');
-    firstNameHeader.innerText = "First name";
+    headers.forEach(header => {
+        let th = document.createElement('th');
+        th.innerHTML = `${header.text}`;
+        th.innerHTML = `${header.text} <span class="arrow">&#9650;</span><span class="arrow">&#9660;</span>`
+        th.style.cursor = 'pointer';
 
-    let usernameHeader = document.createElement('th');
-    usernameHeader.innerText = "Username";
-
-    let roleTypeHeader = document.createElement('th');
-    roleTypeHeader.innerText = "Role type";
-
-    let groupNumberHeader = document.createElement('th');
-    groupNumberHeader.innerText = "Group number";
-
-    let requestTypeHeader = document.createElement('th');
-    requestTypeHeader.innerHTML = "Request type";
-
-    let actionHeader = document.createElement('th');
-    actionHeader.innerHTML = "Action";
-
-    tableRowHeader.appendChild(lastNameHeader);
-    tableRowHeader.appendChild(firstNameHeader);
-    tableRowHeader.appendChild(usernameHeader);
-    tableRowHeader.appendChild(roleTypeHeader);
-    tableRowHeader.appendChild(groupNumberHeader);
-    tableRowHeader.appendChild(requestTypeHeader);
-    tableRowHeader.appendChild(actionHeader);
+        th.addEventListener('click', () => sortTable(header.index, th));
+        tableRowHeader.appendChild(th);
+    });
 
     requestsTable.append(tableRowHeader);
 
@@ -98,12 +88,53 @@ document.addEventListener('DOMContentLoaded', async function() {
 
         requestsTable.append(tableRow);
     });
+
+    function sortTable(columnIndex, headerElement) {
+        let rows = Array.from(requestsTable.querySelectorAll('tr')).slice(1); // exclude header row
+        let isAscending = headerElement.getAttribute('data-sort-direction') === 'asc';
+
+        rows.sort((rowA, rowB) => {
+            let cellA = rowA.cells[columnIndex].innerText.trim();
+            let cellB = rowB.cells[columnIndex].innerText.trim();
+
+            let comparison = 0;
+
+            //          { text: 'Last name', index: 0 },
+            //         { text: 'First name', index: 1 },
+            //         { text: 'Username', index: 2 },
+            //         { text: 'Role type', index: 3 },
+            //         { text: 'Group number', index: 4 },
+            //         { text: 'Request type', index: 5 }
+
+            if (columnIndex === 4) { // Group number column
+                comparison = Number.parseInt(cellA) - Number.parseInt(cellB);
+            } else { // Other
+                comparison = cellA.localeCompare(cellB);
+            }
+
+            return isAscending ? comparison : -comparison;
+        });
+
+        // Toggle sort direction
+        isAscending = !isAscending;
+        headerElement.setAttribute('data-sort-direction', isAscending ? 'asc' : 'desc');
+
+        // Update arrow visibility
+        headerElement.querySelectorAll('.arrow').forEach(arrow => arrow.style.color = 'var(--headerBorder)');
+        if (isAscending) {
+            headerElement.querySelector('.arrow:last-child').style.color = 'var(--gray)';
+        } else {
+            headerElement.querySelector('.arrow:first-child').style.color = 'var(--gray)';
+        }
+
+        rows.forEach(row => requestsTable.appendChild(row));
+    }
 });
 
 function acceptRequest(studentId, requestType) {
     $.ajax({
         type: 'POST',
-        url: '/request/become_group_admin/accept',
+        url: '/request/accept/become_group_admin',
         data: JSON.stringify({
             studentId: studentId,
             requestType: requestType
@@ -116,7 +147,7 @@ function acceptRequest(studentId, requestType) {
             window.location.reload();
         },
         error: async function (response) {
-            console.error("Error while registration: " + response.data)
+            console.error("Error while accepting request: /request/accept/become_group_admin\n" + response.data)
         }
     });
 }
@@ -124,7 +155,7 @@ function acceptRequest(studentId, requestType) {
 function declineRequest(studentId, requestType) {
     $.ajax({
         type: 'POST',
-        url: '/request/become_group_admin/decline',
+        url: '/request/decline/become_group_admin',
         data: JSON.stringify({
             studentId: studentId,
             requestType: requestType
@@ -137,7 +168,7 @@ function declineRequest(studentId, requestType) {
             window.location.reload();
         },
         error: async function (response) {
-            console.error("Error while declining request: /request/become_group_admin/decline\n" + response.data)
+            console.error("Error while declining request: /request/decline/become_group_admin\n" + response.data)
         }
     });
 }

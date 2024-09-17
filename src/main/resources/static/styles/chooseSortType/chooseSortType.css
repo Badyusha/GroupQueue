@@ -87,6 +87,7 @@
         color: var(--gray);
         margin-left: 5px;
     }
+
     th[data-sort-direction='asc'] .arrow:first-child {
         color: var(--headerBorder);
     }
@@ -119,8 +120,8 @@
 
     .lessons, .sort-types-info {
         background-color: var(--darkBlue);
-        border: 0.15em solid var(--headerBorder);
-        border-radius: 1em;
+        border: 0.1em solid var(--headerBorder);
+        border-radius: 0.7em;
     }
 
     .lessons {

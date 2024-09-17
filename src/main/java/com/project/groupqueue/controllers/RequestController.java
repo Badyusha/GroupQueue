@@ -24,7 +24,7 @@ public class RequestController {
 	private final StudentService studentService;
 	private final PermissionRepository permissionRepository;
 
-	@GetMapping("/request/become_group_admin")
+	@GetMapping("/requests/become_group_admin")
 	public String showBecomeGroupAdminRequests(HttpServletRequest request) {
 		if(!CookieUtil.isCookiesExists(request)) {
 			return "redirect:/";
@@ -47,20 +47,19 @@ public class RequestController {
 		requestService.sendBecomeGroupAdmin(request);
 	}
 
-	@GetMapping("/request/become_group_admin/get")
+	@GetMapping("/request/get/become_group_admin")
 	@ResponseBody
 	public List<Request> getBecomeGroupAdminRequests() {
 		return requestService.getRequests();
 	}
 
-	@PostMapping("/request/become_group_admin/accept")
+	@PostMapping("/request/accept/become_group_admin")
 	@ResponseBody
 	public void acceptBecomeGroupAdminRequest(@RequestBody Request requestDto) {
-		System.err.println(requestDto);
 		requestService.acceptBecomeGroupAdminRequest(requestDto);
 	}
 
-	@PostMapping("/request/become_group_admin/decline")
+	@PostMapping("/request/decline/become_group_admin")
 	@ResponseBody
 	public void declineBecomeGroupAdminRequest(@RequestBody Request requestDto) {
 		requestService.declineBecomeGroupAdminRequest(requestDto);

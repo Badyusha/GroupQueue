@@ -26,7 +26,14 @@ menuOverlay.addEventListener('click', function() {
 
 
 async function fillSideMenu() {
-    let response = await fetchData('/student/get/info');
+    let response;
+    try {
+        response = await fetchData('/student/get/info');
+    } catch(e) {
+        console.log("cannot get response from /student/get/info");
+        window.location.replace('/');
+        return;
+    }
 
     username = response.username;
     firstName = response.firstName;
@@ -151,7 +158,7 @@ async function showBecomeAdminRequests(roleType) {
     if(!isUserRoleCorrect) {
         return;
     }
-    window.location.href = '/request/become_group_admin';
+    window.location.href = '/requests/become_group_admin';
     sideMenu.classList.remove('active');
     menuOverlay.classList.remove('active');
 }

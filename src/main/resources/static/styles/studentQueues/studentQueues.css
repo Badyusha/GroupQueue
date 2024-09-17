@@ -19,7 +19,7 @@
     }
 
     .queues-container {
-        border: 0.15em solid var(--headerBorder);
+        border: 0.1em solid var(--headerBorder);
         border-radius: 1em;
         background-color: var(--darkBlue);
         width: 97%;
@@ -215,8 +215,8 @@
     }
 
     .queues-container {
-        border: 0.15em solid var(--headerBorder);
-        border-radius: 1em;
+        border: 0.1em solid var(--headerBorder);
+        border-radius: 0.7em;
         background-color: var(--darkBlue);
         width: 97%;
         margin-left: 1.5%;

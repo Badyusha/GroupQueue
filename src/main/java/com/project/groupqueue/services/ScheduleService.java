@@ -63,8 +63,8 @@ public class ScheduleService {
 		}
 		return schedule;
 	}
-	
-	//	code below add records into schedule and lesson tables ===
+
+	//	add records into schedule and lesson tables ===
 	public int getCurrentWeek() {
 		return BsuirAPI.getCurrentWeek();
 	}
@@ -101,9 +101,9 @@ public class ScheduleService {
 
 	// SCHEDULED
 	/**
-	method calls every Sunday at 18:00
+	method calls every Sunday at 22:00
 	*/
-	@Scheduled(cron = "0 0 18 * * SUN", zone = "Europe/Moscow")
+	@Scheduled(cron = "0 0 22 * * SUN", zone = "Europe/Moscow")
 	@Transactional
 	public void updateLessonsForNextWeek() {
 		lessonService.deleteAll();

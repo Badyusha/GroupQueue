@@ -140,11 +140,11 @@ document.addEventListener('DOMContentLoaded', async function() {
         headerElement.setAttribute('data-sort-direction', isAscending ? 'asc' : 'desc');
 
         // Update arrow visibility
-        headerElement.querySelectorAll('.arrow').forEach(arrow => arrow.style.color = 'var(--gray)');
+        headerElement.querySelectorAll('.arrow').forEach(arrow => arrow.style.color = 'var(--headerBorder)');
         if (isAscending) {
-            headerElement.querySelector('.arrow:first-child').style.color = 'var(--headerBorder)';
+            headerElement.querySelector('.arrow:last-child').style.color = 'var(--gray)';
         } else {
-            headerElement.querySelector('.arrow:last-child').style.color = 'var(--headerBorder)';
+            headerElement.querySelector('.arrow:first-child').style.color = 'var(--gray)';
         }
 
         rows.forEach(row => lessonsTable.appendChild(row));
