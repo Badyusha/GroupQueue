@@ -23,7 +23,7 @@ import java.util.Base64;
 @Service
 @RequiredArgsConstructor
 public class CookieUtil {
-	private static final String SECRET_KEY = "b6y7UPSCt2HnClqdhikmag==";
+	private static final String SECRET_KEY = System.getenv("SECRET_KEY");
 	private static final String ALGORITHM = "AES/CBC/PKCS5Padding";
 
 	public static boolean isCookiesExists(HttpServletRequest request) {

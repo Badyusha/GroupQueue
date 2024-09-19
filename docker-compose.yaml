@@ -2,11 +2,13 @@ services:
   db:
     image: mysql:8.0
     container_name: group-queue-mysql
+    env_file:
+      - .env
     environment:
       - MYSQL_ROOT_PASSWORD=root
       - MYSQL_DATABASE=group_queue
     ports:
-      - ${DB_PORT}
+      - "${DB_PORT}:${DB_PORT}"
     volumes:
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql
     restart: always
@@ -22,10 +24,12 @@ services:
     build: .
     image: group-queue-app
     container_name: group-queue-app-container
+    env_file:
+      - .env
     environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/group_queue?useSSL=false&allowPublicKeyRetrieval=true
+      SPRING_DATASOURCE_URL: jdbc:mysql://${HOST_NAME}:${DB_PORT}/${DB_NAME}?useSSL=false&allowPublicKeyRetrieval=true
     ports:
-      - "8000:8080"
+      - "${APP_PORT}:${APP_PORT}"
     restart: always
     depends_on:
       db:

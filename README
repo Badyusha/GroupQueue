@@ -1,6 +1,2 @@
-ENVIRONMENT VARIABLE:
-    - DB_NAME=group_queue
-    - DB_PORT=3306
-    - HOST_NAME=localhost
-    - DB_USERNAME=root
-    - DB_PASSWORD=root
+Default environment variables are in GroupQueue/.env
+Change them if needed

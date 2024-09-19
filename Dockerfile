@@ -6,7 +6,7 @@ COPY target/GroupQueue-0.0.1-SNAPSHOT.jar /GroupQueue.jar
 ADD init.sql /docker-entrypoint-initdb.d
 
 # Expose the port your application will run on
-EXPOSE 8080
+EXPOSE ${APP_PORT}
 
 # Run the application
 ENTRYPOINT ["java", "-jar", "/GroupQueue.jar"]
