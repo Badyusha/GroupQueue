@@ -145,11 +145,11 @@ function fillTableHeader() {
     }
 }
 
-async function showFinalQueue(lessonId, subjectName, date, startTime) {
+async function showFinalQueue(lessonId, subjectName, subgroup, date, startTime) {
     overlay.classList.add('active');
     finalQueue.style.display = 'block';
 
-    subjectInfo.textContent = subjectName + ' — ' + formatDate(date) + ' — ' + removeSecondsFromTime(startTime);
+    subjectInfo.textContent = subjectName + '(' + subgroup + ')' + ' — ' + formatDate(date) + ' — ' + removeSecondsFromTime(startTime);
 
     let usersQueue = await fetchData(`/queue/lesson/${lessonId}/get`);
 
@@ -200,8 +200,9 @@ async function insertDataIntoTable(data) {
         row.appendChild(startTimeCell);
 
         const subgroupTypeCell = document.createElement('td');
-        subgroupTypeCell.textContent = (item.subgroupType === 'ALL') ? 'All' :
+        let subgroup = (item.subgroupType === 'ALL') ? 'All' :
             (item.subgroupType === 'FIRST' ? '1' : '2');
+        subgroupTypeCell.textContent = subgroup;
         row.appendChild(subgroupTypeCell);
 
         const passingLabsCell = document.createElement('td');
@@ -232,6 +233,7 @@ async function insertDataIntoTable(data) {
         if (!isNumberInQueueNull) {
             subjectNameCell.setAttribute('onclick', `showFinalQueue(${item.lessonId},
                                                                         '${item.subjectName}', 
+                                                                        '${subgroup}',
                                                                         '${item.date}',
                                                                         '${item.startTime}')`);
             subjectNameCell.style.cursor = 'pointer';
