@@ -55,9 +55,9 @@ public class StudentController {
 	}
 
 	@PostMapping("/student/edit_profile")
-	public void editProfile(HttpServletResponse response, HttpServletRequest request, @RequestBody Student student) {
+	@ResponseBody
+	public void editProfile(HttpServletRequest request, @RequestBody Student student) {
 		studentService.editProfile(request, student);
-		CookieUtil.addRequired(response, student);
 	}
 
 	@DeleteMapping("/student/delete")

@@ -1,8 +1,10 @@
 package com.project.groupqueue.services;
 
 import com.project.groupqueue.models.dto.Student;
+import com.project.groupqueue.models.entities.PersonEntity;
 import com.project.groupqueue.models.entities.StudentEntity;
 import com.project.groupqueue.models.enums.RoleType;
+import com.project.groupqueue.repo.PersonRepository;
 import com.project.groupqueue.repo.StudentRepository;
 import com.project.groupqueue.utils.CookieUtil;
 import com.project.groupqueue.utils.EncryptionUtil;
@@ -10,11 +12,10 @@ import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 @Service
 @RequiredArgsConstructor
 public class StudentService {
+	private final PersonRepository personRepository;
 	private final StudentRepository studentRepository;
 	private final RoleService roleService;
 
@@ -37,7 +38,8 @@ public class StudentService {
 	public void saveStudent(Student student) {
 		long roleId = roleService.getRoleIdByType(RoleType.USER);
 		student.setRoleId(roleId);
-		studentRepository.save(student.toStudentEntity());
+		Long personId = personRepository.save(new PersonEntity(student)).getId();
+		studentRepository.save(student.toStudentEntity(personId));
 	}
 
 	public boolean isUsernameExist(String username) {
@@ -71,17 +73,15 @@ public class StudentService {
 
 	public void editProfile(HttpServletRequest request, Student student) {
 		long studentId = CookieUtil.getStudentId(request);
-		StudentEntity studentEntity = studentRepository.getStudentEntityByStudentId(studentId);
-		long roleId = studentEntity.getRoleId();
-		long groupId = studentEntity.getGroupId();
+		PersonEntity personEntity = personRepository.getPersonByStudentId(studentId);
 
-		fillStudent(student, studentId, roleId, groupId);
+		fillInPerson(personEntity, student);
+
 		if(!student.getPassword().isEmpty()) {
-			studentRepository.save(student.toStudentEntityWithPasswordEncryption());
-			return;
+			personEntity.setPassword(EncryptionUtil.hashData(student.getPassword()));
 		}
-		student.setPassword(studentEntity.getPassword());
-		studentRepository.save(student.toStudentEntityWithOutPasswordEncryption());
+
+		personRepository.save(personEntity);
 	}
 
 	public void deleteStudentByStudentId(HttpServletRequest request) {
@@ -94,9 +94,10 @@ public class StudentService {
 		return studentRepository.getStudentRoleByStudentId(studentId);
 	}
 
-	private void fillStudent(Student student, long studentId, long roleId, long groupId) {
-		student.setStudentId(studentId);
-		student.setRoleId(roleId);
-		student.setGroupId(groupId);
+	private void fillInPerson(PersonEntity personEntity, Student student) {
+		personEntity.setUsername(student.getUsername());
+		personEntity.setFirstName(student.getFirstName());
+		personEntity.setLastName(student.getLastName());
 	}
+
 }

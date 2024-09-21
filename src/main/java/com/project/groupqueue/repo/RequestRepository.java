@@ -12,9 +12,9 @@ public interface RequestRepository extends CrudRepository<RequestEntity, Long> {
 	@Query(value = """
 					SELECT new com.project.groupqueue.models.dto.Request(
 					s.id,
-					s.lastName,
-					s.firstName,
-					s.username,
+					s.personEntity.lastName,
+					s.personEntity.firstName,
+					s.personEntity.username,
 					role.name,
 					g.number,
 					r.requestType)

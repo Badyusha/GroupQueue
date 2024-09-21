@@ -21,20 +21,32 @@ CREATE TABLE `role` (
     AUTO_INCREMENT=1
 ;
 
+CREATE TABLE `person` (
+                          `id` BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+                          `username` VARCHAR(65) NOT NULL COLLATE 'utf8mb4_general_ci',
+                          `first_name` VARCHAR(65) NOT NULL COLLATE 'utf8mb4_general_ci',
+                          `last_name` VARCHAR(65) NOT NULL COLLATE 'utf8mb4_general_ci',
+                          `password` VARCHAR(65) NOT NULL COLLATE 'utf8mb4_general_ci',
+                          PRIMARY KEY (`id`) USING BTREE,
+                          UNIQUE INDEX `username` (`username`) USING BTREE
+)
+    COLLATE='utf8mb4_general_ci'
+    ENGINE=InnoDB
+    AUTO_INCREMENT=1
+;
+
 CREATE TABLE `student` (
                            `id` BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
                            `group_id` BIGINT(20) UNSIGNED NOT NULL,
                            `role_id` BIGINT(20) UNSIGNED NOT NULL,
-                           `username` VARCHAR(65) NOT NULL COLLATE 'utf8mb4_general_ci',
-                           `first_name` VARCHAR(65) NOT NULL COLLATE 'utf8mb4_general_ci',
-                           `last_name` VARCHAR(65) NOT NULL COLLATE 'utf8mb4_general_ci',
-                           `password` VARCHAR(65) NOT NULL COLLATE 'utf8mb4_general_ci',
+                           `person_id` BIGINT(20) UNSIGNED NOT NULL,
                            PRIMARY KEY (`id`) USING BTREE,
-                           UNIQUE INDEX `username` (`username`) USING BTREE,
+                           UNIQUE INDEX `person_id` (`person_id`) USING BTREE,
                            INDEX `FK_student_role` (`role_id`) USING BTREE,
                            INDEX `FK_student_group` (`group_id`) USING BTREE,
                            CONSTRAINT `FK_student_group` FOREIGN KEY (`group_id`) REFERENCES `group` (`id`) ON UPDATE RESTRICT ON DELETE RESTRICT,
-                           CONSTRAINT `FK_student_role` FOREIGN KEY (`role_id`) REFERENCES `role` (`id`) ON UPDATE RESTRICT ON DELETE RESTRICT
+                           CONSTRAINT `FK_student_role` FOREIGN KEY (`role_id`) REFERENCES `role` (`id`) ON UPDATE RESTRICT ON DELETE RESTRICT,
+                           CONSTRAINT `FK_student_person` FOREIGN KEY (`person_id`) REFERENCES `person` (`id`) ON UPDATE RESTRICT ON DELETE RESTRICT
 )
     COLLATE='utf8mb4_general_ci'
     ENGINE=InnoDB

@@ -2,7 +2,6 @@ package com.project.groupqueue.models.dto;
 
 import com.project.groupqueue.models.entities.StudentEntity;
 import com.project.groupqueue.models.enums.RoleType;
-import com.project.groupqueue.utils.EncryptionUtil;
 import lombok.Data;
 
 @Data
@@ -13,6 +12,7 @@ public class Student {
 	private String username;
 	private String password;
 	private Long groupId;
+	private Long personId;
 	private Integer groupNumber;
 	private RoleType roleType;
 	private Long roleId;
@@ -35,24 +35,16 @@ public class Student {
 		this.roleType = roleType;
 	}
 
-	public StudentEntity toStudentEntity() {
-		return new StudentEntity(groupId, roleId, username, firstName, lastName, password);
-	}
-
-	public StudentEntity toStudentEntityWithPasswordEncryption() {
-		return new StudentEntity(studentId, groupId, roleId, username, firstName, lastName, EncryptionUtil.hashData(password));
-	}
-
-	public StudentEntity toStudentEntityWithOutPasswordEncryption() {
-		return new StudentEntity(studentId, groupId, roleId, username, firstName, lastName, password);
+	public StudentEntity toStudentEntity(Long personId) {
+		return new StudentEntity(groupId, roleId, personId);
 	}
 
 	public void copyFromStudentEntity(StudentEntity studentEntity) {
 		this.studentId = studentEntity.getId();
-		this.firstName = studentEntity.getFirstName();
-		this.lastName = studentEntity.getLastName();
-		this.username = studentEntity.getUsername();
-		this.password = studentEntity.getPassword();
+		this.firstName = studentEntity.getPersonEntity().getFirstName();
+		this.lastName = studentEntity.getPersonEntity().getLastName();
+		this.username = studentEntity.getPersonEntity().getUsername();
+		this.password = studentEntity.getPersonEntity().getPassword();
 		this.groupId = studentEntity.getGroupId();
 		this.groupNumber = studentEntity.getGroupEntity().getNumber();
 	}

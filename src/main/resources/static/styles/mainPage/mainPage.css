@@ -582,12 +582,12 @@
 
     .menu-variant:hover {
         background-color: var(--blueGray);
-        border-radius: 0.5em;
+        border-radius: 0.4em;
     }
 
     #delete-account:hover {
         background-color: var(--red10perc);
-        border-radius: 0.5em;
+        border-radius: 0.4em;
     }
 
     .fa-solid {

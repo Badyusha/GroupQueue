@@ -18,6 +18,7 @@ public class RegistrationService {
 		long groupId = groupRepository.getGroupIdByNumber(student.getGroupNumber());
 		student.setGroupId(groupId);
 		studentService.saveStudent(student);
+
 		long studentId = studentService.getStudentIdByStudent(student);
 		student.setStudentId(studentId);
 	}

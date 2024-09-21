@@ -11,7 +11,7 @@ public interface StudentRepository extends CrudRepository<StudentEntity, Long> {
 	@Query(value = """
 					SELECT s
 					FROM StudentEntity s
-					WHERE s.username = ?1
+					WHERE s.personEntity.username = ?1
 				""")
 	StudentEntity getStudentByUsername(String username);
 
@@ -25,7 +25,7 @@ public interface StudentRepository extends CrudRepository<StudentEntity, Long> {
 	@Query(value = """
 					SELECT count(1)
 					FROM StudentEntity s
-					WHERE s.username = ?1
+					WHERE s.personEntity.username = ?1
 				""")
 	Integer usernameCountByName(String username);
 
@@ -47,7 +47,7 @@ public interface StudentRepository extends CrudRepository<StudentEntity, Long> {
 	@Query(value = """
 			SELECT count(1)
 			FROM StudentEntity s
-			WHERE (s.username = ?1 and s.password = ?2)
+			WHERE (s.personEntity.username = ?1 and s.personEntity.password = ?2)
 				""")
 	Integer studentsCountByUsernamePassword(String username, String password);
 
@@ -58,7 +58,7 @@ public interface StudentRepository extends CrudRepository<StudentEntity, Long> {
 	@Query(value = """
 					SELECT s.id
 					FROM StudentEntity s
-					WHERE s.username = ?1
+					WHERE s.personEntity.username = ?1
 				""")
 	Long getIdByUsername(String username);
 
@@ -74,15 +74,17 @@ public interface StudentRepository extends CrudRepository<StudentEntity, Long> {
 	@Query(value = """
 					SELECT new com.project.groupqueue.models.dto.Student(
 						null,
-						s.firstName,
-						s.lastName,
-						s.username,
-						s.password,
+						p.firstName,
+						p.lastName,
+						p.username,
+						p.password,
 						null,
 						group.number,
 						role.name
 					)
 					FROM StudentEntity s
+					INNER JOIN PersonEntity p
+						ON s.personId = p.id
 					INNER JOIN GroupEntity group
 						ON group.id = s.groupId
 					INNER JOIN RoleEntity role
@@ -92,7 +94,7 @@ public interface StudentRepository extends CrudRepository<StudentEntity, Long> {
 	Student getStudentDtoByStudentId(long studentId);
 
 	@Query(value = """
-					SELECT s.password
+					SELECT s.personEntity.password
 					FROM StudentEntity s
 					WHERE s.id = ?1
 				""")

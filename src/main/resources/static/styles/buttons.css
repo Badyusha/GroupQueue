@@ -9,14 +9,14 @@
     .dark-button {
         background: 0;
         border: 0.13em solid var(--fadedBlue);
-        border-radius: 0.7em;
+        border-radius: 0.5em;
     }
 
     .light-button {
         color: var(--fadedBlueHover) !important;
         background-color: var(--blue);
         border: 0.13em solid var(--fadedBlue);
-        border-radius: 0.7em;
+        border-radius: 0.5em;
     }
 
     .red-button {
@@ -31,7 +31,7 @@
         white-space: nowrap;
         background-color: var(--red10perc);
         border: 0.13em solid var(--red);
-        border-radius: 0.7em;
+        border-radius: 0.5em;
     }
 
     .button {
@@ -70,14 +70,14 @@
     .dark-button {
         background: 0;
         border: 0.13em solid var(--fadedBlue);
-        border-radius: 0.7em;
+        border-radius: 0.5em;
     }
 
     .light-button {
         color: var(--fadedBlueHover) !important;
         background-color: var(--blue);
         border: 0.13em solid var(--fadedBlue);
-        border-radius: 0.7em;
+        border-radius: 0.5em;
     }
 
     .red-button {
@@ -92,7 +92,7 @@
         white-space: nowrap;
         background-color: var(--red10perc);
         border: 0.13em solid var(--red);
-        border-radius: 0.7em;
+        border-radius: 0.5em;
     }
 
     .button {

@@ -50,13 +50,13 @@ public interface QueueRepository extends CrudRepository<QueueEntity, Long> {
 
 	@Query(value = """
 					SELECT new com.project.groupqueue.models.dto.GroupQueue(
-						q.order, s.username,
-						s.lastName, s.firstName,
+						q.order, p.username,
+						p.lastName, p.firstName,
 						pq.passingLabs
 					)
 					FROM QueueEntity q
-					INNER JOIN StudentEntity s
-						ON s.id = q.studentId
+					INNER JOIN PersonEntity p
+						ON p.id = q.studentEntity.personId
 					INNER JOIN PreQueueEntity pq
 						ON pq.studentId = q.studentId AND pq.lessonId = ?1
 					WHERE q.lessonId = ?1
