@@ -23,9 +23,6 @@ import java.util.Base64;
 @Service
 @RequiredArgsConstructor
 public class CookieUtil {
-	private static final String SECRET_KEY = System.getenv("SECRET_KEY");
-	private static final String ALGORITHM = "AES/CBC/PKCS5Padding";
-
 	public static boolean isCookiesExists(HttpServletRequest request) {
 		return request.getCookies() != null;
 	}
@@ -52,24 +49,19 @@ public class CookieUtil {
 	}
 
 	public static void create(HttpServletResponse response, String key, String value) {
-		Pair<String, String> encryptedValueIVPair = getEncryptedValueIVPair(value);
-
-		String encryptedValue = encryptedValueIVPair.getFirst();
-		if(encryptedValue == null) {
+		Pair<String, String> encryptedValueIVPair = EncryptionUtil.getEncryptedValueIVPair(value);
+		if(encryptedValueIVPair == null) {
 			throw new CookieException("cannot create cookie");
 		}
 
+		String encryptedValue = encryptedValueIVPair.getFirst();
 		Cookie cookie = new Cookie(key, encryptedValue);
-		cookie.setMaxAge(3600);
-		cookie.setHttpOnly(true);
-		cookie.setPath("/");
+		fillInCookie(cookie);
 		response.addCookie(cookie);
 
-		Cookie cookieIV = new Cookie(key + "IV", encryptedValueIVPair.getSecond());
-		cookieIV.setMaxAge(3600);
-		cookieIV.setHttpOnly(true);
-		cookieIV.setPath("/");
-
+		String encryptedIV = encryptedValueIVPair.getSecond();
+		Cookie cookieIV = new Cookie(key + "IV", encryptedIV);
+		fillInCookie(cookieIV);
 		response.addCookie(cookieIV);
 	}
 
@@ -82,7 +74,7 @@ public class CookieUtil {
 		for(Cookie cookie : cookies) {
 			String cookieName = cookie.getName();
 			if(cookieName.equals(key)) {
-				return EncryptionUtil.decrypt(ALGORITHM, cookie.getValue(), getSecretKey(), getIv(request, key));
+				return EncryptionUtil.decrypt(cookie.getValue(), EncryptionUtil.getIv(request, key));
 			}
 		}
 		throw new CookieException("there is no " + key + " cookie");
@@ -101,33 +93,9 @@ public class CookieUtil {
 		return Long.parseLong(getCookie(request, "studentId"));
 	}
 
-	private static Pair<String, String> getEncryptedValueIVPair(String value) {
-		try {
-			SecretKey encryptionKey = getSecretKey();
-			IvParameterSpec ivParameterSpec = EncryptionUtil.generateIv();
-
-			return new Pair<>(EncryptionUtil.encrypt(ALGORITHM, value, encryptionKey, ivParameterSpec),
-					Base64.getEncoder().encodeToString(ivParameterSpec.getIV()));
-		} catch(InvalidAlgorithmParameterException | NoSuchPaddingException |
-				IllegalBlockSizeException | NoSuchAlgorithmException | BadPaddingException | InvalidKeyException e)
-		{
-			System.err.println("Exception in CookieService.getEncryptedValue");
-			e.printStackTrace();
-		}
-		return null;
-	}
-
-	private static IvParameterSpec getIv(HttpServletRequest request, String key) {
-		for(Cookie cookie : request.getCookies()) {
-			if(cookie.getName().equals(key + "IV")) {
-				return new IvParameterSpec(Base64.getDecoder().decode(cookie.getValue().getBytes()));
-			}
-		}
-		return null;
-	}
-
-	private static SecretKey getSecretKey() {
-		byte[] decodedKey = Base64.getDecoder().decode(SECRET_KEY);
-		return new SecretKeySpec(decodedKey, 0, decodedKey.length, "AES");
+	private static void fillInCookie(Cookie cookie) {
+		cookie.setMaxAge(3600);
+		cookie.setHttpOnly(true);
+		cookie.setPath("/");
 	}
 }
