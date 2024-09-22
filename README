@@ -1,2 +1,5 @@
 Default environment variables are in ./.env
 Change them if needed
+
+To start application via docker execute command:
+    docker compose up --build
