@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Your queues</title>
+
+    <link rel="stylesheet" href="/styles/style.css">
+    <link rel="stylesheet" href="/styles/studentQueues/studentQueues.css">
+    <link rel="stylesheet" href="/styles/mainPage/mainPage.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+</head>
+<body>
+    <header>
+        <div id="logo">
+            <img src="/images/startPage/logo.png" alt="logo">
+            <span id="group-queue-logo-name">roupQ</span>
+        </div>
+    </header>
+
+    <div class="back-container">
+        <a href="/student/main_page">
+            <i class="fa-solid fa-arrow-left"></i>
+            <span>Back to schedule</span>
+        </a>
+    </div>
+
+    <div class="queues">
+        <div id="queues-container" class="queues-container">
+            <table id="queues-table">
+
+            </table>
+        </div>
+    </div>
+
+    <div id="final-queue" class="final-queue">
+        <div id="subject-info" class="subject-info"></div>
+        <div id="final-queue-container" class="final-queue-container">
+            <table id="final-queue-table">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Last name</th>
+                        <th>First name</th>
+                        <th>Username</th>
+                        <th>Passing labs</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+
+    <div id="dark-overlay"></div>
+
+    <script>
+        function sortTable(columnIndex) {
+            var table, rows, switching, i, x, y, shouldSwitch, dir, switchCount = 0;
+            table = document.getElementById("queues-table");
+            switching = true;
+            dir = "asc"; // Set the sorting direction to ascending initially
+
+            while (switching) {
+                switching = false;
+                rows = table.rows;
+
+                for (i = 1; i < (rows.length - 1); i++) {
+                    shouldSwitch = false;
+
+                    x = rows[i].getElementsByTagName("TD")[columnIndex];
+                    y = rows[i + 1].getElementsByTagName("TD")[columnIndex];
+
+                    if (dir == "asc") {
+                        if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+                            shouldSwitch = true;
+                            break;
+                        }
+                    } else if (dir == "desc") {
+                        if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+                            shouldSwitch = true;
+                            break;
+                        }
+                    }
+                }
+
+                if (shouldSwitch) {
+                    rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+                    switching = true;
+                    switchCount++;
+                } else {
+                    if (switchCount == 0 && dir == "asc") {
+                        dir = "desc";
+                        switching = true;
+                    }
+                }
+            }
+
+            // Reset sorting arrows
+            for (i = 0; i < table.rows[0].cells.length; i++) {
+                table.rows[0].cells[i].classList.remove('sort-asc', 'sort-desc');
+            }
+            table.rows[0].cells[columnIndex].classList.add(dir == "asc" ? 'sort-asc' : 'sort-desc');
+        }
+    </script>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script src="/js/mainPage/showStudentQueues.js"></script>
+
+</body>
+</html>

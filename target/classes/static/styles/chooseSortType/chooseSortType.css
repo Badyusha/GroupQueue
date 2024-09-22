@@ -1,0 +1,194 @@
+@media only screen and (max-width: 1024px) {
+    .back-container {
+        margin: 1em 0 0 2.3em;
+        display: flex;
+        justify-content: left;
+    }
+
+    .back-container a, .back-container a:visited {
+        font-size: 1.3em;
+        font-weight: 600;
+        color: var(--gray);
+    }
+
+    .container {
+        width: 100%;
+        margin-top: 1em;
+        margin-bottom: 2em;
+        display: flex;
+        justify-content: space-between;
+        min-height: 3em;
+    }
+
+    .lessons, .sort-types-info {
+        background-color: var(--darkBlue);
+        border: 0.15em solid var(--headerBorder);
+        border-radius: 1em;
+    }
+
+    .lessons {
+        width: 72%;
+        margin-left: 1.5%;
+        margin-right: 1.5%;
+    }
+
+    .sort-types-info {
+        width: 25.5%;
+        margin-right: 1.5%;
+    }
+
+    #lessons-table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    tr:nth-child(even) {
+        background-color: var(--black20perc);
+    }
+
+    td {
+        border-top: 0.1em solid var(--headerBorder);
+        vertical-align: top;
+    }
+
+    th, td {
+        cursor: default;
+        padding: 0.9em 1.2em 0.9em 1.5em;
+        text-align: left;
+        color: var(--inputText);
+        font-weight: 600;
+        vertical-align: middle;
+    }
+
+    th {
+        color: var(--gray);
+    }
+
+    td {
+        font-weight: 500;
+    }
+
+    select {
+        color: var(--inputText);
+        font-weight: 500;
+        font-family: 'Montserrat', sans-serif;
+        min-height: 2em;
+        border: 0.15em solid var(--headerBorder);
+        border-radius: 0.5em;
+        background: none;
+    }
+
+    option {
+        background-color: var(--darkBlue);
+    }
+
+    .arrow {
+        font-size: 12px;
+        color: var(--gray);
+        margin-left: 5px;
+    }
+
+    th[data-sort-direction='asc'] .arrow:first-child {
+        color: var(--headerBorder);
+    }
+    th[data-sort-direction='desc'] .arrow:last-child {
+        color: var(--headerBorder);
+    }
+}
+
+@media only screen and (min-width: 1025px) {
+    .back-container {
+        margin: 1em 0 0 2.3em;
+        display: flex;
+        justify-content: left;
+    }
+
+    .back-container a, .back-container a:visited {
+        font-size: 0.9em;
+        font-weight: 600;
+        color: var(--gray);
+    }
+
+    .container {
+        width: 100%;
+        margin-top: 1em;
+        margin-bottom: 2em;
+        display: flex;
+        justify-content: space-between;
+        min-height: 3em;
+    }
+
+    .lessons, .sort-types-info {
+        background-color: var(--darkBlue);
+        border: 0.1em solid var(--headerBorder);
+        border-radius: 0.7em;
+    }
+
+    .lessons {
+        width: 70%;
+        margin-left: 1.5%;
+        margin-right: 1.5%;
+    }
+
+    .sort-types-info {
+        width: 25.5%;
+        margin-right: 1.5%;
+    }
+
+    #lessons-table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    tr:nth-child(even) {
+        background-color: var(--black20perc);
+    }
+
+    td {
+        border-top: 0.1em solid var(--headerBorder);
+        vertical-align: top;
+    }
+
+    th, td {
+        cursor: default;
+        padding: 0.9em 1.5em 0.9em 1.5em;
+        text-align: left;
+        color: var(--inputText);
+        font-weight: 600;
+        vertical-align: middle;
+    }
+
+    th {
+        color: var(--gray);
+    }
+
+    td {
+        font-weight: 500;
+    }
+
+    select {
+        color: var(--inputText);
+        font-weight: 500;
+        font-family: 'Montserrat', sans-serif;
+        min-height: 2em;
+        border: 0.15em solid var(--headerBorder);
+        border-radius: 0.5em;
+        background: none;
+    }
+
+    option {
+        background-color: var(--darkBlue);
+    }
+
+    .arrow {
+        font-size: 12px;
+        color: var(--gray);
+        margin-left: 5px;
+    }
+    th[data-sort-direction='asc'] .arrow:first-child {
+        color: var(--headerBorder);
+    }
+    th[data-sort-direction='desc'] .arrow:last-child {
+        color: var(--headerBorder);
+    }
+}

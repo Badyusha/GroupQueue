@@ -1,0 +1,195 @@
+@media only screen and (max-width: 1024px) {
+    .popup-form {
+        height: 50em;
+        width: 50em;
+        top: 45%;
+        left: 50%;
+        display: none;
+        position: fixed;
+        transform: translate(-50%, -50%);
+        background-color: var(--darkBlue);
+        box-shadow: 0 0 1em 1em rgba(0, 0, 0, 0.25);
+        transition: opacity 0.5s ease, transform 0.5s ease;
+        border-radius: 2.5em;
+        z-index: 3;
+    }
+
+    .auth-action {
+        margin: 0.7em;
+        font-size: 3.5em;
+        font-weight: 600;
+    }
+
+    .square-separator {
+        height: 3em;
+    }
+
+    #invalid-sign-up-request {
+        font-size: 1.4em;
+        font-weight: 600;
+        color: var(--red);
+    }
+
+    .sign-up-form {
+        margin-top: 1.5em;
+        color: var(--gray);
+        font-weight: 600;
+    }
+
+    .sign-up-form table {
+        margin-top: -3em;
+        border-spacing: 2em;
+        width: 100%;
+    }
+
+
+    .sign-up-form table th {
+        text-align: center;
+        align-items: center;
+        padding-bottom: 1em;
+    }
+
+    .sign-up-data-input {
+        display: grid;
+        justify-content: center;
+        margin-top: 0;
+    }
+
+    .form-top-placeholder, .form-top-password-placeholder {
+        font-size: 1.5em;
+        text-align: left;
+        align-items: end;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    #first-name-input, #last-name-input,
+    #group-number-input, #sign-up-username-input,
+    #sign-up-password-input, #repeated-password-input, .empty-input {
+        font-family: 'Montserrat', sans-serif;
+        color: var(--inputText);
+        font-weight: 600;
+        font-size: 1.5em;
+        width: 12em;
+        height: 2em;
+        background: none;
+        border: 0.15em solid var(--headerBorder);
+        border-radius: 0.5em;
+        padding-left: 0.5em;
+        padding-top: 0.2em;
+    }
+
+    #group-number-input:disabled,
+    .empty-input:disabled {
+        background-color: var(--blueGray);
+    }
+
+    #sign-up-form-button {
+        width: 29em;
+        margin: 1.5em 0.5em 1em 0.5em;
+    }
+
+    .have-account {
+        color: var(--gray);
+        font-weight: 600;
+        font-size: 1.3em;
+    }
+}
+
+@media only screen and (min-width: 1025px) {
+    .popup-form {
+        height: 28em;
+        width: 28em;
+        top: 45%;
+        left: 50%;
+        display: none;
+        position: fixed;
+        transform: translate(-50%, -50%);
+        background-color: var(--darkBlue);
+        box-shadow: 0 0 1em 1em rgba(0, 0, 0, 0.25);
+        transition: opacity 0.5s ease, transform 0.5s ease;
+        border-radius: 1.3em;
+        z-index: 3;
+    }
+
+    .auth-action {
+        margin: 0.7em;
+        font-size: 2.5em;
+        font-weight: 600;
+    }
+
+    .square-separator {
+        margin-top: -1em;
+        height: 1em;
+    }
+
+    #invalid-sign-up-request {
+        margin-top: 0.5em;
+        font-size: 0.7em;
+        font-weight: 600;
+        color: var(--red);
+    }
+
+    .sign-up-form {
+        margin-top: 1.5em;
+        color: var(--gray);
+        font-weight: 600;
+    }
+
+    .sign-up-form table {
+        margin-top: 1.5em;
+        width: 100%;
+    }
+
+
+    .sign-up-form table th {
+        text-align: center;
+        align-items: center;
+        padding-bottom: 1em;
+    }
+
+    .sign-up-data-input {
+        display: grid;
+        justify-content: center;
+        margin-top: 0;
+    }
+
+    .form-top-placeholder, .form-top-password-placeholder {
+        font-size: 0.85em;
+        text-align: left;
+        align-items: end;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    #first-name-input, #last-name-input,
+    #group-number-input, #sign-up-username-input,
+    #sign-up-password-input, #repeated-password-input, .empty-input {
+        font-family: 'Montserrat', sans-serif;
+        color: var(--inputText);
+        font-weight: 600;
+        width: 11.5em;
+        height: 2em;
+        background: none;
+        border: 0.15em solid var(--headerBorder);
+        border-radius: 0.5em;
+        padding-left: 0.5em;
+        padding-top: 0.2em;
+    }
+
+    #group-number-input:disabled,
+    .empty-input:disabled {
+        background-color: var(--blueGray);
+    }
+
+    #sign-up-form-button {
+        width: 27em;
+        margin: 1em 0.5em 1em 0.5em;
+    }
+
+    .have-account {
+        color: var(--gray);
+        font-weight: 600;
+        font-size: 0.8em;
+    }
+}

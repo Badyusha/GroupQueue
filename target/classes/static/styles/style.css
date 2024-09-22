@@ -1,0 +1,196 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+:root {
+    --blackBlue: #0D1016;
+    --darkBlue: #141922;
+    --headerBorder: #333A45;
+    --inputText: #6d737e;
+    --gray: #474f5d;
+    --blueGray: #202630;
+
+    --fadedBlue: #5b6e90;
+    --fadedBlueHover: #4e607e;
+    --blue: #99BAED;
+    --blueHover: #84a1cc;
+    --whiteBlue: #d5e9fc;
+
+    --black20perc: rgba(0, 0, 0, 0.2);
+    --red10perc: rgba(217, 74, 74, 0.1);
+    --red80perc: rgba(217, 74, 74, 0.8);
+
+    --red: #D94A4A;
+    --green: #7EAE6D;
+    --yellow: #E9C771;
+}
+
+@media only screen and (max-width: 1024px) {
+
+    *::selection {
+        background-color: var(--headerBorder);
+    }
+
+    body {
+        text-align: center;
+        font-family: 'Montserrat', sans-serif;
+        margin: 0;
+        background-color: var(--blackBlue);
+        color: white;
+    }
+
+    /* hide scrollbar for Chrome, Safari and Opera */
+    body::-webkit-scrollbar {
+        display: none;
+    }
+
+    /* hide scrollbar for IE, Edge and Firefox */
+    .body {
+        -ms-overflow-style: none; /* IE and Edge */
+        scrollbar-width: none; /* Firefox */
+    }
+
+    header {
+        display: flex;
+        justify-content: space-between;
+        padding: 0.7em;
+        background-color: var(--darkBlue);
+        border-radius: 0 0 1em 1em;
+        border-bottom: 0.15em solid var(--headerBorder);
+        min-height: 5em;
+    }
+
+    /* Remove arrows from input["number"] on Chrome, Safari, Edge, Opera */
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+
+    /* Remove arrows from input["number"] on Firefox */
+    input[type=number] {
+        -moz-appearance: textfield;
+    }
+
+    a, a:hover, a:focus {
+        text-decoration: none;
+    }
+
+    input:focus, textarea:focus, select:focus, button:focus {
+        outline: none;
+    }
+
+
+    #logo {
+        display: flex;
+        align-items: center;
+    }
+
+    /*logo image*/
+    #logo img {
+        height: 3.5em;
+        margin-left: 1em;
+        margin-right: 1.5em;
+    }
+
+    /*logo name*/
+    #logo span {
+        color: var(--fadedBlue);
+        font-size: 3em;
+        font-family: 'Montserrat', sans-serif;
+        font-weight: 900;
+        margin-left: -0.5em;
+    }
+
+    #top-right-div {
+        margin-right: 1em;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 0.5em;
+    }
+}
+
+@media only screen and (min-width: 1025px) {
+
+    *::selection {
+        background-color: var(--headerBorder);
+    }
+
+    body {
+        text-align: center;
+        font-family: 'Montserrat', sans-serif;
+        margin: 0;
+        background-color: var(--blackBlue);
+        color: white;
+    }
+
+    /* hide scrollbar for Chrome, Safari and Opera */
+    body::-webkit-scrollbar {
+        display: none;
+    }
+
+    /* hide scrollbar for IE, Edge and Firefox */
+    .body {
+        -ms-overflow-style: none; /* IE and Edge */
+        scrollbar-width: none; /* Firefox */
+    }
+
+    header {
+        display: flex;
+        justify-content: space-between;
+        padding: 0.7em;
+        background-color: var(--darkBlue);
+        border-radius: 0 0 1em 1em;
+        border-bottom: 0.15em solid var(--headerBorder);
+        max-height: 3em;
+    }
+
+    /* Remove arrows from input["number"] on Chrome, Safari, Edge, Opera */
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+
+    /* Remove arrows from input["number"] on Firefox */
+    input[type=number] {
+        -moz-appearance: textfield;
+    }
+
+    a, a:hover, a:focus {
+        text-decoration: none;
+    }
+
+    input:focus, textarea:focus, select:focus, button:focus {
+        outline: none;
+    }
+
+
+    #logo {
+        display: flex;
+        align-items: center;
+    }
+
+    /*logo image*/
+    #logo img {
+        height: 2.5em;
+        margin-left: 1em;
+        margin-right: 1em;
+    }
+
+    /*logo name*/
+    #logo span {
+        color: var(--fadedBlue);
+        font-size: 2em;
+        font-family: 'Montserrat', sans-serif;
+        font-weight: 900;
+        margin-left: -0.5em;
+    }
+
+    #top-right-div {
+        margin-right: 1em;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 0.5em;
+    }
+}
