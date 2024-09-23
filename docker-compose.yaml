@@ -8,7 +8,7 @@ services:
       - MYSQL_ROOT_PASSWORD=root
       - MYSQL_DATABASE=group_queue
     ports:
-      - "${DB_PORT}:${DB_PORT}"
+      - "${DATABASE_PORT}:${DATABASE_PORT}"
     volumes:
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql
     restart: always
@@ -27,7 +27,7 @@ services:
     env_file:
       - .env
     environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://${DATABASE_HOST_NAME}:${DB_PORT}/${DB_NAME}?useSSL=false&allowPublicKeyRetrieval=true
+      SPRING_DATASOURCE_URL: jdbc:mysql://${DATABASE_HOST_NAME}:${DATABASE_PORT}/${DATABASE_NAME}?useSSL=false&allowPublicKeyRetrieval=true
     ports:
       - "${APP_PORT}:${APP_PORT}"
     restart: always
