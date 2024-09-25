@@ -63,9 +63,9 @@ async function fillSideMenu() {
                                         <i class="fa-solid fa-arrow-up-wide-short"></i>
                                         <label id="sort-type-label" class="menu-label">Choose sort type</label>
                                     </div>`;
-    let groupAdminRequests = `<div id="become-admin-requests" class="menu-variant">
+    let groupAdminRequests = `<div id="requests" class="menu-variant">
                                         <i class="fa-solid fa-handshake"></i>
-                                        <label id="become-admin-requests-label" class="menu-label">Group admin requests</label>
+                                        <label id="become-admin-requests-label" class="menu-label">Requests</label>
                                     </div>`;
     let signOutDiv = `<div id="sign-out" class="menu-variant">
                                 <i class="fa-solid fa-right-from-bracket"></i>
@@ -126,7 +126,7 @@ function addEventListeners(roleType) {
         })
     }
     if(roleType === sudoRoleType) {
-        document.getElementById('become-admin-requests').addEventListener('click', function() {
+        document.getElementById('requests').addEventListener('click', function() {
             showBecomeAdminRequests(sudoRoleType);
         })
     }
