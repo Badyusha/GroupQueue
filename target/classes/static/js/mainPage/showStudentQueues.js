@@ -209,7 +209,7 @@ async function insertDataIntoTable(data) {
         let passingLabs = item.passingLabs ? decodeBase64(item.passingLabs) : 'N/A';
 
         const registrationStatusCell = document.createElement('td');
-        let isNumberInQueueNull = item.numberInQueue === -1;
+        let isNumberInQueueNull = item.numberInQueue === 0;
 
         if(isNumberInQueueNull) {
             passingLabsCell.innerHTML = `

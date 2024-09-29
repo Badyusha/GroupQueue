@@ -48,7 +48,7 @@ public interface StudentRepository extends CrudRepository<StudentEntity, Long> {
 			SELECT count(1)
 			FROM StudentEntity s
 			WHERE (s.personEntity.username = ?1 and s.personEntity.password = ?2)
-				""")
+			""")
 	Integer studentsCountByUsernamePassword(String username, String password);
 
 	default boolean isStudentExistByUsernamePassword(String username, String password) {
@@ -61,15 +61,6 @@ public interface StudentRepository extends CrudRepository<StudentEntity, Long> {
 					WHERE s.personEntity.username = ?1
 				""")
 	Long getIdByUsername(String username);
-
-//	null,
-//	firstName,
-//	lastName,
-//	username,
-//	password,
-//			null,
-//	groupNumber,
-//	roleType
 
 	@Query(value = """
 					SELECT new com.project.groupqueue.models.dto.Student(

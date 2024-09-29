@@ -38,7 +38,7 @@ public interface QueueRepository extends CrudRepository<QueueEntity, Long> {
 				l.sortType,
 				s.subgroupType,
 				pq.passingLabs,
-				-1,
+				0,
 				l.id)
 				FROM PreQueueEntity pq
 				JOIN pq.lessonEntity l
