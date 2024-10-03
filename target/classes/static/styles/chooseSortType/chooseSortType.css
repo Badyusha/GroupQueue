@@ -69,11 +69,12 @@
     }
 
     select {
+        padding: 0.3em;
         color: var(--inputText);
         font-weight: 500;
         font-family: 'Montserrat', sans-serif;
         min-height: 2em;
-        border: 0.15em solid var(--headerBorder);
+        border: 0.1em solid var(--headerBorder);
         border-radius: 0.5em;
         background: none;
     }
@@ -167,11 +168,12 @@
     }
 
     select {
+        padding: 0.3em;
         color: var(--inputText);
         font-weight: 500;
         font-family: 'Montserrat', sans-serif;
         min-height: 2em;
-        border: 0.15em solid var(--headerBorder);
+        border: 0.1em solid var(--headerBorder);
         border-radius: 0.5em;
         background: none;
     }
