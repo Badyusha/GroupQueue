@@ -7,7 +7,6 @@ import lombok.ToString;
 
 @Data
 @NoArgsConstructor
-@ToString
 @Entity
 @Table(name = "`group`")
 public class GroupEntity {

@@ -9,7 +9,6 @@ import lombok.ToString;
 
 @Data
 @NoArgsConstructor
-@ToString
 @Entity
 @Table(name = "`person`")
 public class PersonEntity {

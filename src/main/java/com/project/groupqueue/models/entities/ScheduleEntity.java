@@ -12,7 +12,6 @@ import java.time.LocalTime;
 
 @Data
 @NoArgsConstructor
-@ToString
 @Entity
 @Table(name = "`schedule`")
 public class ScheduleEntity {

@@ -9,7 +9,6 @@ import java.time.LocalTime;
 
 @Data
 @NoArgsConstructor
-@ToString
 @Entity
 @Table(name = "`pre_queue`")
 public class PreQueueEntity {

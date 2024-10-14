@@ -10,7 +10,6 @@ import java.time.LocalDate;
 
 @Data
 @NoArgsConstructor
-@ToString
 @Entity
 @Table(name = "`lesson`")
 public class LessonEntity {
